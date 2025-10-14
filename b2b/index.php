@@ -1,0 +1,4 @@
+<?
+echo "PHP_CABINET!!!!";
+
+?>
