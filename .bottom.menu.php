@@ -1,0 +1,53 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Каталог", 
+		"/catalog/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Монтаж оборудования", 
+		"/montazh/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Акции", 
+		"/news/promo/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Прайсы", 
+		"/prices/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Бренды", 
+		"/brands/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Подобрать комплект", 
+		"/select-complect/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Отправить ТЗ", 
+		"TZ", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>

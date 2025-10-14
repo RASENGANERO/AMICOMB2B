@@ -1,0 +1,25 @@
+.related-products{
+    margin-top: 32px;
+    font-size: 21px;
+}
+@media(max-width: 920px) {
+    .breadcrumbs {
+        display:  block !important;
+    }
+    .breadcrumbs__item--with-dropdown .breadcrumbs__arrow-down {
+        display: none !important;
+    }
+    .breadcrumbs__item{
+        position: unset;
+        padding: 0px;
+        margin: 0px;
+    }
+    .breadcrumbs__separator {
+        position: unset;
+        zoom: unset;
+        display: unset;
+        bottom: -1px;
+        margin: 0 1% 0px 1%;
+
+    }
+  }

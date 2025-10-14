@@ -1,0 +1,11 @@
+CREATE TABLE `1c_statistics` (
+  `ID_NUMBER` bigint NOT NULL,
+  `ID_ELEMENT` bigint NOT NULL,
+  `ELEMENT_CODE` text NOT NULL,
+  `ELEMENT_SECTION` text NOT NULL,
+  `TYPE` tinyint(1) NOT NULL,
+  `DATE_TIME_ELEMENT` datetime NOT NULL,
+  `OLD_PRICE` decimal(10,0) NOT NULL,
+  `NEW_PRICE` decimal(10,0) NOT NULL,
+  `URL_ELEMENT` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
