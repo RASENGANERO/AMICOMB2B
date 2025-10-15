@@ -1694,3 +1694,83 @@ textarea[data-sid="DEFECT_DESCRIPTION"] {
   padding-top: 20px;
   background-color: #f0f0f0;
 }
+
+
+
+.dashboard-section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.dashboard-container{
+  display: grid;
+  align-items: flex-start;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  column-gap: 23px;
+  row-gap: 23px;
+}
+.dashboard-item{
+  display: flex;
+  align-items: flex-start;
+  border: 2px solid #f2722c;
+  border-radius: 23px;
+  padding: 25px;
+  flex-direction: column;
+}
+.dashboard-agreement-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2em;
+}
+.dashboard-agreement-item{
+  width: inherit;
+}
+
+
+
+
+.dashboard-table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse; /* Объединение границ ячеек */
+}
+
+.dashboard-table thead th {
+  font-weight: bold;
+  text-align: left;
+  padding: 10px 15px;
+  background: #EDEDED;
+  font-size: 14px;
+  border: 1px solid #ddd; /* Границы для заголовков */
+}
+
+
+.dashboard-table tbody td {
+  text-align: left;
+  padding: 10px 15px;
+  font-size: 14px;
+  vertical-align: top;
+  border: 1px solid #ddd; /* Границы для ячеек тела таблицы */
+}
+
+
+
+.dashboard-table tbody tr:nth-child(even) {
+  background: #F8F8F8;
+}
+
+
+
+.dashboard-table tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 20px; /* Скругление для первой ячейки последней строки */
+}
+
+.dashboard-table tbody tr:last-child td:last-child {
+  border-radius: 0 0 20px 0; /* Скругление для последней ячейки последней строки */
+}

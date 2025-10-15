@@ -2,17 +2,16 @@
 <? global $arTheme, $APPLICATION, $bShowCallBackBlock, $bShowQuestionBlock, $bShowReviewBlock, $isIndex, $isShowIndexLeftBlock;?>
 <div class="left_block sticky-sidebar<?=($isIndex ? ($isShowIndexLeftBlock ? "" : " hidden") : "");?>">
 	<div class="sticky-sidebar__inner">
-		<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
-			array(
-				"COMPONENT_TEMPLATE" => ".default",
-				"PATH" => SITE_DIR."include/left_block/menu.left_menu.php",
-				"AREA_FILE_SHOW" => "file",
-				"AREA_FILE_SUFFIX" => "",
-				"AREA_FILE_RECURSIVE" => "Y",
-				"EDIT_TEMPLATE" => "include_area.php"
-			),
-			false
-		);?>
+		<?$APPLICATION->IncludeComponent("bitrix:main.include", "left_block", Array(
+	"COMPONENT_TEMPLATE" => ".default",
+		"PATH" => "/local/templates/aspro_max_custom_b2b/include/left_block/menu.left_menu.php",	// Путь к файлу области
+		"AREA_FILE_SHOW" => "file",	// Показывать включаемую область
+		"AREA_FILE_SUFFIX" => "",
+		"AREA_FILE_RECURSIVE" => "Y",
+		"EDIT_TEMPLATE" => "include_area.php",	// Шаблон области по умолчанию
+	),
+	false
+);?>
 
 		<?$APPLICATION->ShowViewContent('left_menu');?>
 		<?$APPLICATION->ShowViewContent('under_sidebar_content');?>
@@ -23,7 +22,7 @@
 			<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
 				array(
 					"COMPONENT_TEMPLATE" => ".default",
-					"PATH" => SITE_DIR."include/left_block/comp_subscribe.php",
+					"PATH" => "/local/templates/aspro_max_custom_b2b/include/left_block/comp_subscribe.php",
 					"AREA_FILE_SHOW" => "file",
 					"AREA_FILE_SUFFIX" => "",
 					"AREA_FILE_RECURSIVE" => "Y",
@@ -41,10 +40,21 @@
 			</div>
 		<?endif;?>
 
+		<?$APPLICATION->IncludeComponent("bitrix:main.include", "template2", Array(
+	"COMPONENT_TEMPLATE" => ".default",
+		"PATH" => "/local/templates/aspro_max_custom_b2b/include/left_block/comp_staff.php",	// Путь к файлу области
+		"AREA_FILE_SHOW" => "file",	// Показывать включаемую область
+		"AREA_FILE_SUFFIX" => "",
+		"AREA_FILE_RECURSIVE" => "Y",
+		"EDIT_TEMPLATE" => "include_area.php",	// Шаблон области по умолчанию
+	),
+	false
+);?>
+
 		<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
 			array(
 				"COMPONENT_TEMPLATE" => ".default",
-				"PATH" => SITE_DIR."include/left_block/comp_staff.php",
+				"PATH" => "/local/templates/aspro_max_custom_b2b/include/left_block/comp_news.php",
 				"AREA_FILE_SHOW" => "file",
 				"AREA_FILE_SUFFIX" => "",
 				"AREA_FILE_RECURSIVE" => "Y",
@@ -56,19 +66,7 @@
 		<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
 			array(
 				"COMPONENT_TEMPLATE" => ".default",
-				"PATH" => SITE_DIR."include/left_block/comp_news.php",
-				"AREA_FILE_SHOW" => "file",
-				"AREA_FILE_SUFFIX" => "",
-				"AREA_FILE_RECURSIVE" => "Y",
-				"EDIT_TEMPLATE" => "include_area.php"
-			),
-			false
-		);?>
-
-		<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
-			array(
-				"COMPONENT_TEMPLATE" => ".default",
-				"PATH" => SITE_DIR."include/left_block/comp_news_articles.php",
+				"PATH" => "/local/templates/aspro_max_custom_b2b/include/left_block/comp_news_articles.php",
 				"AREA_FILE_SHOW" => "file",
 				"AREA_FILE_SUFFIX" => "",
 				"AREA_FILE_RECURSIVE" => "Y",

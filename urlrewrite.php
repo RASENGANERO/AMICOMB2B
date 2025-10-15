@@ -351,4 +351,28 @@ $arUrlRewrite=array (
     'PATH' => '/news/index.php',
     'SORT' => 100,
   ),
+  100 => 
+  array (
+    'CONDITION' => '#^/b2b/#',
+    'RULE' => '',
+    'ID' => '',
+    'PATH' => '/b2b/index.php',
+    'SORT' => 100,
+  ),
+  101 => 
+  array (
+    'CONDITION' => '#^/b2b/organizations/#',
+    'RULE' => '',
+    'ID' => '',
+    'PATH' => '/b2b/organizations/index.php',
+    'SORT' => 100,
+  ),
+  102 => 
+  array (
+    'CONDITION' => '#^/b2b/users/#',
+    'RULE' => '',
+    'ID' => '',
+    'PATH' => '/b2b/users/index.php',
+    'SORT' => 100,
+  ),
 );
