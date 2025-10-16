@@ -195,6 +195,14 @@ $arUrlRewrite=array (
     'PATH' => '/b2b/users/index.php',
     'SORT' => 100,
   ),
+  120 => 
+  array (
+    'CONDITION' => '#^/b2b/order/#',
+    'RULE' => '',
+    'ID' => '',
+    'PATH' => '/b2b/order/index.php',
+    'SORT' => 100,
+  ),
   10 => 
   array (
     'CONDITION' => '#^/personal/#',
@@ -397,14 +405,6 @@ $arUrlRewrite=array (
     'RULE' => '',
     'ID' => '',
     'PATH' => '/b2b/index.php',
-    'SORT' => 100,
-  ),
-  120 => 
-  array (
-    'CONDITION' => '#^/b2b/order/#',
-    'RULE' => '',
-    'ID' => '',
-    'PATH' => '/b2b/order/index.php',
     'SORT' => 100,
   ),
 );
