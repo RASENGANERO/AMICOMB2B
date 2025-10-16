@@ -142,7 +142,7 @@ $this->addExternalJs($templateFolder.'/js/filter.js');
 $this->addExternalJs($templateFolder.'/js/component.js');
 $this->addExternalJs($templateFolder.'/js/basket.js');
 
-$APPLICATION->AddViewContent('more_text_title', '<div class="basket-back font_xs"><a href="'.CMax::GetFrontParametrValue('CATALOG_PAGE_URL').'" class="basket-back__link muted">'.Loc::getMessage('SBB_BACK_CATALOG_TITLE').'</a></div>');
+$APPLICATION->AddViewContent('more_text_title', '<div class="basket-back font_xs"><a href="/b2b/catalog/" class="basket-back__link muted">'.Loc::getMessage('SBB_BACK_CATALOG_TITLE').'</a></div>');
 
 $mobileColumns = isset($arParams['COLUMNS_LIST_MOBILE'])
 	? $arParams['COLUMNS_LIST_MOBILE']

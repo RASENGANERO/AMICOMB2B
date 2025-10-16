@@ -30,6 +30,22 @@ $arUrlRewrite=array (
     'PATH' => '/select-complect/access/index.php',
     'SORT' => 100,
   ),
+  111 => 
+  array (
+    'CONDITION' => '#^/b2b/orders-history/#',
+    'RULE' => '',
+    'ID' => '',
+    'PATH' => '/b2b/orders-history/index.php',
+    'SORT' => 100,
+  ),
+  101 => 
+  array (
+    'CONDITION' => '#^/b2b/organizations/#',
+    'RULE' => '',
+    'ID' => '',
+    'PATH' => '/b2b/organizations/index.php',
+    'SORT' => 100,
+  ),
   0 => 
   array (
     'CONDITION' => '#^/stssync/calendar/#',
@@ -124,6 +140,14 @@ $arUrlRewrite=array (
     'PATH' => '/brands/price/index.php',
     'SORT' => 100,
   ),
+  110 => 
+  array (
+    'CONDITION' => '#^/b2b/favorite/#',
+    'RULE' => '',
+    'ID' => '',
+    'PATH' => '/b2b/favorite/index.php',
+    'SORT' => 100,
+  ),
   21 => 
   array (
     'CONDITION' => '#^/info/brands/#',
@@ -147,12 +171,28 @@ $arUrlRewrite=array (
     'PATH' => '/partnership/index.php',
     'SORT' => 100,
   ),
+  103 => 
+  array (
+    'CONDITION' => '#^/b2b/catalog/#',
+    'RULE' => '',
+    'ID' => 'bitrix:catalog',
+    'PATH' => '/b2b/catalog/index.php',
+    'SORT' => 100,
+  ),
   26 => 
   array (
     'CONDITION' => '#^/lookbooks/#',
     'RULE' => '',
     'ID' => 'bitrix:news',
     'PATH' => '/lookbooks/index.php',
+    'SORT' => 100,
+  ),
+  102 => 
+  array (
+    'CONDITION' => '#^/b2b/users/#',
+    'RULE' => '',
+    'ID' => '',
+    'PATH' => '/b2b/users/index.php',
     'SORT' => 100,
   ),
   10 => 
@@ -359,20 +399,12 @@ $arUrlRewrite=array (
     'PATH' => '/b2b/index.php',
     'SORT' => 100,
   ),
-  101 => 
+  120 => 
   array (
-    'CONDITION' => '#^/b2b/organizations/#',
+    'CONDITION' => '#^/b2b/order/#',
     'RULE' => '',
     'ID' => '',
-    'PATH' => '/b2b/organizations/index.php',
-    'SORT' => 100,
-  ),
-  102 => 
-  array (
-    'CONDITION' => '#^/b2b/users/#',
-    'RULE' => '',
-    'ID' => '',
-    'PATH' => '/b2b/users/index.php',
+    'PATH' => '/b2b/order/index.php',
     'SORT' => 100,
   ),
 );

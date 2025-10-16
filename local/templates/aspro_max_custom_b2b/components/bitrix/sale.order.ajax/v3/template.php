@@ -542,12 +542,11 @@ else
 	<div style="display: none">
 		<?
 		// we need to have all styles for sale.location.selector.steps, but RestartBuffer() cuts off document head with styles in it
-		$APPLICATION->IncludeComponent(
-			'bitrix:sale.location.selector.steps',
-			'.default',
-			array(),
-			false
-		);
+		$APPLICATION->IncludeComponent("bitrix:sale.location.selector.steps", "template1", Array(
+	
+	),
+	false
+);
 		$APPLICATION->IncludeComponent("bitrix:sale.location.selector.search", "template1", Array(
 	
 	),
