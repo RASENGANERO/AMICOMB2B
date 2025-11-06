@@ -23,9 +23,11 @@ $bPopupAuth = (isset($_POST['POPUP_AUTH']) ? $_POST['POPUP_AUTH'] === 'Y' : fals
 			<?$APPLICATION->IncludeFile(SITE_DIR."include/auth_description.php", Array(), Array("MODE" => "html", "NAME" => GetMessage("AUTH_INCLUDE_AREA")));?>
 		</div>
 	<?endif;?>
+	
 	<?$APPLICATION->IncludeComponent(
 		"bitrix:system.auth.form",
 		"main",
+		
 		Array(
 			"AUTH_URL" => $arResult["SEF_FOLDER"].$arResult["URL_TEMPLATES"]["auth"],
 			"REGISTER_URL" => $arResult["SEF_FOLDER"].$arResult["URL_TEMPLATES"]["registration"],
