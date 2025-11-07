@@ -120,6 +120,7 @@ list($bPhoneAuthSupported, $bPhoneAuthShow, $bPhoneAuthRequired, $bPhoneAuthUse)
 					$arFields["LOGIN"]="LOGIN";
 					$arFields["PASSWORD"]="PASSWORD";
 					$arFields["CONFIRM_PASSWORD"]="CONFIRM_PASSWORD";
+					$arFields['INN_COMPANY'] = 'INN_COMPANY';
 					if($arTheme["PERSONAL_ONEFIO"]["VALUE"] == "Y")
 					{
 						if(isset($arFields["LAST_NAME"]))
@@ -128,6 +129,30 @@ list($bPhoneAuthSupported, $bPhoneAuthShow, $bPhoneAuthRequired, $bPhoneAuthUse)
 							unset($arFields["SECOND_NAME"]);
 					}
 					?>
+					<?
+					function moveInArray(&$array, $keyToMove, $afterKey) {
+						if (array_key_exists($keyToMove, $array) && array_key_exists($afterKey, $array)) {
+							$value = $array[$keyToMove];
+							
+							unset($array[$keyToMove]);
+							
+							$newArray = [];
+							foreach ($array as $key => $value) {
+								$newArray[$key] = $value;
+								if ($key === $afterKey) {
+									$newArray[$keyToMove] = $keyToMove;
+								}
+							}
+							
+							if (!array_key_exists($keyToMove, $newArray)) {
+								$newArray[$keyToMove] = $value;
+							}
+							$array = $newArray;
+						}
+					}
+					moveInArray($arFields, 'INN_COMPANY', 'EMAIL');	
+					?>
+					
 					<div class="form_body">
 						<?foreach($arFields as $FIELD):?>
 							<?if($FIELD === 'PHONE_NUMBER'):?>
@@ -144,7 +169,10 @@ list($bPhoneAuthSupported, $bPhoneAuthShow, $bPhoneAuthRequired, $bPhoneAuthUse)
 										}
 									}
 									?>
-									<label for="input_<?=$FIELD;?>"><span><?=$text?>&nbsp;<?if($arResult["REQUIRED_FIELDS_FLAGS"][$FIELD] == "Y"):?><span class="star">*</span><?endif;?></span></label>
+									<?if ($FIELD !== 'INN_COMPANY'):?>
+										<label for="input_<?=$FIELD;?>"><span><?=$text?>&nbsp;<?if($arResult["REQUIRED_FIELDS_FLAGS"][$FIELD] == "Y"):?><span class="star">*</span><?endif;?></span></label>
+									<?endif;?>
+									
 							<?endif;?>
 									<?if( array_key_exists( $FIELD, $arResult['ERRORS'] ) ):?>
 										<?$class='class="error"'?>
@@ -158,6 +186,22 @@ list($bPhoneAuthSupported, $bPhoneAuthShow, $bPhoneAuthRequired, $bPhoneAuthUse)
 										case "CONFIRM_PASSWORD":?>
 											<input size="30" type="password" id="input_<?=$FIELD;?>" name="REGISTER[<?=$FIELD?>]" required value="<?=$arResult["VALUES"][$FIELD]?>" autocomplete="off" class="confirm_password <?=(array_key_exists( $FIELD, $arResult['ERRORS'] ))? 'error': ''?>" />
 
+
+										<?break;
+										case "INN_COMPANY":?>
+										
+											<?if(!empty($arUFields)):?>
+												<label for="input_UF_INNORG">
+													<span>
+													<?=$arUFields['UF_INNORG']["EDIT_FORM_LABEL"];?><?if ($arUFields['UF_INNORG']["MANDATORY"] == "Y"):?>
+														<span class="star">*</span>
+													<?endif;?>
+													</span>
+												</label>
+												<input size="30" type="text" id="input_UF_INNORG" name="REGISTER[UF_INNORG]" required="" value="" aria-required="true">									
+												
+											
+											<?endif;?>
 										<?break;
 										case "PERSONAL_GENDER":?>
 											<select name="REGISTER[<?=$FIELD?>]" id="input_<?=$FIELD;?>">
@@ -225,17 +269,6 @@ list($bPhoneAuthSupported, $bPhoneAuthShow, $bPhoneAuthRequired, $bPhoneAuthUse)
 							<?endif;?>
 						<?endforeach;?>
 
-						<?if($arUFields):?>
-							<?foreach($arUFields as $arUField):?>
-								<div class="form-control">
-									<label><span><?=$arUField["EDIT_FORM_LABEL"];?>&nbsp;<?if ($arUField["MANDATORY"] == "Y"):?><span class="star">*</span><?endif;?></span></label>
-									<?$APPLICATION->IncludeComponent(
-									"bitrix:system.field.edit",
-									$arUField["USER_TYPE"]["USER_TYPE_ID"],
-									array("bVarsFromForm" => $arResult["bVarsFromForm"], "arUserField" => $arUField, "form_name" => "regform"), null, array("HIDE_ICONS"=>"Y"));?>
-								</div>
-							<?endforeach;?>
-						<?endif;?>
 
 						<?if($arResult['USE_CAPTCHA'] === 'Y'):?>
 							<div class="clearboth"></div>
@@ -348,7 +381,7 @@ list($bPhoneAuthSupported, $bPhoneAuthShow, $bPhoneAuthRequired, $bPhoneAuthUse)
 					"bitrix:system.auth.form",
 					"popup",
 					array(
-						"TITLE" => "Авторизация",
+						"TITLE" => "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ",
 						"PROFILE_URL" => $arParams["PATH_TO_PERSONAL"],
 						"SHOW_ERRORS" => "Y",
 						"POPUP_AUTH" => "Y"

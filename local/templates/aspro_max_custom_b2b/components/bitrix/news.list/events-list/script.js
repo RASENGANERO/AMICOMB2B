@@ -69,6 +69,8 @@ function sendSeminar() {
     });
 }
 document.addEventListener('DOMContentLoaded',()=>{
-	let elemRemoveBtn = document.getElementsByClassName('remove-element__close')[0];
-	elemRemoveBtn.addEventListener('click',sendSeminar);
+	let elemRemoveBtn = document.getElementsByClassName('remove-element__close');
+	if (elemRemoveBtn.length!=0) {
+		elemRemoveBtn[0].addEventListener('click',sendSeminar);
+	}
 });

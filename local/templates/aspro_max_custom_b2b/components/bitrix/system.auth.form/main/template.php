@@ -140,6 +140,13 @@ $bActivePhoneTab = $authType == 'phone';
 									<?if(!$arResult['SHOW_SMS_FIELD']):?>
 										<a class="forgot" href="<?=$arResult['AUTH_FORGOT_PASSWORD_URL']?>" tabindex="4"><?=GetMessage('AUTH_FORGOT_PASSWORD_2')?></a>
 									<?endif;?>
+									<div class="prompt remember onoff">
+										<input type="checkbox" id="USER_LICENCE_frm" name="USER_LICENCE" value="Y" tabindex="5" <?=(isset($_REQUEST['USER_REMEMBER']) && $_REQUEST['USER_REMEMBER'] === 'Y' ? 'checked' : '')?> />
+										<label for="USER_LICENCE_frm" title="<?=GetMessage('AUTH_LICENCE')?>" tabindex="5" class="licence-label">
+											<?$APPLICATION->IncludeFile(SITE_DIR."include/licenses_text.php", Array(), Array("MODE" => "html", "NAME" => "LICENSES")); ?>
+										</label>	
+									</div>
+									
 								</div>
 								<div class="buttons clearfix">
 									<div class="line-block line-block--column line-block--align-flex-start line-block--24-vertical">
@@ -316,6 +323,18 @@ $bActivePhoneTab = $authType == 'phone';
 				location.href = BX.util.remove_url_param(e.url, ['bxajaxid']);
 			});
 			</script>
+			<style>
+				.licence-label>a{
+					margin-left: 1%;
+					margin-right: 1%;
+				}
+				.licence-label{
+					display: flex !important;
+    				width: 100%;
+    				flex-direction: row;
+    				flex-wrap: wrap;
+				}
+			</style>
 		</div>
 	<?endif;?>
 <?else:?>

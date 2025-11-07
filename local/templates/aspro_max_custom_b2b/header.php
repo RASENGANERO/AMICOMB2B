@@ -23,9 +23,9 @@ $bIncludedModule = (\Bitrix\Main\Loader::includeModule("aspro.max"));?>
 	<?$APPLICATION->ShowMeta("SKYPE_TOOLBAR");?>
 	<?$APPLICATION->ShowHead();?>
 	<?Asset::getInstance()->addString('<link rel="canonical" href="http://site.ru' . str_replace('index.php', '', $APPLICATION->GetCurPage(true)) . '" />');?>
-	<?Asset::getInstance()->addJs("/local/templates/aspro_max_custom/ajax/jquery.js");?>
-	<?Asset::getInstance()->addJs("/local/templates/aspro_max_custom/ajax/brandDownload.js");?>
-	<?Asset::getInstance()->addJs("/local/templates/aspro_max_custom/ajax/setCookie.js");?>
+	<?Asset::getInstance()->addJs("/local/templates/aspro_max_custom_b2b/ajax/jquery.js");?>
+	<?Asset::getInstance()->addJs("/local/templates/aspro_max_custom_b2b/ajax/brandDownload.js");?>
+	<?Asset::getInstance()->addJs("/local/templates/aspro_max_custom_b2b/ajax/setCookie.js");?>
 	<?$APPLICATION->AddHeadString('<script>BX.message('.CUtil::PhpToJSObject( $MESS, false ).')</script>', true);?>
 	<?if($bIncludedModule)
 		CMax::Start(SITE_ID);?>

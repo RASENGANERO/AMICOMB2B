@@ -240,7 +240,7 @@ function JCTitleSearch2(arParams)
 					if (typeUrl == 'catalog') {
 						$.ajax({
 							type: 'POST',
-							url: _this.arParams.SEARCH_CATALOG_PAGE,//'/local/templates/aspro_max_custom/components/bitrix/search.title/fixed/searchCustom.php',
+							url: _this.arParams.SEARCH_CATALOG_PAGE,
 							data: {
 								'q':_this.INPUT.value,
 							},

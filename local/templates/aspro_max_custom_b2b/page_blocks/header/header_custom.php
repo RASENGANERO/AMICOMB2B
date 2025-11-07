@@ -1,6 +1,6 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();?>
 <?
-global $arTheme, $arRegion, $bLongHeader, $bColoredHeader;
+global $arTheme, $arRegion, $bLongHeader, $bColoredHeader,$USER;
 
 $arRegions = CMaxRegionality::getRegions();
 $bIncludeRegionsList = $arRegions || ($arTheme['USE_REGIONALITY']['VALUE'] !== 'Y' && $arTheme['USE_REGIONALITY']['DEPENDENT_PARAMS']['REGIONALITY_IPCITY_IN_HEADER']['VALUE'] !== 'N');
@@ -98,7 +98,28 @@ $bColoredHeader = true;
 						</div>
 						<div class="line-block__item no-shrinked">
 							<div class="wrap_icon inner-table-block person">
-								<?=CMax::showCabinetLink(true, true, 'big');?>
+								<?if (!$USER->IsAuthorized()):?>
+									<div class="auth_wr_inner">
+										<div class="dropdown-headerb2b">
+											<a rel="nofollow" class="dropdownbtn-headerb2b personal-link dark-color animate-load" data-event="jqm" data-param-backurl="%2Fvacancy%2F" data-param-type="auth" data-name="auth" href="/personal/">
+												<i class="svg svg-inline-cabinet big inline" aria-hidden="true">
+													<svg width="18" height="18">
+														<use xlink:href="/local/templates/aspro_max_custom_b2b/images/svg/header_icons_srite.svg#user"></use>
+													</svg>
+												</i>
+												<span class="wrap">
+													<span class="name">Войти</span>
+												</span>
+											</a>
+											<div class="dropdown-content-headerb2b">
+												<a href="/auth/registration/">Физ. лицо</a>
+												<a href="/auth/registration/">Юр. лицо</a>
+											</div>
+										</div>
+									</div>
+								<?else:?>
+									<?=CMax::showCabinetLink(true, true, 'big');?>
+								<?endif;?>
 							</div>
 						</div>
 						<?if (CMax::GetFrontParametrValue("ORDER_BASKET_VIEW") === "NORMAL"):?>

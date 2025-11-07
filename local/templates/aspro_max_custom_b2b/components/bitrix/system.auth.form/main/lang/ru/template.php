@@ -1,6 +1,7 @@
 <?
 $MESS['AUTH_LOGIN_BUTTON'] = 'Войти';
 $MESS['AUTH_REMEMBER_ME'] = 'Запомнить меня';
+$MESS['AUTH_LICENCE'] = 'Согласен с обработкой данных';
 $MESS['AUTH_FORGOT_PASSWORD_2'] = 'Забыли пароль?';
 $MESS['AUTH_REGISTER'] = 'Регистрация';
 $MESS['AUTH_REGISTER_NEW'] = 'Регистрация';

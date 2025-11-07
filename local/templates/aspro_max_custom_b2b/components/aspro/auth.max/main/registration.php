@@ -16,7 +16,7 @@ use \Bitrix\Main\Config\Option;
 <?if(!$USER->IsAuthorized()):?>
 	<?
 	// default fields, that you can change
-	$arShowFields = array("LOGIN", "LAST_NAME", "NAME", "SECOND_NAME", "EMAIL", "PERSONAL_PHONE");
+	$arShowFields = array("LOGIN","LAST_NAME", "NAME", "SECOND_NAME", "EMAIL", "PERSONAL_PHONE");
 	$arRequiredFields = array("NAME");
 	$useBackUrl = 'Y';
 
@@ -58,6 +58,7 @@ use \Bitrix\Main\Config\Option;
 		}
 	}
 	?>
+	
 	<?$APPLICATION->IncludeComponent(
 		"bitrix:main.register",
 		"main",
@@ -69,7 +70,7 @@ use \Bitrix\Main\Config\Option;
 			"USE_BACKURL" => $useBackUrl,
 			"SUCCESS_PAGE" => "",
 			"SET_TITLE" => "N",
-			"USER_PROPERTY" => array()
+			"USER_PROPERTY" => ["UF_INNORG"]
 		)
 	);?>
 <?else:?>
