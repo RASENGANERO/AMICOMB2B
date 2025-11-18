@@ -51,7 +51,7 @@ $MESS['AVAILABLE'] = "В наличии";
 $MESS['MEASURE'] = "шт.";
 $MESS['CATALOG_IN_CART'] = "В корзине";
 $MESS["CT_NAME_ASSOCIATED_TITLE"] = "С товаром часто покупают:";
-$MESS["ONE_CLICK_BUY"] = "Купить в 1 клик";
+$MESS["ONE_CLICK_BUY"] = "Заказ в 1 клик";
 $MESS["BRAND"] = "Производитель";
 $MESS["ARTICLE"] = "Артикул";
 $MESS["RATING"] = "Рейтинг";
@@ -97,4 +97,8 @@ $MESS['S_ORDER_SERVISE'] = 'Заказать услугу';
 
 $MESS['VOTES_RESULT'] = 'Рейтинг #VALUE# из 5';
 $MESS['VOTES_RESULT_NONE'] = 'Нет оценок';
+$MESS['DELIVERY_TEXT_CUSTOM'] = 'Подробнее о доставке';
+
+$MESS["CHEAPER_FORM_NAME"] = "Хотите больше выгоды?";
+
 ?>

@@ -7,51 +7,69 @@ CModule::IncludeModule('form');
 
 
 
-$arFields = [
-    'ID',
-    'IBLOCK_ID',
-    'NAME',
-    'CODE',
-    'ACTIVE',
-    'DETAIL_TEXT'
-];
-$arFilter = [
-    'IBLOCK_ID' => 23,
-    'ACTIVE' => 'Y',
-    '!DETAIL_TEXT'=>false
-];
-$arElements = [];
-
-$resultDT = CIBlockElement::GetList(['SORT'=>'ASC'],$arFilter,false,false,$arFields);
-
-while($res = $resultDT->Fetch()) {
-    preg_match_all('/<img[^>]+src="([^">]+)"/i', $res['DETAIL_TEXT'], $matches);
-        
-    // Если найдены ссылки, добавляем их в массив элементов
-    if (!empty($matches[1])) {
-        $arElements[] = [
-            'ID' => $res['ID'],
-            'NAME' => $res['NAME'],
-            'LINKS' => $matches[1], // Массив ссылок
-          //  'DETAIL_TEXT' => $res['DETAIL_TEXT']
-        ];
-    }
-    
+// пространства имен highloadblock
+use Bitrix\Highloadblock\HighloadBlockTable;
+// подключаем модуль highloadblock
+\Bitrix\Main\Loader::includeModule("highloadblock");
+// делаем выборку хайлоуд блока с ID 4
+$arHLBlock = Bitrix\Highloadblock\HighloadBlockTable::getById(7)->fetch();
+// инициализируем класс сущности хайлоуд блока с ID 4
+$obEntity = Bitrix\Highloadblock\HighloadBlockTable::compileEntity($arHLBlock);
+// обращаемся к DataManager
+$strEntityDataClass = $obEntity->getDataClass();
+// стандартный запрос getList
+$rsData = $strEntityDataClass::getList(array(
+    // необходимые для выборки поля
+    'select' => array('ID', 'UF_NAME', 'UF_XML_ID')
+));
+// формируем массив данных
+while ($arItem = $rsData->Fetch()) {
+    $arItems[] = [
+        'ID' => $arItem['ID'],
+        'UF_NAME' => $arItem['UF_NAME'],
+        'UF_XML_ID' => $arItem['UF_XML_ID'],
+    ];
 }
-print_r($arElements);
-for($i=0;$i<count($arElements);$i++){
-    $dtFile = $arElements[$i]['LINKS'];
-    for ($j = 0; $j < count($dtFile); $j++) {
-        if(str_starts_with($dtFile[$j],'/upload') === true){
-            if (!file_exists('D:/OPENSERVER/domains/AMIKOMNEW'.$dtFile[$j])) {
-                // Заменяем обратные косые черты на прямые и добавляем путь к DIR
-                $fileServer[] = $arElements[$i]['ID'].'-->'.$dtFile[$j].PHP_EOL;
-            }
-        }
-        
+
+
+for($i=0;$i<count($arItems);$i++) {
+    $arHLBlock = Bitrix\Highloadblock\HighloadBlockTable::getById(10)->fetch();
+    // инициализируем класс сущности хайлоуд блока с ID 4
+    $obEntity = Bitrix\Highloadblock\HighloadBlockTable::compileEntity($arHLBlock);
+    // обращаемся к DataManager
+    $strEntityDataClass = $obEntity->getDataClass();
+    $rsData = $strEntityDataClass::getList(array(
+        // необходимые для выборки поля
+        'select' => array('ID', 'UF_XML_ID', 'UF_PRICE_GROUP'),
+        'filter' => ['UF_PRICE_GROUP'=> $arItems[$i]['UF_XML_ID']],
+        'count_total' => 1,
+    ));
+    if (intval($rsData->getCount()) > 0) {
+        $arItems[$i]['DEL'] = 'N';
+    }
+    else {
+        $arItems[$i]['DEL'] = 'Y';
     }
 }
-print_r($fileServer);
+
+print_r($arItems);
+
+
+
+
+// Открываем файл для записи
+$fp = fopen('output.csv', 'w');
+
+// Записываем заголовки
+fputcsv($fp, array_keys($arItems[0]));
+
+// Записываем данные
+foreach ($arItems as $row) {
+    fputcsv($fp, $row);
+}
+
+// Закрываем файл
+fclose($fp);
 
 /*function getDirContents($dir, $results = array()) {
     $files = scandir($dir);

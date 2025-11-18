@@ -6,7 +6,7 @@ $APPLICATION->SetTitle("Авторизация B2B");
   "main", 
   array(
     "SEF_MODE" => "Y",
-    "SEF_FOLDER" => "",
+    "SEF_FOLDER" => "/b2b/auth/",
     "SEF_URL_TEMPLATES" => array(
       "auth" => "",
       "registration" => "registration/",
@@ -15,7 +15,7 @@ $APPLICATION->SetTitle("Авторизация B2B");
       "confirm" => "confirm-password/",
       "confirm_registration" => "confirm-registration/",
     ),
-    "PERSONAL" => "/b2b/",
+    "PERSONAL" => "/b2b/personal/",
     "SUCCESS_REDIRECT" => "/b2b/", // Параметр для редиректа
   ),
   false

@@ -1879,20 +1879,7 @@ $currentProductId = $templateData['OFFERS_INFO']["CURRENT_OFFER"] ?? $arResult['
 	<?//bigdata?>
 	<div class="ordered-block">
 
-	<? /*$APPLICATION->IncludeComponent(
-            'zverushki:seofilter.tag',
-            'buttons',
-            [
-                'ELEMENT_ID' => $arResult['ID'],
-                'IBLOCK_ID' => 29, //#IBLOCK_ID#
-                'IBLOCK_TYPE' => $arParams["IBLOCK_TYPE"], //#IBLOCK_TYPE#
-                'IDENTIFIER' => '',
-                'NEWS_COUNT' => '20', // Количество выводимых тегов
-                'SORT_BY1' => 'SORT',
-                'SORT_ORDER1' => 'DESC'
-			]
-        );*/
-        ?>
+	
 	</div>
 	<?if($arParams['USE_BIG_DATA'] == 'Y' && $arParams['BIGDATA_TYPE_VIEW'] === 'BOTTOM'):?>
 		<div class="ordered-block recoms cur" data-code="bigdata">

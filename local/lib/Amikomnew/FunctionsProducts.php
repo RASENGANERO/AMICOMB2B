@@ -17,7 +17,13 @@ class FunctionsProducts{
             371,
             375,
             377,
-            378
+            378,
+            2880,
+            384,
+            382,
+            395,
+            2875,
+            374
         ];
         $propertyValues = [];
         $props = CIBlockElement::GetProperty($IBLOCK_ID,$ELEMENT_ID, [], []);
@@ -217,6 +223,15 @@ class FunctionsProducts{
         $relationProducts = array_values(array_filter($relationProducts));
         return $relationProducts;
     }
-    
+    public static function getPrice ($idProduct) { // функция получения оптовой цены товара
+        $allProductPrices = \Bitrix\Catalog\PriceTable::getList([
+            "select" => ["PRICE"],
+            "filter" => [
+                "=PRODUCT_ID" => intval($idProduct),
+                "=CATALOG_GROUP_ID" => 2
+            ],
+        ])->fetch();
+        return $allProductPrices['PRICE'];
+    }
 }
 ?>

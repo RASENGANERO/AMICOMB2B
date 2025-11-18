@@ -3,6 +3,15 @@
 <?
 use \Bitrix\Main\Localization\Loc;
 use Amikomnew;
+
+
+use Bitrix\Main\Loader;
+use Bitrix\Catalog\Model\Price;
+
+$priceRetail = \Amikomnew\FunctionsProducts::getPrice($arResult['ID']);
+
+
+
 ?>
 <div class="basket_props_block" id="bx_basket_div_<?=$arResult["ID"];?>" style="display: none;">
 	<?if (!empty($arResult['PRODUCT_PROPERTIES_FILL'])){
@@ -773,21 +782,29 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 				):?>
 					<?ob_start()?>
 						<?$productIdForDelivery = $arCurrentSKU ? $arCurrentSKU['ID'] : $arResult['ID'];?>
-						<?=\Aspro\Functions\CAsproMax::showCalculateDeliveryBlock($productIdForDelivery, $arParams);?>
-					<?$productCalcDelivery = ob_get_clean();?>
+						<?//\Aspro\Functions\CAsproMax::showCalculateDeliveryBlock($productIdForDelivery, $arParams);?>
+						<?$productCalcDelivery = ob_get_clean();?>
+						
 				<?endif;?>
 
+				
+				
 				<?//help text?>
 				<?if($arResult['HELP_TEXT']):?>
 					<?ob_start()?>
+					<div class="block-deliveries-cust">
 						<div class="text-form">
-							<div class="price_txt muted777 font_sxs muted ncolor">
-								<?=CMax::showIconSvg("info_big pull-left", SITE_TEMPLATE_PATH.'/images/svg/catalog/info_big.svg', '', '', true, false);?>
-								<div class="text-form-info">
-									<?=$arResult['HELP_TEXT'];?>
-								</div>
+							<div class="text-form-cust price_txt muted777 font_sxs muted ncolor">
+								<?=\CMax::showIconSvg('delivery_calc', SITE_TEMPLATE_PATH.'/images/svg/catalog/delivery_calc.svg', '', '', true, false);?>
+								<div class="text-form-info-cust text-form-info"><?=$arResult['HELP_TEXT']?></div>
 							</div>
 						</div>
+						<?//$arParams['EXPRESSION_FOR_CALCULATE_DELIVERY']?>
+						<div class="text-form">
+							<a href="/delivery/" class="text-delivery-cust"><?=GetMessage('DELIVERY_TEXT_CUSTOM')?></a>
+						</div>
+					</div>
+						
 					<?$productHelpText = ob_get_clean();?>
 				<?endif;?>
 
@@ -824,7 +841,6 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 													<div class="price_value_block values_wrapper">
 														<span class="price_value complect_price_value">0</span>												
 														<span class="price_currency">
-															<?//$arResult['MIN_PRICE']['CURRENCY']?>
 															<?=str_replace("999", "", \CCurrencyLang::CurrencyFormat("999", $arResult["CURRENCIES"][0]["CURRENCY"]))?>
 														</span>
 													</div>
@@ -837,8 +853,55 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 										<span class="btn btn-default btn-lg type_block has-ripple choise btn-wide" data-block=".js-scroll-complect"><span><?=Loc::getMessage("COMPLECT_BUTTON")?></span></span>
 									</div>
 								<?else:?>
-									<div class="cost prices detail prices_block"> <?//dublicate prices_block for send gift?>
-										<?if($arResult["OFFERS"]):?>
+									<div class="cost prices detail prices_block"> 
+										<?//dublicate prices_block for send gift?>
+										<?if ((intval($arResult['PRICES']['BASE']['VALUE']) !== 0)):?>
+											<div class="prices-all-container">
+												<div class="price-bs prices-all-item">
+													
+													<span class="price-retail-text"><span class="price-retail-text-bold">Ваша</span> цена</span>
+													
+							
+													<?if(isset($arResult['PRICE_MATRIX']) && $arResult['PRICE_MATRIX']): // USE_PRICE_COUNT?>
+														<?if(\CMax::GetFrontParametrValue('SHOW_POPUP_PRICE') == 'Y' || $arResult['ITEM_PRICE_MODE'] == 'Q' || (\CMax::GetFrontParametrValue('SHOW_POPUP_PRICE') != 'Y' && $arResult['ITEM_PRICE_MODE'] != 'Q' && count($arResult['PRICE_MATRIX']['COLS']) <= 1)):?>
+															<?=CMax::showPriceRangeTop($arResult, $arParams, Loc::getMessage("CATALOG_ECONOMY"));?>
+														<?endif;?>
+														<?if(
+															count($arResult['PRICE_MATRIX']['ROWS']) > 1 
+															|| count($arResult['PRICE_MATRIX']['COLS']) > 1
+														):?>
+															<?=CMax::showPriceMatrix($arResult, $arParams, $strMeasure, $arAddToBasketData);?>
+														<?endif;?>
+													<?elseif(isset($arResult["PRICES"])):?>
+														<?//print_r($arResult['PRICES']);?>
+														<?if (intval($arResult['PRICES']['BASE']['VALUE']) === 0):?>
+															<?//print_r($arResult['PRICES']);?>
+															<div class="price_matrix_wrapper">
+																<div class="prices-wrapper">
+																	<a class="price-decorate price font-bold font_mxs animate-load has-ripple" data-event="jqm" data-param-form_id="ORDER_REQUEST" data-name="order_request">Запросить цену</a>
+																</div>
+															</div>
+														<?else:?>
+															<?\Aspro\Functions\CAsproMaxItem::showItemPrices($arParams, $arResult["PRICES"], $strMeasure, $min_price_id, ($arParams["SHOW_DISCOUNT_PERCENT_NUMBER"] == "Y" ? "N" : "Y"));?>
+														<?endif;?>
+													<?endif;?>
+												</div>
+												<div class="prices-all-item">
+													<span class="price-opt-text">Розничная цена</span>
+													<div class="price_matrix_wrapper">
+														<?if (!empty($priceRetail) && intval($priceRetail)>0):?>
+															<div class="price font-bold font_mxs" data-currency="RUB" data-value="<?=$priceRetail?>">
+																<span class="retail-values-prices values_wrapper">
+																	<span class="price_value"><?=number_format((int)$priceRetail, 0, '', ' ')?></span>
+																	<span class="price_currency"> ₽</span>
+																</span>		
+															</div>
+														<?endif;?>
+													</div>
+												</div>
+											</div>
+										<?endif;?>
+										<!--<?if($arResult["OFFERS"]):?>
 											<?=\Aspro\Functions\CAsproMaxItem::showItemPricesDefault($arParams);?>
 											<div class="js_price_wrapper">
 												<?if($arCurrentSKU):?>
@@ -880,14 +943,14 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 													<?//print_r($arResult['PRICES']);?>
 													<div class="price_matrix_wrapper">
 														<div class="prices-wrapper">
-															<div class="price font-bold font_mxs">Запросить цену</div>
+															<a class="price-decorate price font-bold font_mxs animate-load has-ripple" data-event="jqm" data-param-form_id="ORDER_REQUEST" data-name="order_request">Запросить цену</a>
 														</div>
 													</div>
 												<?else:?>
 													<?\Aspro\Functions\CAsproMaxItem::showItemPrices($arParams, $arResult["PRICES"], $strMeasure, $min_price_id, ($arParams["SHOW_DISCOUNT_PERCENT_NUMBER"] == "Y" ? "N" : "Y"));?>
 												<?endif;?>
 											<?endif;?>
-										<?endif;?>
+										<?endif;?>-->
 										<div class="" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 											<meta itemprop="price" content="<?=($arResult['MIN_PRICE']['DISCOUNT_VALUE'] ? $arResult['MIN_PRICE']['DISCOUNT_VALUE'] : $arResult['MIN_PRICE']['VALUE'])?>" />
 											<meta itemprop="priceCurrency" content="<?=$arResult['MIN_PRICE']['CURRENCY']?>" />
@@ -988,22 +1051,40 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 								<?}?>
 
 								<?ob_start()?>
-								<?if (intval($arResult['PRICES']['BASE']['VALUE'])!== 0):?>	
+								<?if ((intval($arResult['PRICES']['BASE']['VALUE'])!== 0) || (intval($allPricesRetailOpt) !== 0)) :?>	
 									<div class="quantity_block_wrapper">
-										<?=$arQuantityData["HTML"];?>									
+										
+										<?$arQuantityData["HTML"];?>									
+										
 										<?if($arParams["SHOW_CHEAPER_FORM"] == "Y"):?>
 											<div class="cheaper_form muted777 font_xs">
 												<?=CMax::showIconSvg("cheaper", SITE_TEMPLATE_PATH.'/images/svg/catalog/cheaper.svg', '', '', true, false);?>
-												<span class="animate-load dotted" data-event="jqm" data-param-form_id="CHEAPER" data-name="cheaper" data-autoload-product_name="<?=CMax::formatJsName($arCurrentSKU ? $arCurrentSKU['NAME'] : $arResult['NAME']);?>" data-autoload-product_id="<?=$arCurrentSKU ? $arCurrentSKU['ID'] : $arResult['ID'];?>"><?=($arParams["CHEAPER_FORM_NAME"] ? $arParams["CHEAPER_FORM_NAME"] : Loc::getMessage("CHEAPER"));?></span>
+												<span class="animate-load dotted" data-event="jqm" data-param-form_id="CHEAPER" data-name="cheaper" data-autoload-product_name="<?=CMax::formatJsName($arCurrentSKU ? $arCurrentSKU['NAME'] : $arResult['NAME']);?>" data-autoload-product_id="<?=$arCurrentSKU ? $arCurrentSKU['ID'] : $arResult['ID'];?>"><?=Loc::getMessage("CHEAPER_FORM_NAME");?></span>
 											</div>
 										<?endif;?>
+										<div class="text-form">
+											<div class="price_txt muted777 font_sxs muted ncolor">
+												<?=CMax::showIconSvg("info_big pull-left", SITE_TEMPLATE_PATH.'/images/svg/catalog/info_big.svg', '', '', true, false);?>
+												<div class="text-form-info">
+													<a class="manager-url animate-load has-ripple" data-event="jqm" data-param-form_id="MANAGER_PRICE_FORM" data-name="manager_price_form">Уточнить наличие у менеджера</a>
+												</div>
+											</div>
+										</div>
 									</div>
 								<?endif;?>
 								<?$productForms = ob_get_clean();?>
-
+								
 								<?ob_start()?>
 									<div class="text-additional">
-										<?$path = SITE_DIR."include/element_detail_text.php"?>
+										<?
+										if (intval($arResult['PRICES']['BASE']['VALUE'])!== 0) {
+											$path = SITE_DIR."include/element_detail_text.php";
+										}
+										else {
+											$path = SITE_DIR."include/element_detail_text_request.php";
+										}
+										?>	
+										
 										<div class="price_txt muted777 font_sxs<?=((CMax::checkContentFile($path) ? ' filed' : ''));?>">
 											<?$APPLICATION->IncludeFile($path, Array(), Array("MODE" => "html",  "NAME" => GetMessage('CT_BCE_CATALOG_DOP_DESCR')));?>
 										</div>
@@ -1047,26 +1128,31 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 												*/?>
 											</div>
 										<?endif;?>
-										<?if($arResult["SIZE_PATH"]):?>
-											<div class="table_sizes muted777 font_xs">
-												<span>
-													<?=CMax::showIconSvg("cheaper", SITE_TEMPLATE_PATH.'/images/svg/catalog/sizestable.svg', '', '', true, false);?>
-													<span class="animate-load dotted" data-event="jqm" data-param-form_id="TABLES_SIZE" data-param-url="<?=$arResult["SIZE_PATH"];?>" data-name="TABLES_SIZE"><?=GetMessage("TABLES_SIZE");?></span>
-												</span>
-											</div>
-										<?endif;?>
+										
 										<?if(!$arResult["OFFERS"]):?>
-											<div class="counter_wrapp list big clearfix ">
+											
+											
+											
+											<div class="wrapp-content-block">
+												<?if($arAddToBasketData["ACTION"] !== "NOTHING"):?>
+													<?if (intval($arResult['PRICES']['BASE']['VALUE'])!== 0):?>
+														<div class="wrapp-one-click">
+															<span class="wrapp-url btn type_block transition_bg one_click animate-load has-ripple" data-item="<?=$arResult['ID']?>" data-iblockid="<?=$arParams['IBLOCK_ID']?>" data-quantity="1" onclick="oneClickBuy('<?=$arResult['ID']?>', '<?=$arParams['IBLOCK_ID']?>', this)">
+																<span class="wrapp-url-text"><?=GetMessage("ONE_CLICK_BUY")?></span>
+															</span>
+														</div>
+													<?endif;?>
+												<?endif;?>
 												<?//if(($arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] && $arAddToBasketData["ACTION"] == "ADD") && $arAddToBasketData["CAN_BUY"]):?>
-													<?=\Aspro\Functions\CAsproMax::showItemCounter($arAddToBasketData, $arResult["ID"], $arItemIDs, $arParams, 'md', '', true, true);?>
+													<?//\Aspro\Functions\CAsproMax::showItemCounter($arAddToBasketData, $arResult["ID"], $arItemIDs, $arParams, 'md', '', true, true);?>
 												<?//endif;?>
-
-												<div id="<? echo $arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']; ?>" class="button_block <?=($arAddToBasketData["ACTION"] === "OUT_OF_PRODUCTION" || ($arAddToBasketData["ACTION"] == "ORDER" /*&& !$arResult["CAN_BUY"]*/) || !$arAddToBasketData["CAN_BUY"] || !$arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] || ($arAddToBasketData["ACTION"] == "SUBSCRIBE" && $arResult["CATALOG_SUBSCRIBE"] == "Y")  ? "wide" : "");?>">
-													<!--noindex-->
+												<?if (intval($arResult['PRICES']['BASE']['VALUE'])!== 0):?>
+													<div id="<? echo $arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']; ?>" class="button_block <?=($arAddToBasketData["ACTION"] === "OUT_OF_PRODUCTION" || ($arAddToBasketData["ACTION"] == "ORDER" /*&& !$arResult["CAN_BUY"]*/) || !$arAddToBasketData["CAN_BUY"] || !$arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] || ($arAddToBasketData["ACTION"] == "SUBSCRIBE" && $arResult["CATALOG_SUBSCRIBE"] == "Y")  ? "wide" : "");?>">
 														<?=$arAddToBasketData["HTML"]?>
-													<!--/noindex-->
-												</div>
+													</div>
+												<?endif;?>
 											</div>
+											
 											<?if(isset($arResult['PRICE_MATRIX']) && $arResult['PRICE_MATRIX']) // USE_PRICE_COUNT
 											{?>
 												<?if($arResult['ITEM_PRICE_MODE'] == 'Q' && count($arResult['PRICE_MATRIX']['ROWS']) > 1):?>
@@ -1083,17 +1169,13 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 													</script>
 												<?endif;?>
 											<?}?>
-											<?if($arAddToBasketData["ACTION"] !== "NOTHING"):?>
-												<?=\Aspro\Functions\CAsproMax::showItemOCB($arAddToBasketData, $arResult, $arParams, false, '');?>
-											<?endif;?>
+											
 										<?elseif($arResult["OFFERS"] && $arParams['TYPE_SKU'] == 'TYPE_1'):?>
 											<div class="offer_buy_block buys_wrapp has_offer_prop">
 												<div class="counter_wrapp list clearfix">
 													<?=\Aspro\Functions\CAsproMax::showItemCounter($arAddToBasketData, $arResult["OFFERS"][$arResult["OFFERS_SELECTED"]]["ID"], $arItemIDs, $arParams, 'md', '', true, true);?>
 													<div id="<?=$arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']; ?>" class="button_block <?=($arAddToBasketData["ACTION"] === "OUT_OF_PRODUCTION" || $arAddToBasketData["ACTION"] == "ORDER" || !$arAddToBasketData["CAN_BUY"] || !$arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] || $arAddToBasketData["ACTION"] == "SUBSCRIBE" ? "wide" : "");?>">
-														<!--noindex-->
-															<?=$arAddToBasketData["HTML"]?>
-														<!--/noindex-->
+														<?=$arAddToBasketData["HTML"]?>
 													</div>
 												</div>
 												<?if(isset($arCurrentSKU['PRICE_MATRIX']) && $arCurrentSKU['PRICE_MATRIX']) // USE_PRICE_COUNT
@@ -1132,7 +1214,28 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 							<?=$productForms;?>
 							<div class="js-prices-in-item"></div>
 							<div class="js-services-in-item"></div>
-
+							<div class="buy_block">
+								<button class="btn-partners btn-lg btn btn-default transition_bg animate-load has-ripple" data-event="jqm" data-param-form_id="PRICE_PARTNERS_FORM" data-name="price_partners_form">Узнать цену для партнёров</button>
+							</div>
+							<div class="wrapp-content-block">
+								<?if($arAddToBasketData["ACTION"] !== "NOTHING"):?>
+									<?if (intval($arResult['PRICES']['BASE']['VALUE'])!== 0):?>
+										<div class="wrapp-one-click">
+											<span class="wrapp-url btn type_block transition_bg one_click animate-load has-ripple" data-item="<?=$arResult['ID']?>" data-iblockid="<?=$arParams['IBLOCK_ID']?>" data-quantity="1" onclick="oneClickBuy('<?=$arResult['ID']?>', '<?=$arParams['IBLOCK_ID']?>', this)">
+												<span class="wrapp-url-text"><?=GetMessage("ONE_CLICK_BUY")?></span>
+											</span>
+										</div>
+									<?endif;?>
+								<?endif;?>
+								<?//if(($arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] && $arAddToBasketData["ACTION"] == "ADD") && $arAddToBasketData["CAN_BUY"]):?>
+									<?//\Aspro\Functions\CAsproMax::showItemCounter($arAddToBasketData, $arResult["ID"], $arItemIDs, $arParams, 'md', '', true, true);?>
+								<?//endif;?>
+								<?if (intval($arResult['PRICES']['BASE']['VALUE'])!== 0):?>
+									<div id="<? echo $arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']; ?>" class="button_block <?=($arAddToBasketData["ACTION"] === "OUT_OF_PRODUCTION" || ($arAddToBasketData["ACTION"] == "ORDER" /*&& !$arResult["CAN_BUY"]*/) || !$arAddToBasketData["CAN_BUY"] || !$arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_DETAIL"] || ($arAddToBasketData["ACTION"] == "SUBSCRIBE" && $arResult["CATALOG_SUBSCRIBE"] == "Y")  ? "wide" : "");?>">
+										<?=$arAddToBasketData["HTML"]?>
+									</div>
+								<?endif;?>
+							</div>
 							<?=$productCalcDelivery;?>
 							<?=$sendGiftForm;?>
 							<?=$productHelpText;?>
@@ -1589,8 +1692,6 @@ if ($arResult['CATALOG'] && $arParams['USE_GIFTS_MAIN_PR_SECTION_LIST'] == 'Y' &
 
 				"ELEMENT_SORT_FIELD" => 'ID',
 				"ELEMENT_SORT_ORDER" => 'DESC',
-				//"ELEMENT_SORT_FIELD2" => $arParams["ELEMENT_SORT_FIELD2"],
-				//"ELEMENT_SORT_ORDER2" => $arParams["ELEMENT_SORT_ORDER2"],
 				"FILTER_NAME" => 'searchFilter',
 				"SECTION_URL" => $arParams["SECTION_URL"],
 				"DETAIL_URL" => $arParams["DETAIL_URL"],
