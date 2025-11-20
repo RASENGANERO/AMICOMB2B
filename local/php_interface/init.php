@@ -109,4 +109,24 @@ spl_autoload_register(function ($class) {
         require $file;
     }
 });
+spl_autoload_register(function ($class) {
+    $prefix = 'AmikomnewB2B\\'; // Используйте двойной обратный слэш
+    $base_dir = __DIR__ . '/../lib/AmikomnewB2B/';
+
+    // Проверяем, начинается ли класс с префикса
+    if (strncmp($prefix, $class, strlen($prefix)) !== 0) {
+        return;
+    }
+
+    // Получаем относительное имя класса
+    $relative_class = substr($class, strlen($prefix));
+
+    // Формируем путь к файлу
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php'; // Здесь тоже используйте двойной обратный слэш
+
+    // Подключаем файл, если он существует
+    if (file_exists($file)) {
+        require $file;
+    }
+});
 ?>

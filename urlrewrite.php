@@ -273,14 +273,6 @@ $arUrlRewrite=array (
     'PATH' => '/contacts/page_contacts_2.php',
     'SORT' => 100,
   ),
-  121 => 
-  array (
-    'CONDITION' => '#^/b2b/auth/#',
-    'RULE' => '',
-    'ID' => 'aspro:auth.max',
-    'PATH' => '/b2b/auth/index.php',
-    'SORT' => 100,
-  ),
   19 => 
   array (
     'CONDITION' => '#^/vacancy/#',
@@ -319,7 +311,7 @@ $arUrlRewrite=array (
     'PATH' => '/clients/index.php',
     'SORT' => 100,
   ),
-  95 => 
+  121 => 
   array (
     'CONDITION' => '#^/catalog/#',
     'RULE' => '',

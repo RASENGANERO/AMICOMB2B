@@ -3,8 +3,7 @@
 <?
 use \Bitrix\Main\Localization\Loc;
 use Amikomnew;
-
-
+use Aspro\Functions\CAsproMaxCustom;
 use Bitrix\Main\Loader;
 use Bitrix\Catalog\Model\Price;
 
@@ -870,6 +869,7 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 															count($arResult['PRICE_MATRIX']['ROWS']) > 1 
 															|| count($arResult['PRICE_MATRIX']['COLS']) > 1
 														):?>
+														
 															<?=CMax::showPriceMatrix($arResult, $arParams, $strMeasure, $arAddToBasketData);?>
 														<?endif;?>
 													<?elseif(isset($arResult["PRICES"])):?>
@@ -882,7 +882,7 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 																</div>
 															</div>
 														<?else:?>
-															<?\Aspro\Functions\CAsproMaxItem::showItemPrices($arParams, $arResult["PRICES"], $strMeasure, $min_price_id, ($arParams["SHOW_DISCOUNT_PERCENT_NUMBER"] == "Y" ? "N" : "Y"));?>
+															<?\Aspro\Functions\CAsproMaxCustom::showItemPricesCustom($arParams, $arResult["PRICES"], $strMeasure, $min_price_id, ($arParams["SHOW_DISCOUNT_PERCENT_NUMBER"] == "Y" ? "N" : "Y"));?>
 														<?endif;?>
 													<?endif;?>
 												</div>
