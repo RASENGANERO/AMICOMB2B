@@ -341,14 +341,14 @@ if (!empty($arParams['LABEL_PROP_POSITION']))
 			<td class="basket-items-list-item-amount-outer">
 				<div class="basket-item-amount{{#NOT_AVAILABLE}} disabled{{/NOT_AVAILABLE}}"
 					data-entity="basket-item-quantity-block">
-					<span class="basket-item-btn-minus" data-entity="basket-item-quantity-minus"></span>
+					<span class="basket-item-btn-minus-custom" data-entity="basket-item-quantity-minus"></span>
 					<div class="basket-item-amount-filed-block">
 						<input type="text" class="basket-item-amount-filed" value="{{QUANTITY}}"
 							{{#NOT_AVAILABLE}} disabled="disabled"{{/NOT_AVAILABLE}}
 							data-value="{{QUANTITY}}" data-entity="basket-item-quantity-field"
 							id="basket-item-quantity-{{ID}}">
 					</div>
-					<span class="basket-item-btn-plus" data-entity="basket-item-quantity-plus"></span>
+					<span class="basket-item-btn-plus-custom" data-entity="basket-item-quantity-plus"></span>
 					
 					
 					{{#SHOW_LOADING}}

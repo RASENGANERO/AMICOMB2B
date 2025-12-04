@@ -2,6 +2,9 @@
 
 use Bitrix\Main,
 	Bitrix\Main\Localization\Loc;
+use AmikomB2B;
+$arParams['DISCOUNT_PRICE_ALL_CUSTOM'] = \AmikomB2B\DiscountPrices::getAllDiscountOrder();
+
 
 /**
  * @var array $arParams
@@ -559,7 +562,6 @@ else
 	$signer = new Main\Security\Sign\Signer;
 	$signedParams = $signer->sign(base64_encode(serialize($arParams)), 'sale.order.ajax');
 	$messages = Loc::loadLanguageFile(__FILE__);
-
 	?>
 	<script>
 		if (typeof appAspro === 'object' && appAspro && appAspro.phone) {

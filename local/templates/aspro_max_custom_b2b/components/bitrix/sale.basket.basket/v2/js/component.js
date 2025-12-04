@@ -421,6 +421,8 @@
       this.showDelayedItemsCount();
     },
 
+    
+
     fillTotalBlocks: function () {
       var totalNodes = this.getEntities(this.getCacheNode(this.ids.basketRoot), "basket-total-block");
 
@@ -429,12 +431,12 @@
       if (totalNodes && totalNodes.length) {
         var totalTemplate = this.getTemplate("basket-total-template");
         if (totalTemplate) {
+
           var totalRender = this.render(totalTemplate, this.result.TOTAL_RENDER_DATA);
 
           for (var i in totalNodes) {
             if (totalNodes.hasOwnProperty(i) && BX.type.isDomNode(totalNodes[i])) {
-              totalNodes[i].innerHTML = totalRender;
-
+              totalNodes[i].innerHTML = totalRender;  
               this.bindTotalEvents(totalNodes[i]);
             }
           }
@@ -680,7 +682,7 @@
           this.checkAnalytics(data);
         }
       }
-
+      
       BX.ajax({
         method: "POST",
         dataType: "json",
@@ -706,7 +708,7 @@
           }
 
           this.applyBasketResult(result.BASKET_DATA);
-          this.editBasketItems(this.getItemsToEdit());
+//          this.editBasketItems(this.getItemsToEdit());
           this.resizeServicesBasketTimeout();
           this.editTotal();
 
@@ -1632,6 +1634,7 @@
         quantity = this.getCorrectQuantity(itemData, quantity);
 
         this.setQuantity(itemData, quantity);
+        this.discountPriceChange(itemData.ID, currentQuantity, quantity, itemData.CURRENCY);
       }
     },
 
@@ -1650,7 +1653,33 @@
         quantity = this.getCorrectQuantity(itemData, quantity);
 
         this.setQuantity(itemData, quantity);
+        this.discountPriceChange(itemData.ID,currentQuantity,quantity,itemData.CURRENCY);
+       
+      
       }
+    },
+
+    discountPriceChange: function(idElement,currentQuantity, quantity, currency) {
+      let dataChange = {
+        idElement:idElement,
+        currentQuantity:currentQuantity,
+        quantity:quantity,
+      };
+
+      BX.ajax({
+        method: "POST",
+        dataType: "json",
+        url: '/local/lib/Ajax/ajaxcust.php',
+        data: dataChange,
+        onsuccess: BX.delegate(function(res) {
+          let discPriceNewBlock = document.getElementById(this.ids.sumPriceDiff + idElement);
+          discPriceNewBlock.innerHTML = this.getFormatPrice(res['resultDiscount'],currency);
+        }, this),
+        onfailure: BX.delegate(function () {
+          this.actionPool.doProcessing(false);
+        }, this),
+        
+      });
     },
 
     quantityChange: function () {
@@ -1774,11 +1803,11 @@
               node.innerHTML = this.getFormatPrice(price, itemData.CURRENCY);
             }
 
-            node = BX(this.ids.sumPriceDiff + itemData.ID);
+            /*node = BX(this.ids.sumPriceDiff + itemData.ID);
             if (BX.type.isDomNode(node)) {
               price = parseFloat(itemData.DISCOUNT_PRICE) * quantityMultiplier;
               node.innerHTML = this.getFormatPrice(price, itemData.CURRENCY);
-            }
+            }*/
           }, this),
         }).animate();
       }

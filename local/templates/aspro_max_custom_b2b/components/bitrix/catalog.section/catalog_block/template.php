@@ -82,6 +82,21 @@ use Amikomnew;
 		
 		<?foreach($arResult["ITEMS"] as $arItem){?>
 			<?
+			//echo '<pre>';
+			//print_r($arItem);
+			//echo '</pre>';
+			if ($arItem['PRICES']['BASE']['VALUE'] !== 0) {
+				$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя		
+				$brandDiscounts = \AmikomB2B\DiscountInfo::getBrandDiscount($arItem['PROPERTIES']['BRAND']['VALUE']);//Получаем типы скидок бренда
+				$discountsAll = \AmikomB2B\DiscountInfo::getDiscounts($UF_Partner,$brandDiscounts);//Получаем все проценты скидок по бренду
+				$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду
+				if (intval($maxDiscount) !== 0) {
+					$obj = new \AmikomB2B\DiscountPrices($arItem['PRICES'],$maxDiscount);
+					$arItem['PRICES'] = $obj->generateDiscountValues();
+				}
+			}
+			
+
 			$nameSection = Amikomnew\FunctionsProducts::getSectionName($arItem['ID']);
 			$this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_EDIT"));
 			$this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BCS_ELEMENT_DELETE_CONFIRM')));
@@ -398,11 +413,12 @@ use Amikomnew;
 						<?endif;?>
 					<?else:?>
 						<?if($bGiftblock):?>
-							<?foreach($arItem["PRICES"] as $priceCode => $arTmpPrice)
-							{
-								$arItem["PRICES"][$priceCode]["DISCOUNT_VALUE"] = $arItem["PRICES"][$priceCode]["DISCOUNT_DIFF"];
-								$arItem["PRICES"][$priceCode]["PRINT_DISCOUNT_VALUE"] = $arItem["PRICES"][$priceCode]["PRINT_DISCOUNT_DIFF"];
-							}?>
+							<?//foreach($arItem["PRICES"] as $priceCode => $arTmpPrice)
+							//{
+
+							//	$arItem["PRICES"][$priceCode]["DISCOUNT_VALUE"] = $arItem["PRICES"][$priceCode]["DISCOUNT_DIFF"];
+						//		$arItem["PRICES"][$priceCode]["PRINT_DISCOUNT_VALUE"] = $arItem["PRICES"][$priceCode]["PRINT_DISCOUNT_DIFF"];
+					//		}?>
 							<?\Aspro\Functions\CAsproMaxItem::showItemPrices($arParams, $arItem["PRICES"], $strMeasure, $min_price_id, ($arParams["SHOW_DISCOUNT_PERCENT_NUMBER"] == "Y" ? "N" : "Y"));?>
 						<?else:?>
 							<?if(isset($arItem['PRICE_MATRIX']) && $arItem['PRICE_MATRIX']): // USE_PRICE_COUNT?>
@@ -413,6 +429,7 @@ use Amikomnew;
 									<?=CMax::showPriceMatrix($arItem, $arParams, $strMeasure, $arAddToBasketData);?>
 								<?endif;?>
 							<?elseif(isset($arResult["PRICES"])):?>
+								
 								<?\Aspro\Functions\CAsproMaxItem::showItemPrices(array_merge($arParams, $addParams), $arItem["PRICES"], $strMeasure, $min_price_id, ($arParams["SHOW_DISCOUNT_PERCENT_NUMBER"] == "Y" ? "N" : "Y"));?>
 							<?endif;?>
 						<?endif;?>

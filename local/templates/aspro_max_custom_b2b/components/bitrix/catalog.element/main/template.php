@@ -3,14 +3,25 @@
 <?
 use \Bitrix\Main\Localization\Loc;
 use Amikomnew;
+use AmikomB2B;
 use Aspro\Functions\CAsproMaxCustom;
 use Bitrix\Main\Loader;
 use Bitrix\Catalog\Model\Price;
 
 $priceRetail = \Amikomnew\FunctionsProducts::getPrice($arResult['ID']);
 
-
-
+//$USER->GetID(), $arResult['BRAND_ITEM']['ID']
+$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя		
+$brandDiscounts = \AmikomB2B\DiscountInfo::getBrandDiscount($arResult['BRAND_ITEM']['ID']);//Получаем типы скидок бренда
+$discountsAll = \AmikomB2B\DiscountInfo::getDiscounts($UF_Partner,$brandDiscounts);//Получаем все проценты скидок по бренду
+$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду
+if (intval($maxDiscount) !== 0) {
+	$obj = new \AmikomB2B\DiscountPrices($arResult['PRICES'],$maxDiscount);
+	$arResult['PRICES'] = $obj->generateDiscountValues();
+}
+$arValuesCust['PERCENT'] = $maxDiscount;
+$arValuesCust['PRICE'] = $arResult['PRICES']['BASE']['DISCOUNT_VALUE'] ?? $arResult['PRICES']['BASE']['VALUE'];
+$arValuesCust['DISCOUNT_PRICE'] = $arResult['PRICES']['BASE']['DISCOUNT_DIFF'];
 ?>
 <div class="basket_props_block" id="bx_basket_div_<?=$arResult["ID"];?>" style="display: none;">
 	<?if (!empty($arResult['PRODUCT_PROPERTIES_FILL'])){
@@ -246,7 +257,7 @@ else
 		$arMeasure = CCatalogMeasure::getList(array(), array("ID"=>$arResult["CATALOG_MEASURE"]), false, false, array())->GetNext();
 		$strMeasure=$arMeasure["SYMBOL_RUS"];
 	}
-	$arAddToBasketData = CMax::GetAddToBasketArray($arResult, $totalCount, $arParams["DEFAULT_COUNT"], $arParams["BASKET_URL"], true, $arItemIDs["ALL_ITEM_IDS"], 'btn-lg', $arParams);
+	$arAddToBasketData = \Aspro\Functions\CAsproMaxCustom::GetAddToBasketArrayCustom($arResult, $arValuesCust,$arResult['PRICES'],$totalCount, $arParams["DEFAULT_COUNT"], $arParams["BASKET_URL"], true, $arItemIDs["ALL_ITEM_IDS"], 'btn-lg', $arParams);
 }
 $arOfferProps = implode(';', $arParams['OFFERS_CART_PROPERTIES']);
 
@@ -952,7 +963,7 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 											<?endif;?>
 										<?endif;?>-->
 										<div class="" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-											<meta itemprop="price" content="<?=($arResult['MIN_PRICE']['DISCOUNT_VALUE'] ? $arResult['MIN_PRICE']['DISCOUNT_VALUE'] : $arResult['MIN_PRICE']['VALUE'])?>" />
+											<meta itemprop="price" content="<?=$arResult['PRICES']['BASE']['DISCOUNT_VALUE'] ? $arResult['PRICES']['BASE']['DISCOUNT_VALUE'] : $arResult['PRICES']['BASE']['VALUE'] ?>" />
 											<meta itemprop="priceCurrency" content="<?=$arResult['MIN_PRICE']['CURRENCY']?>" />
 											<link itemprop="availability" href="http://schema.org/<?=($templateData['TOTAL_COUNT'] ? 'InStock' : 'OutOfStock')?>" />
 											<?
@@ -1352,7 +1363,7 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 				<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 					<meta itemprop="sku" content="<?=implode('/', $currentOffersList)?>" />
 					<a href="<?=$arOffer['DETAIL_PAGE_URL']?>" itemprop="url"></a>
-					<meta itemprop="price" content="<?=($arOffer['MIN_PRICE']['DISCOUNT_VALUE']) ? $arOffer['MIN_PRICE']['DISCOUNT_VALUE'] : $arOffer['MIN_PRICE']['VALUE']?>" />
+					<meta itemprop="price" content="<?=$arResult['PRICES']['BASE']['VALUE']?>" />
 					<meta itemprop="priceCurrency" content="<?=$arOffer['MIN_PRICE']['CURRENCY']?>" />
 					<link itemprop="availability" href="http://schema.org/<?=($arOffer['CAN_BUY'] ? 'InStock' : 'OutOfStock')?>" />
 					<?

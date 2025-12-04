@@ -1,11 +1,17 @@
+
 <?define("STATISTIC_SKIP_ACTIVITY_CHECK", "true");?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
+use Bitrix\Sale;
+use Bitrix\Main\Context;
 if(!\Bitrix\Main\Loader::includeModule("sale") || !\Bitrix\Main\Loader::includeModule("catalog") || !\Bitrix\Main\Loader::includeModule("iblock") || !\Bitrix\Main\Loader::includeModule("aspro.max"))
 {
 	echo "failure";
 	return;
 }
+
+
+
 $addResult = [];
 
 if(isset($_REQUEST["type"]) && $_REQUEST["type"] == "multiple")
@@ -119,162 +125,79 @@ else
 	{
 		if($_REQUEST["add_item"] == "Y")
 		{
-			if($_REQUEST["quantity"])
-				$_REQUEST["quantity"] = floatval($_REQUEST["quantity"]);
 
-			$product_properties=$arSkuProp=array();
-			$successfulAdd = true;
-			$strErrorExt='';
+			
+			// Получаем идентификатор пользователя
+			$fuserId = Sale\Fuser::getId();
 
-			$dbBasketItems = CSaleBasket::GetList(
-				array("NAME" => "ASC", "ID" => "ASC"),
-				array("PRODUCT_ID" => $_REQUEST["item"], "FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
-				false, false, array("ID", "DELAY")
-			)->Fetch();
-			if(!empty($dbBasketItems) && $dbBasketItems["DELAY"] == "Y")
-			{
-				$arFields = array("DELAY" => "N", "SUBSCRIBE" => "N");
-				if($_REQUEST["quantity"])
-					$arFields['QUANTITY'] = $_REQUEST["quantity"];
-				CSaleBasket::Update($dbBasketItems["ID"], $arFields);
+			// Получаем текущий сайт
+			$siteId = Context::getCurrent()->getSite();
+
+			// Загружаем корзину для текущего пользователя
+			$basket = Sale\Basket::loadItemsForFUser($fuserId, $siteId);
+
+			// Параметры товара
+			$productId = intval($_REQUEST["item"]); // ID товара
+			$infoProduct = CIBlockElement::GetByID($productId)->Fetch();		
+			$quantity = $_REQUEST['quantity']; // Количество
+
+			$priceProduct = \Bitrix\Catalog\PriceTable::getList([
+				'select' => ["*"],
+				'filter' => [
+					'=PRODUCT_ID' => $productId,
+					'=CATALOG_GROUP_ID' => 2
+				],
+			])->fetch();
+
+
+			$arFieldsBask = [
+				'NAME' => $infoProduct['NAME'],
+				'QUANTITY' => $quantity,
+				'BASE_PRICE' => intval($priceProduct['PRICE']), 
+				'CURRENCY' => 'RUB', // Укажите валюту
+				'CUSTOM_PRICE' => 'Y',
+				'CAN_BUY' => 'Y',
+				'PRICE_TYPE_ID' => $priceProduct['CATALOG_GROUP_ID'],
+				'PRODUCT_PRICE_ID' => $priceProduct['ID'],
+				'DELAY' => 'N',
+				'NOTES' => 'Базовая цена',
+				'DETAIL_PAGE_URL' => '/catalog/'.$infoProduct['CODE'].'/',
+				'PRODUCT_PROVIDER_CLASS' => '\Bitrix\Catalog\Product\CatalogProvider',
+				'CATALOG_XML_ID' => 'aspro_max_catalog-29',
+				'DISCOUNT_NAME' => 'custom_discount',
+				'MEASURE_NAME' => 'шт',
+				'MEASURE_CODE' => 796
+			];
+			// Проверяем, есть ли уже товар в корзине
+			$basketItem = $basket->getExistsItem('catalog', $productId);
+
+			if ($basketItem) {
+				// Если товар уже есть в корзине, обновляем его количество
+				$basketItem->setField('QUANTITY', $basketItem->getQuantity() + $quantity);
+			} else {
+				// Если товара нет в корзине, добавляем новый элемент
+				$basketItem = $basket->createItem('catalog', $productId);
+				$basketItem->setFields($arFieldsBask);
+				
 			}
-			else
-			{
-				$intProductIBlockID = (int)CIBlockElement::GetIBlockByID($_REQUEST["item"]);
-				if(0 < $intProductIBlockID)
-				{			
-					if($_REQUEST["add_props"]=="Y"){
-						$arSkuProp=json_decode($_REQUEST["props"]);
-						if ($intProductIBlockID == $_REQUEST["iblockID"])
-						{
-							if($_REQUEST["props"])
-							{
-								$product_properties = CIBlockPriceTools::CheckProductProperties(
-									$_REQUEST["iblockID"],
-									$_REQUEST["item"],
-									$arSkuProp,
-									$_REQUEST["prop"],
-									$_REQUEST['part_props'] == 'Y'
-								);
-								
-								if (!is_array($product_properties))
-								{
-									$strError = "CATALOG_PARTIAL_BASKET_PROPERTIES_ERROR";
-									$successfulAdd = false;
-								}
-							}else
-							{
-								$strError = "CATALOG_EMPTY_BASKET_PROPERTIES_ERROR";
-								$successfulAdd  = false;
-							}
-						}else
-						{
-							$skuAddProps = (isset($_REQUEST['basket_props']) && !empty($_REQUEST['basket_props']) ? $_REQUEST['basket_props'] : '');
-							if ($arSkuProp || !empty($skuAddProps))
-							{
-								$product_properties = CIBlockPriceTools::GetOfferProperties(
-									$_REQUEST["item"],
-									$_REQUEST["iblockID"],
-									$arSkuProp,
-									$skuAddProps
-								);
-							}
-						}
-					}			
-				}else
-				{
-					$strError = 'CATALOG_ELEMENT_NOT_FOUND';
-					$successfulAdd = false;
-				}
-				if($successfulAdd)
-				{
-					$bNeedAddAction = true;
-					if(isset($_REQUEST["prop"]['ASPRO_BUY_PRODUCT_ID']) && $_REQUEST["prop"]['ASPRO_BUY_PRODUCT_ID']>0){
-						$product_properties[] = array("NAME" => 'link_id', "CODE" => 'ASPRO_BUY_PRODUCT_ID', 'VALUE' => htmlspecialcharsEx($_REQUEST["prop"]['ASPRO_BUY_PRODUCT_ID']));
+			// Сохраняем изменения в корзине
+			$basket->save();
 
-						//need for sort in admin
-						$dbBasketItemParent = CSaleBasket::GetList(
-							array("NAME" => "ASC", "ID" => "ASC"),
-							array("PRODUCT_ID" => $_REQUEST["prop"]['ASPRO_BUY_PRODUCT_ID'], "FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
-							false, false, array("ID", "DELAY", "SORT")
-						)->Fetch();
-						if(!empty($dbBasketItemParent) && isset($dbBasketItemParent["SORT"]))
-						{
-							$arRewriteFields = array("SORT" => $dbBasketItemParent["SORT"] );
-						}
-						/////
-						if(empty($dbBasketItemParent)){
-							$strError = 'PARENT_ITEM_NOT_FOUND';
-							$successfulAdd = false;
-							$bNeedAddAction = false;
-						}
-					}
+			
 
-					if($bNeedAddAction && !Add2BasketByProductID($_REQUEST["item"], $_REQUEST["quantity"], $arRewriteFields, $product_properties))
-					{
-						if ($ex = $APPLICATION->GetException())
-							$strErrorExt = $ex->GetString();
-						
-						$strError = "ERROR_ADD2BASKET";
-						$successfulAdd = false;
-					}
-
-
-					/*add_services*/
-					if(!empty($_REQUEST["services"])) //buy items
-					{
-						$product_properties_services = array();
-						if( isset($_REQUEST["services"][0]) && $_REQUEST["services"][0]["id"] >0 ){
-							$product_properties_services = CIBlockPriceTools::CheckProductProperties(
-								$_REQUEST["services"][0]["iblock_id"],
-								$_REQUEST["services"][0]["id"],
-								array("BUY_PRODUCT_PROP"),
-								array("BUY_PRODUCT_PROP" => htmlspecialcharsEx($_REQUEST["item"])),
-								'Y'
-							);
-							$product_properties_services = is_array($product_properties_services) ? $product_properties_services : array();
-						}
-						
-						$product_properties_services[] = array("NAME" => 'link_id', "CODE" => 'ASPRO_BUY_PRODUCT_ID', 'VALUE' => htmlspecialcharsEx($_REQUEST["item"]));
-
-						//need for sort in admin
-						$dbBasketItemParent = CSaleBasket::GetList(
-							array("NAME" => "ASC", "ID" => "ASC"),
-							array("PRODUCT_ID" => $_REQUEST["item"], "FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
-							false, false, array("ID", "DELAY", "SORT")
-						)->Fetch();
-						if(!empty($dbBasketItemParent) && isset($dbBasketItemParent["SORT"]))
-						{
-							$arRewriteFields = array("SORT" => $dbBasketItemParent["SORT"] );
-						}
-						/////						
-						
-						foreach($_REQUEST["services"] as $arItem)
-						{
-							if($arItem["id"]) // not empty id
-							{								
-								if(!Add2BasketByProductID($arItem["id"], $arItem["quantity"], $arRewriteFields, $product_properties_services))
-								{
-									if($ex = $APPLICATION->GetException())
-									{
-										$strErrorExt .= '<br>'.$ex->GetString();
-									}
-									
-									$strError = "ERROR_ADD2BASKET";
-									$successfulAdd = false;
-								}
-								
-							}
-						}
-					}
-					/**/
-
-				}
+			$rsLastID = CSaleBasket::GetList(
+				array("ID" => "DESC"),
+				array("PRODUCT_ID" => $productId,"LID" => 's1', "ORDER_ID" => "NULL",'F_USER'=>$fuserId),
+				false, false, ["ID"]
+			)->Fetch()['ID'];
+			$arFieldsBaskLast['PRICE'] = $_REQUEST['price'];
+			if (intval($_REQUEST['percent']) !== 0) {
+				$arFieldsBaskLast['DISCOUNT_PRICE'] = $_REQUEST['discount_price'];
+				$arFieldsBaskLast['DISCOUNT_VALUE'] = $_REQUEST['percent'];
 			}
-			if ($successfulAdd)
-				$addResult = array('STATUS' => 'OK', 'MESSAGE' => 'CATALOG_SUCCESSFUL_ADD_TO_BASKET', 'MESSAGE_EXT' => $strErrorExt);
-			else
-				$addResult = array('STATUS' => 'ERROR', 'MESSAGE' => $strError, 'MESSAGE_EXT' => $strErrorExt);
+			CSaleBasket::Update($rsLastID, $arFieldsBaskLast);
+
+			$addResult = array('STATUS' => 'OK', 'MESSAGE' => 'CATALOG_SUCCESSFUL_ADD_TO_BASKET', 'MESSAGE_EXT' => $strErrorExt);
 		}
 	}
 	elseif(!empty($_REQUEST["subscribe_item"]))

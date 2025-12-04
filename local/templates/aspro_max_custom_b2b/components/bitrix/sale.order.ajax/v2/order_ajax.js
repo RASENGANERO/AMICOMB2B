@@ -8650,7 +8650,7 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       propsCommentContainer.appendChild($divInner);
       propsNode.appendChild(propsCommentContainer);
     },
-
+    
     editTotalBlock: function () {
       if (!this.totalInfoBlockNode || !this.result.TOTAL) return;
 
@@ -8775,14 +8775,15 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
           this.createTotalUnit(BX.message("SOA_SUM_DELIVERY"), deliveryValue, params)
         );
       }
-
       if (this.options.showDiscountPrice) {
+        
+        
         discText = this.params.MESS_ECONOMY;
         if (total.DISCOUNT_PERCENT_FORMATED && parseFloat(total.DISCOUNT_PERCENT_FORMATED) > 0)
           discText += total.DISCOUNT_PERCENT_FORMATED;
 
         this.totalInfoBlockNode.appendChild(
-          this.createTotalUnit(discText + ":", total.DISCOUNT_PRICE_FORMATED, { highlighted: true })
+          this.createTotalUnit(discText + ":", this.params.DISCOUNT_PRICE_ALL_CUSTOM, { highlighted: true })
         );
       }
 

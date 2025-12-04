@@ -47,6 +47,7 @@ $eventManager->addEventHandler(
     ['Products', 'setSortByPrice'],
 );
 
+
 /*
 * Добавление UTM меток при оформлении заказа
 */
@@ -110,8 +111,8 @@ spl_autoload_register(function ($class) {
     }
 });
 spl_autoload_register(function ($class) {
-    $prefix = 'AmikomnewB2B\\'; // Используйте двойной обратный слэш
-    $base_dir = __DIR__ . '/../lib/AmikomnewB2B/';
+    $prefix = 'AmikomB2B\\'; // Используйте двойной обратный слэш
+    $base_dir = __DIR__ . '/../lib/AmikomB2B/';
 
     // Проверяем, начинается ли класс с префикса
     if (strncmp($prefix, $class, strlen($prefix)) !== 0) {

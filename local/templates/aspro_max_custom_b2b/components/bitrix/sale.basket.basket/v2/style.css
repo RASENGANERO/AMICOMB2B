@@ -1346,6 +1346,23 @@ h2.basket-item-info-name {
   }
 }
 
+
+.basket-item-btn-plus-custom,
+.basket-item-btn-minus-custom {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 32px;
+  cursor: pointer;
+  cursor: pointer;
+  background: 0 0;
+  border: none;
+  transition: 300ms all ease;
+  -webkit-user-select: none;
+}
+
+
 .basket-item-btn-plus,
 .basket-item-btn-minus {
   position: absolute;
@@ -1360,17 +1377,46 @@ h2.basket-item-info-name {
   transition: 300ms all ease;
   -webkit-user-select: none;
 }
+
+.basket-item-btn-plus-custom {
+  right: 0;
+  left: auto;
+  margin: 0;
+}
 .basket-item-btn-plus {
   right: 0;
   left: auto;
   margin: 0;
 }
 
+.basket-item-block-amount.disabled .basket-item-btn-plus-custom,
+.basket-item-block-amount.disabled .basket-item-btn-minus-custom {
+  background-color: transparent;
+  cursor: default;
+}
+
+
 .basket-item-block-amount.disabled .basket-item-btn-plus,
 .basket-item-block-amount.disabled .basket-item-btn-minus {
   background-color: transparent;
   cursor: default;
 }
+
+.basket-item-btn-plus-custom:before,
+.basket-item-btn-plus-custom:after,
+.basket-item-btn-minus-custom:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -1px;
+  margin-left: -5px;
+  width: 11px;
+  height: 1px;
+  background-color: #979797;
+  content: "";
+  transition: 300ms all ease;
+}
+
 
 .basket-item-btn-plus:before,
 .basket-item-btn-plus:after,
@@ -1387,6 +1433,22 @@ h2.basket-item-info-name {
   transition: 300ms all ease;
 }
 
+
+.basket-item-btn-plus-custom:hover:before,
+.basket-item-btn-plus-custom:hover:after,
+.basket-item-btn-minus-custom:hover:after {
+  background-color: #535353;
+  background-color: var(--theme-base-color);
+}
+
+.basket-item-block-amount.disabled .basket-item-btn-plus-custom:before,
+.basket-item-block-amount.disabled .basket-item-btn-plus-custom:after,
+.basket-item-block-amount.disabled .basket-item-btn-minus-custom:after {
+  background-color: #f3f3f3;
+}
+
+
+
 .basket-item-btn-plus:hover:before,
 .basket-item-btn-plus:hover:after,
 .basket-item-btn-minus:hover:after {
@@ -1399,6 +1461,16 @@ h2.basket-item-info-name {
 .basket-item-block-amount.disabled .basket-item-btn-minus:after {
   background-color: #f3f3f3;
 }
+
+
+.basket-item-btn-plus-custom:before {
+  margin-top: -6px;
+  margin-left: 0px;
+  width: 1px;
+  height: 11px;
+}
+
+
 
 .basket-item-btn-plus:before {
   margin-top: -6px;

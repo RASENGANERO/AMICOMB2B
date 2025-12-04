@@ -1,16 +1,12 @@
-<? if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
-
+<?if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
+use AmikomB2B;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Sale\PriceMaths;
 global $APPLICATION, $arRegion;
+global $USER;
 
-/**
- *
- * This file modifies result for every request (including AJAX).
- * Use it to edit output result for "{{ mustache }}" templates.
- *
- * @var array $result
- */
+$counterCheckDiscount = 0;
+$counterAllDiscount = 0;
 
 $mobileColumns = isset($this->arParams['COLUMNS_LIST_MOBILE'])
 	? $this->arParams['COLUMNS_LIST_MOBILE']
@@ -212,6 +208,7 @@ foreach ($this->basketItems as $row)
 		'HAS_SERVICES' => $buyServices,
 		'USE_FAST_VIEW' => $bUseFastView,
 	);
+	
 	$typeStickers = \Bitrix\Main\Config\Option::get('aspro.max', 'ITEM_STICKER_CLASS_SOURCE', 'PROPERTY_VALUE', $rowData['LID']);
 	$parentItemIDs = [
 		'ID' => $row['PRODUCT_ID'],
@@ -584,8 +581,37 @@ foreach ($this->basketItems as $row)
 		$rowData['LABEL_VALUES'] = $labels;
 	}
 
+	$IDBrand = \AmikomB2B\DiscountInfo::getBrandID($rowData['PRODUCT_ID']);
+	$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
+	$brandDiscounts = \AmikomB2B\DiscountInfo::getBrandDiscount($IDBrand);//Получаем типы скидок бренда
+	$discountsAll = \AmikomB2B\DiscountInfo::getDiscounts($UF_Partner,$brandDiscounts);//Получаем все проценты скидок по бренду
+	$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду
+	if (intval($maxDiscount) !== 0) {
+		
+		$obj = new \AmikomB2B\DiscountPrices($rowData,$maxDiscount);
+		$rowData = $obj->generateDiscountBasketValues();
+		$counterCheckDiscount+=1;
+		$counterAllDiscount+=$rowData['DISCOUNT_PRICE'];
+
+
+	}
+
+
 	$result['BASKET_ITEM_RENDER_DATA'][] = $rowData;
+//	echo '<pre>';
+//	print_r($rowData);
+//	echo '</pre>';
 }
+
+if ($counterCheckDiscount !== 0) {
+	$this->priceVatShowValue = 'Y';
+
+	$result['DISCOUNT_PRICE_ALL'] = $counterAllDiscount;
+    $result['DISCOUNT_PRICE_ALL_FORMATED'] = \AmikomB2B\DiscountPrices::getPrintValue($counterAllDiscount);//$counterAllDiscount
+    $result['DISCOUNT_PRICE_FORMATED'] = \AmikomB2B\DiscountPrices::getPrintValue($counterAllDiscount);//$counterAllDiscount
+
+}
+
 $result['SERVICES_RENDER_DATA'] = $arServices;
 $result['ITEMS_RENDER_DATA'] = $arItems;
 

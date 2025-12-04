@@ -7338,7 +7338,7 @@ $(document).ready(function () {
         fill_prop.props = JSON.stringify(props);
         fill_prop.item = item;
         fill_prop.basket_props = basket_props;
-
+        
         var isDetail =
             th.closest(".product-action").length ||
             th.closest("#headerfixed.with-product");
@@ -7508,6 +7508,10 @@ $(document).ready(function () {
                 fill_prop.props = JSON.stringify(props);
                 fill_prop.item = item;
                 fill_prop.basket_props = basket_props;
+                //CAST
+                fill_prop.discount_price = document.getElementById('cust-add-basket').getAttribute('discount-price');
+                fill_prop.price = document.getElementById('cust-add-basket').getAttribute('price');
+                fill_prop.percent = document.getElementById('cust-add-basket').getAttribute('percent');
 
                 var isDetail =
                     th.closest(".product-action").length ||

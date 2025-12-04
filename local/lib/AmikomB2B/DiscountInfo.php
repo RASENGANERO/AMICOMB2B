@@ -1,7 +1,17 @@
 <?
-class Discount {
+namespace AmikomB2B;
+use CIBlockElement;
+use Bitrix\Highloadblock\HighloadBlockTable;
+use CUser;
+class DiscountInfo {
     const IBLOCK_BRANDS = 33;
+    const IBLOCK_PRODUCTS = 29;
     const HLBLOCK_MATRIX = 10;
+
+    public static function getBrandID ($productID) {
+        $propValue = CIBlockElement::GetProperty(self::IBLOCK_PRODUCTS,$productID,'sort','asc',['CODE' => 'BRAND'])->Fetch()['VALUE'];
+        return $propValue;
+    }
     public static function getBrandDiscount ($idBrand):array {
         $propValuesList = [];
         $propValuesRes = CIBlockElement::GetProperty(self::IBLOCK_BRANDS,$idBrand,'sort','asc',['CODE' => 'B2B_DISCOUNT']);
@@ -12,8 +22,8 @@ class Discount {
     }
 
     public static function getEntity($idHLBlock) {
-        $arHLBlock = Bitrix\Highloadblock\HighloadBlockTable::getById($idHLBlock)->fetch();
-        $obEntity = Bitrix\Highloadblock\HighloadBlockTable::compileEntity($arHLBlock);
+        $arHLBlock = HighloadBlockTable::getById($idHLBlock)->fetch();
+        $obEntity = HighloadBlockTable::compileEntity($arHLBlock);
         $strEntityDataClass = $obEntity->getDataClass();
         return $strEntityDataClass;
     }
@@ -34,25 +44,29 @@ class Discount {
 
     public static function getDiscounts($idUserUF, $discountsBrand) {
         $discountsAll = [];
-        $resultDiscountsUser = self::checkValuesDiscountByUser($idUserUF);
-        if (!empty($resultDiscountsUser)) {
-            for ($i = 0; $i < count($resultDiscountsUser); $i++) {
-                if (in_array($resultDiscountsUser[$i]['UF_PRICE_GROUP_ID'],$discountsBrand)) {
-                    $discountsAll[] = intval($resultDiscountsUser[$i]['UF_DISCOUNT_VALUE']);
+        if (!empty($idUserUF)) {
+            $resultDiscountsUser = self::checkValuesDiscountByUser($idUserUF);
+            if (!empty($resultDiscountsUser)) {
+                for ($i = 0; $i < count($resultDiscountsUser); $i++) {
+                    if (in_array($resultDiscountsUser[$i]['UF_PRICE_GROUP'],$discountsBrand)) {
+                        $discountsAll[] = intval($resultDiscountsUser[$i]['UF_DISCOUNT_VALUE']);
+                    }
                 }
             }
         }
-        sort($discountsAll,SORT_NUMERIC);
+        
         return $discountsAll;
     }
 
-    public static function getMaxDiscount($discountValues) {
-        return max($discountValues);
+    public static function getMaxDiscount($discountValues):int {
+        if (!empty($discountValues)) {
+            return intval(max($discountValues));
+        }
+        return 0;
     }
 
-    public static function getPartnerID($idUser){
-        $res = CUser::GetByID($idUser)->Fetch()['UF_PARTNER_ID'];
-        return $res;
+    public static function getPartnerID($idUser):string{
+        return strval(CUser::GetByID($idUser)->Fetch()['UF_PARTNER_ID']);
     }  
 }
 ?>
