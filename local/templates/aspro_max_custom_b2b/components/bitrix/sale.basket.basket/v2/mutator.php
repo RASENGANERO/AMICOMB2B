@@ -598,9 +598,9 @@ foreach ($this->basketItems as $row)
 
 
 	$result['BASKET_ITEM_RENDER_DATA'][] = $rowData;
-//	echo '<pre>';
-//	print_r($rowData);
-//	echo '</pre>';
+	echo '<pre>';
+	print_r($rowData);
+	echo '</pre>';
 }
 
 if ($counterCheckDiscount !== 0) {

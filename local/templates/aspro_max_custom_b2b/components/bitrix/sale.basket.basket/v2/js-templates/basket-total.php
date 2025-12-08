@@ -5,6 +5,7 @@ use Bitrix\Main\Localization\Loc;
 /**
  * @var array $arParams
  */
+print_r($arParams);
 ?>
 <script id="basket-total-template" type="text/html">
 	<div class="basket-checkout-container" data-entity="basket-checkout-aligner">
@@ -84,7 +85,11 @@ use Bitrix\Main\Localization\Loc;
 				</div>
 
 				<div class="basket-checkout-section-right">
-
+					<div class="basket-checkout-block basket-checkout-btn checkout-order">
+						<button id="get-cp" class="btn btn-lg btn-default basket-btn-checkout">
+							<?=Loc::getMessage('SBB_BASKET_CUST')?>
+						</button>
+					</div>
 					<?if (CMax::GetFrontParametrValue('SHOW_ONECLICKBUY_ON_BASKET_PAGE') === 'Y'):?>
 						<div class="basket-checkout-block basket-checkout-btn ocb">
 							<span class="oneclickbuy btn btn-lg fast_order btn-transparent-border-color btn-wide" onclick="oneClickBuyBasket()">
@@ -99,6 +104,8 @@ use Bitrix\Main\Localization\Loc;
 							<?=Loc::getMessage('SBB_ORDER')?>
 						</button>
 					</div>
+
+					
 				</div>
 			</div>
 		</div>

@@ -2,7 +2,6 @@
   "use strict";
 
   BX.namespace("BX.Sale.BasketComponent");
-
   BX.Sale.BasketComponent = {
     maxItemsShowCount: 30,
     precisionFactor: Math.pow(10, 6),
@@ -104,8 +103,12 @@
 
       this.resizeServicesBasketTimeout();
       this.initBasket = true;
+      this.setFuserID();
     },
 
+    setFuserID: function () {
+      document.getElementById('get-cp').setAttribute('fuser',this.params.FUSER);
+    },
     getTemplate: function (templateName) {
       if (!this.templates.hasOwnProperty(templateName)) {
         var template = BX(templateName);

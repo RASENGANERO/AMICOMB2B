@@ -52,7 +52,7 @@ echo $fuserId.PHP_EOL;
 			
 			$rsLastID = CSaleBasket::GetList(
 				array("ID" => "DESC"),
-				array("PRODUCT_ID" => 200213,"LID" => 's1', "ORDER_ID" => "NULL",'F_USER'=>$fuserId),
+				array("LID" => 's1', "ORDER_ID" => "NULL",'F_USER'=>$fuserId),
 				false, false, ["ID"]
 			)->Fetch()['ID'];
             print_r($rsItems);
@@ -60,6 +60,4 @@ echo $fuserId.PHP_EOL;
 
 
 
-				$res = CSaleBasket::GetByID(603);
-				print_r($res);
 ?>

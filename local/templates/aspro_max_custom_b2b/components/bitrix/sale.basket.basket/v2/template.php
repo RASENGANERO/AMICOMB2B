@@ -141,6 +141,7 @@ $this->addExternalJs($templateFolder.'/js/action-pool.js');
 $this->addExternalJs($templateFolder.'/js/filter.js');
 $this->addExternalJs($templateFolder.'/js/component.js');
 $this->addExternalJs($templateFolder.'/js/basket.js');
+$this->addExternalJs($templateFolder.'/js/mainbask.js');
 
 $APPLICATION->AddViewContent('more_text_title', '<div class="basket-back font_xs"><a href="/b2b/catalog/" class="basket-back__link muted">'.Loc::getMessage('SBB_BACK_CATALOG_TITLE').'</a></div>');
 
@@ -257,11 +258,14 @@ if (empty($arResult['ERROR_MESSAGE']))
 		</script>
 		<?
 	}
-
+	$arrayKeyFirst = array_key_first($arResult['GRID']['ROWS']);
+	$arParams['FUSER'] = $arResult['GRID']['ROWS'][$arrayKeyFirst]['FUSER_ID'];
 	$signer = new \Bitrix\Main\Security\Sign\Signer;
 	$signedTemplate = $signer->sign($templateName, 'sale.basket.basket');
 	$signedParams = $signer->sign(base64_encode(serialize($arParams)), 'sale.basket.basket');
 	$messages = Loc::loadLanguageFile(__FILE__);
+
+	
 	?>
 	<script>
 		BX.message(<?=CUtil::PhpToJSObject($messages)?>);

@@ -38,7 +38,6 @@ class DiscountPrices {
         $this->discountArr['DISCOUNT_PRICE_PERCENT_FORMATED'] = $this->percent.'%';
         $this->discountArr['SHOW_DISCOUNT_PRICE'] = 1;
         
-       
         $discountPrice = \CSaleBasket::GetByID($this->discountArr['ID'])['DISCOUNT_PRICE'];
 
         $this->discountArr['DISCOUNT_PRICE'] = $discountPrice;
@@ -66,6 +65,15 @@ class DiscountPrices {
 
     public static function getPrintValue($printValue) {
         return number_format($printValue, 0, ',', ' ') . ' ₽';
+    }
+
+
+    public static function getPrintValueFloat($printValue) {
+        if (floor($printValue) == $printValue) {
+            return number_format($printValue, 0, '.', ' ') . " ₽";
+        } else {
+            return number_format($printValue, 2, '.', ' ') . " ₽";
+        }
     }
     public function getVatrateNovatValue($valueVatrateNovat) {
         $vatRateNovat = $valueVatrateNovat - ($valueVatrateNovat / 100 * $this->percent);
