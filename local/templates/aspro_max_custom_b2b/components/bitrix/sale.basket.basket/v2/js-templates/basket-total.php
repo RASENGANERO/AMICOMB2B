@@ -5,7 +5,6 @@ use Bitrix\Main\Localization\Loc;
 /**
  * @var array $arParams
  */
-print_r($arParams);
 ?>
 <script id="basket-total-template" type="text/html">
 	<div class="basket-checkout-container" data-entity="basket-checkout-aligner">

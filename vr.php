@@ -40,22 +40,8 @@ $allProductPrices = \Bitrix\Catalog\PriceTable::getList([
     ],
 ])->fetchAll();
 print_r($allProductPrices);
-
-
-$fuserId = Sale\Fuser::getId();
-echo $fuserId.PHP_EOL;
-
-			// Получаем текущий сайт
-			$siteId = Context::getCurrent()->getSite();
-
-			// Загружаем корзину для текущего пользователя
-			
-			$rsLastID = CSaleBasket::GetList(
-				array("ID" => "DESC"),
-				array("LID" => 's1', "ORDER_ID" => "NULL",'F_USER'=>$fuserId),
-				false, false, ["ID"]
-			)->Fetch()['ID'];
-            print_r($rsItems);
+use AmikomB2B;
+$discountsAll = \AmikomB2B\DiscountInfo::getDiscounts('018e027a-edf1-11ea-817d-0cc47a7821bb', 'hiwatch');
 
 
 

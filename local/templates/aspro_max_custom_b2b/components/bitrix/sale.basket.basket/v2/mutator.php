@@ -583,7 +583,7 @@ foreach ($this->basketItems as $row)
 
 	$IDBrand = \AmikomB2B\DiscountInfo::getBrandID($rowData['PRODUCT_ID']);
 	$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
-	$brandDiscounts = \AmikomB2B\DiscountInfo::getBrandDiscount($IDBrand);//Получаем типы скидок бренда
+	$brandDiscounts = \AmikomB2B\DiscountInfo::getBrandName($IDBrand);//Получаем типы скидок бренда
 	$discountsAll = \AmikomB2B\DiscountInfo::getDiscounts($UF_Partner,$brandDiscounts);//Получаем все проценты скидок по бренду
 	$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду
 	if (intval($maxDiscount) !== 0) {
@@ -598,11 +598,9 @@ foreach ($this->basketItems as $row)
 
 
 	$result['BASKET_ITEM_RENDER_DATA'][] = $rowData;
-	echo '<pre>';
-	print_r($rowData);
-	echo '</pre>';
+	
 }
-
+print_r($rowData);
 if ($counterCheckDiscount !== 0) {
 	$this->priceVatShowValue = 'Y';
 

@@ -87,7 +87,7 @@ use Amikomnew;
 			//echo '</pre>';
 			if ($arItem['PRICES']['BASE']['VALUE'] !== 0) {
 				$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя		
-				$brandDiscounts = \AmikomB2B\DiscountInfo::getBrandDiscount($arItem['PROPERTIES']['BRAND']['VALUE']);//Получаем типы скидок бренда
+				$brandDiscounts = \AmikomB2B\DiscountInfo::getBrandName($arItem['PROPERTIES']['BRAND']['VALUE']);//Получаем типы скидок бренда
 				$discountsAll = \AmikomB2B\DiscountInfo::getDiscounts($UF_Partner,$brandDiscounts);//Получаем все проценты скидок по бренду
 				$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду
 				if (intval($maxDiscount) !== 0) {
