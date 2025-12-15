@@ -1,0 +1,1 @@
+<?$this->__component->arResultCacheKeys = array_merge($this->__component->arResultCacheKeys, ['ID', 'IBLOCK_SECTION_ID', 'DISPLAY_PROPERTIES']);?>

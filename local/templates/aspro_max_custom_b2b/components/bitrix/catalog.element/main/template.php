@@ -243,7 +243,9 @@ if($arResult["OFFERS"])
 		$arResult["OFFERS"][$arResult["OFFERS_SELECTED"]]["IBLOCK_ID"] = $arResult['IBLOCK_ID'];
 		/* */
 		// for current offer buy block
-		$arAddToBasketData = CMax::GetAddToBasketArray($arResult["OFFERS"][$arResult["OFFERS_SELECTED"]], $totalCount, $arParams["DEFAULT_COUNT"], $arParams["BASKET_URL"], false, $arItemIDs["ALL_ITEM_IDS"], 'btn-lg', $arParams);
+		//$arAddToBasketData = CMax::GetAddToBasketArray($arResult["OFFERS"][$arResult["OFFERS_SELECTED"]], $totalCount, $arParams["DEFAULT_COUNT"], $arParams["BASKET_URL"], false, $arItemIDs["ALL_ITEM_IDS"], 'btn-lg', $arParams);
+		$arAddToBasketData = \Aspro\Functions\CAsproMaxCustom::GetAddToBasketArrayCustom($arResult["OFFERS"][$arResult["OFFERS_SELECTED"]], $arValuesCust,$arResult['PRICES'],$totalCount, $arParams["DEFAULT_COUNT"], $arParams["BASKET_URL"], true, $arItemIDs["ALL_ITEM_IDS"], 'btn-lg', $arParams);
+
 		/* restore IBLOCK_ID */
 		$arResult["OFFERS"][$arResult["OFFERS_SELECTED"]]["IBLOCK_ID"] = $currentSKUIBlock;
 		/* */

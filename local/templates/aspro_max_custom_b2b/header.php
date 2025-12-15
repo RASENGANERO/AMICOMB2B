@@ -22,6 +22,7 @@ $bIncludedModule = (\Bitrix\Main\Loader::includeModule("aspro.max"));?>
 	<?$APPLICATION->ShowMeta("apple-mobile-web-app-status-bar-style");?>
 	<?$APPLICATION->ShowMeta("SKYPE_TOOLBAR");?>
 	<?$APPLICATION->ShowHead();?>
+	
 	<?Asset::getInstance()->addString('<link rel="canonical" href="http://site.ru' . str_replace('index.php', '', $APPLICATION->GetCurPage(true)) . '" />');?>
 	<?Asset::getInstance()->addJs("/local/templates/aspro_max_custom_b2b/ajax/jquery.js");?>
 	<?Asset::getInstance()->addJs("/local/templates/aspro_max_custom_b2b/ajax/brandDownload.js");?>

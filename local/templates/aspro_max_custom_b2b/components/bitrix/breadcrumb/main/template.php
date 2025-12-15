@@ -3,6 +3,10 @@ $strReturn = '';
 if($arResult){
 	\Bitrix\Main\Loader::includeModule("iblock");
 	global $NextSectionID, $APPLICATION;
+	$arResult[0] = [
+		'TITLE' => 'B2B Портал',
+		'LINK' => '/b2b/'
+	];
 	$cnt = count($arResult);
 	$lastindex = $cnt - 1;
 	$visibleMobile = 0;
@@ -19,6 +23,7 @@ if($arResult){
 		$arSubSections = array();
 		$bShowMobileArrow = false;
 		$arItem = $arResult[$index];
+		print_r($arItem);
 		$title = htmlspecialcharsex($arItem["TITLE"]);
 		$bLast = $index == $lastindex;
 		if ($NextSectionID) {

@@ -1,0 +1,36 @@
+<? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
+<? 
+$this->setFrameMode( true ); 
+$this->addExternalCss('/local/templates/aspro_max_custom/components/bitrix/search.title/docnames-filter/main.css');
+//$this->addExternalJS('/local/templates/aspro_max_custom/components/bitrix/search.title/docnames-filter/main.js');
+?>
+
+<?
+$INPUT_ID = trim((string) $arParams["~INPUT_ID"]);
+if(strlen($INPUT_ID) <= 0)
+	$INPUT_ID = "title-search-input";
+$INPUT_ID = CUtil::JSEscape($INPUT_ID);
+
+$CONTAINER_ID = trim((string) $arParams["~CONTAINER_ID"]);
+if(strlen($CONTAINER_ID) <= 0)
+	$CONTAINER_ID = "title-search";
+$CONTAINER_ID = CUtil::JSEscape($CONTAINER_ID);
+
+if($arParams["SHOW_INPUT"] !== "N"):?>
+	<div id="<?echo $CONTAINER_ID?>" class="stitle_form">
+		<form action="<?echo $arResult["FORM_ACTION"]?>">
+			<div class="form-control1 bg">
+				<input id="<?echo $INPUT_ID?>" type="text" name="q" value="" size="40" class="text small_block" maxlength="100" autocomplete="off" placeholder="<?=GetMessage("SEARCH_PLACEHOLDER");?>" />
+			</div>
+		</form>
+	</div>
+<?endif?>
+<script type="text/javascript">
+var jsControl = new JCTitleSearch({
+	'AJAX_PAGE' : '<?echo CUtil::JSEscape(POST_FORM_ACTION_URI)?>',
+	'CONTAINER_ID': '<?echo $CONTAINER_ID?>',
+	'INPUT_ID': '<?echo $INPUT_ID?>',
+	'MIN_QUERY_LEN': 1,
+	'MAX_QUERY_LEN': 15,
+});
+</script>

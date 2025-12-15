@@ -10,14 +10,18 @@
 		</div>
 		<?$APPLICATION->ShowViewContent('section_bnr_h1_content');?>
 		<div id="navigation">
-			<?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "main", array(
-				"START_FROM" => "0",
-				"PATH" => "",
-				"SITE_ID" => SITE_ID,
-				"SHOW_SUBSECTIONS" => "N"
-				),
-				false
-			);?>
+			<?$APPLICATION->IncludeComponent(
+	"bitrix:breadcrumb", 
+	"main", 
+	array(
+		"START_FROM" => "0",
+		"PATH" => "",
+		"SITE_ID" => "s1",
+		"SHOW_SUBSECTIONS" => "N",
+		"COMPONENT_TEMPLATE" => "main"
+	),
+	false
+);?>
 		</div>
 	</section>
 </div>
