@@ -4,24 +4,30 @@
 			<div class="topic__inner">
 				<?=$APPLICATION->ShowViewContent('product_share')?>
 				<div class="topic__heading">
-					<h1 id="pagetitle"><?$APPLICATION->ShowTitle(false)?></h1><?$APPLICATION->ShowViewContent('more_text_title');?>
+					<?if($APPLICATION->GetCurPage() === '/b2b/'):?>
+						<h3 id="pagetitle">B2B Портал</h3><?$APPLICATION->ShowViewContent('more_text_title');?>
+					<?else:?>
+						<h1 id="pagetitle"><?$APPLICATION->ShowTitle(false)?></h1><?$APPLICATION->ShowViewContent('more_text_title');?>
+					<?endif;?>
 				</div>
 			</div>
 		</div>
 		<?$APPLICATION->ShowViewContent('section_bnr_h1_content');?>
-		<div id="navigation">
-			<?$APPLICATION->IncludeComponent(
-	"bitrix:breadcrumb", 
-	"main", 
-	array(
-		"START_FROM" => "0",
-		"PATH" => "",
-		"SITE_ID" => "s1",
-		"SHOW_SUBSECTIONS" => "N",
-		"COMPONENT_TEMPLATE" => "main"
-	),
-	false
-);?>
-		</div>
+		<?if($APPLICATION->GetCurPage() !== '/b2b/'):?>
+			<div id="navigation">
+				<?$APPLICATION->IncludeComponent(
+		"bitrix:breadcrumb", 
+		"main", 
+				array(
+							"START_FROM" => "0",
+							"PATH" => "",
+							"SITE_ID" => "s1",
+							"SHOW_SUBSECTIONS" => "N",
+							"COMPONENT_TEMPLATE" => "main"
+						),
+					false
+				);?>
+			</div>
+		<?endif;?>
 	</section>
 </div>

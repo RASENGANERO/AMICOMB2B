@@ -1,0 +1,443 @@
+{
+"_10_UsersManagers": {
+"_p1": {
+"Guid": "765a0b74-c7a4-11ec-9180-00155d640301",
+"Del": false,
+"Name": "Краснова Наталья"
+},
+"_p2": {
+"Guid": "e98e2263-f408-11ef-91de-00155d8d6700",
+"Del": false,
+"Name": "Решетников Александр"
+}
+},
+"_11_Region": {
+"_p1": {
+"Guid": "f75bee53-5565-11e6-80ce-0cc47a7821bb",
+"Del": false,
+"Name": "Москва"
+}
+},
+"_11_TypeClient": {
+"_p1": {
+"Guid": "6ad1f508-1fa6-11e9-8150-0cc47a7821bb",
+"Del": false,
+"Name": "Интегратор"
+}
+},
+"_10_Currency": {
+"_p1": {
+"Guid": "be11d75e-1b7a-11e6-80c4-0cc47a7821bb",
+"Del": false,
+"Name": "руб."
+}
+},
+"_12_PriceGroup": {
+"_p1": {
+"Guid": "143eeefd-78db-11e6-80d3-0cc47a7821bb",
+"Del": false,
+"Name": "HiWatch ",
+"Comm": ""
+},
+"_p2": {
+"Guid": "1703c69d-78de-11e6-80d3-0cc47a7821bb",
+"Del": false,
+"Name": "Hik IP",
+"Comm": ""
+},
+"_p3": {
+"Guid": "fe4c8081-7bdc-11e6-80d3-0cc47a7821bb",
+"Del": false,
+"Name": "Hik TVI+NVR",
+"Comm": ""
+},
+"_p4": {
+"Guid": "90c1476f-39a3-11e9-8151-0cc47a7821bb",
+"Del": false,
+"Name": "RVI N1 (50)",
+"Comm": ""
+},
+"_p5": {
+"Guid": "f0cb60d6-0c72-11eb-8182-0cc47a7821bb",
+"Del": false,
+"Name": "Beward",
+"Comm": ""
+},
+"_p6": {
+"Guid": "2f231974-0c73-11eb-8182-0cc47a7821bb",
+"Del": false,
+"Name": "Бастион (25)",
+"Comm": ""
+},
+"_p7": {
+"Guid": "3613e5d8-0c73-11eb-8182-0cc47a7821bb",
+"Del": false,
+"Name": "TFortis",
+"Comm": ""
+},
+"_p8": {
+"Guid": "7dd7cc9c-0c73-11eb-8182-0cc47a7821bb",
+"Del": false,
+"Name": "OSNOVO",
+"Comm": ""
+},
+"_p9": {
+"Guid": "bf64699d-0c73-11eb-8182-0cc47a7821bb",
+"Del": false,
+"Name": "Skynet",
+"Comm": ""
+},
+"_p10": {
+"Guid": "2b568736-e968-11eb-9130-00155d640301",
+"Del": false,
+"Name": "Hik G0E",
+"Comm": ""
+},
+"_p11": {
+"Guid": "30730855-0bc4-11ec-9139-00155d640301",
+"Del": false,
+"Name": "Hiwatch Pro ",
+"Comm": ""
+},
+"_p12": {
+"Guid": "b87a8b6f-300a-11ec-9142-00155d640301",
+"Del": false,
+"Name": "Dahua (60)",
+"Comm": ""
+},
+"_p13": {
+"Guid": "8d586198-37f3-11ec-9145-00155d640301",
+"Del": false,
+"Name": "CamBox Коробки, кронштейны, столбы (45)",
+"Comm": ""
+},
+"_p14": {
+"Guid": "d4f4309d-405f-11ec-9149-00155d640301",
+"Del": false,
+"Name": "Hyperline (36)",
+"Comm": ""
+},
+"_p15": {
+"Guid": "675eab4e-648d-11ec-915e-00155d640301",
+"Del": false,
+"Name": "ЦМО (32)",
+"Comm": ""
+},
+"_p16": {
+"Guid": "1ec53e6b-90b0-11ec-9168-00155d640301",
+"Del": false,
+"Name": "Cabeus",
+"Comm": ""
+},
+"_p17": {
+"Guid": "54beb982-ac0a-11ec-9174-00155d640301",
+"Del": false,
+"Name": "IFLOW (55)",
+"Comm": ""
+},
+"_p18": {
+"Guid": "498e708a-f22e-11ec-9183-00155d640301",
+"Del": false,
+"Name": "Тахион (30)",
+"Comm": ""
+},
+"_p19": {
+"Guid": "e814b78d-1dfb-11ed-9189-00155d640301",
+"Del": false,
+"Name": "Hik Non-CCTV",
+"Comm": ""
+},
+"_p20": {
+"Guid": "ac58cb72-29e2-11ed-918b-00155d640301",
+"Del": false,
+"Name": "HiWatch Non-CCTV",
+"Comm": ""
+},
+"_p21": {
+"Guid": "efa391aa-fdfa-11ed-91a4-00155d640301",
+"Del": false,
+"Name": "Tiandy SPARK ",
+"Comm": ""
+},
+"_p22": {
+"Guid": "370c3476-24a2-11ee-91a5-00155d640301",
+"Del": false,
+"Name": "Hikvision",
+"Comm": ""
+},
+"_p23": {
+"Guid": "90850a30-b528-11ee-91c0-00155d640301",
+"Del": false,
+"Name": "Tiandy SPARK AK ",
+"Comm": ""
+},
+"_p24": {
+"Guid": "64e94201-e75a-11ee-91c3-00155d640301",
+"Del": false,
+"Name": "KadrOn",
+"Comm": ""
+}
+},
+"_11_PriceType": {
+"_p1": {
+"Guid": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"Del": false,
+"Name": "Розница"
+}
+},
+"_20_Firm": {
+"_p1": {
+"Guid": "74350863-f664-11e9-8163-0cc47a7821bb",
+"Del": false,
+"Name": "АМ-трейдинг",
+"NameFull": "Общество с ограниченной ответственностью «АМ-трейдинг»",
+"INN": "7714451851",
+"KPP": "771401001",
+"OGRN": "1197746550814"
+}
+},
+"_30_Contrag": {
+"_p1": {
+"Guid": "018e027c-edf1-11ea-817d-0cc47a7821bb",
+"Del": false,
+"Name": "СРВ-ТРЕЙД ООО",
+"NameFull": "ООО \"СРВ-ТРЕЙД\"",
+"Type": "Юридическое лицо",
+"INN": "5052019178",
+"KPP": "505001001",
+"Info": "",
+"Рartner": "018e027a-edf1-11ea-817d-0cc47a7821bb"
+}
+},
+"_31_Рartner": {
+"_p1": {
+"Guid": "018e027a-edf1-11ea-817d-0cc47a7821bb",
+"Del": false,
+"Name": "СРВ-ТРЕЙД ООО",
+"NameFull": "СРВ-ТРЕЙД ООО",
+"Client": true,
+"Supplier": true,
+"Competitor": false,
+"Carrier": false,
+"Type": "Компания",
+"Sex": "",
+"TypeClient": "6ad1f508-1fa6-11e9-8150-0cc47a7821bb",
+"Region": "f75bee53-5565-11e6-80ce-0cc47a7821bb",
+"Date": "2020-09-03T00:00:00",
+"ClientMasterEmail": "Port12t1~5052019178@ami-com.ru",
+"ClientPhone": "8-926-842-52-08",
+"ClientName": "Зотов Александр"
+}
+},
+"_40_TermsAgree": {
+"_p1": {
+"Guid": "b9bff352-4c31-11f0-91de-00155d8d6700",
+"Del": false,
+"Name": "Предоплата(МТ)СРВ-ТРЕЙД ООО(ЭДО)",
+"Number": "МТ П-1806-01/2025",
+"Date": "2025-06-18T00:00:00",
+"PriceVAT": true,
+"DateStart": "2025-06-18T00:00:00",
+"DateEnd": "0001-01-01T00:00:00",
+"Comm": "",
+"Agreed": true,
+"Stat": "Действует",
+"TermsAgr": {
+"_p1": {
+"PriceGroup": "370c3476-24a2-11ee-91a5-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -47
+},
+"_p2": {
+"PriceGroup": "e814b78d-1dfb-11ed-9189-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -47
+},
+"_p3": {
+"PriceGroup": "fe4c8081-7bdc-11e6-80d3-0cc47a7821bb",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -47
+},
+"_p4": {
+"PriceGroup": "2b568736-e968-11eb-9130-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -47
+},
+"_p5": {
+"PriceGroup": "143eeefd-78db-11e6-80d3-0cc47a7821bb",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -47
+},
+"_p6": {
+"PriceGroup": "ac58cb72-29e2-11ed-918b-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -47
+},
+"_p7": {
+"PriceGroup": "30730855-0bc4-11ec-9139-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -47
+},
+"_p8": {
+"PriceGroup": "b87a8b6f-300a-11ec-9142-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -51
+},
+"_p9": {
+"PriceGroup": "54beb982-ac0a-11ec-9174-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -45
+},
+"_p10": {
+"PriceGroup": "efa391aa-fdfa-11ed-91a4-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -60
+},
+"_p11": {
+"PriceGroup": "90850a30-b528-11ee-91c0-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -60
+},
+"_p12": {
+"PriceGroup": "90c1476f-39a3-11e9-8151-0cc47a7821bb",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -45
+},
+"_p13": {
+"PriceGroup": "f0cb60d6-0c72-11eb-8182-0cc47a7821bb",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": 0
+},
+"_p14": {
+"PriceGroup": "498e708a-f22e-11ec-9183-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": 0
+},
+"_p15": {
+"PriceGroup": "2f231974-0c73-11eb-8182-0cc47a7821bb",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -25
+},
+"_p16": {
+"PriceGroup": "675eab4e-648d-11ec-915e-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -25
+},
+"_p17": {
+"PriceGroup": "bf64699d-0c73-11eb-8182-0cc47a7821bb",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -15
+},
+"_p18": {
+"PriceGroup": "1ec53e6b-90b0-11ec-9168-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -15
+},
+"_p19": {
+"PriceGroup": "64e94201-e75a-11ee-91c3-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -25
+},
+"_p20": {
+"PriceGroup": "8d586198-37f3-11ec-9145-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": 0
+},
+"_p21": {
+"PriceGroup": "7dd7cc9c-0c73-11eb-8182-0cc47a7821bb",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -30
+},
+"_p22": {
+"PriceGroup": "d4f4309d-405f-11ec-9149-00155d640301",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -30
+},
+"_p23": {
+"PriceGroup": "3613e5d8-0c73-11eb-8182-0cc47a7821bb",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -18
+},
+"_p24": {
+"PriceGroup": "1703c69d-78de-11e6-80d3-0cc47a7821bb",
+"PriceType": "b74e6735-78cd-11e6-80d3-0cc47a7821bb",
+"DelivTime": 0,
+"Discount": 0,
+"Margin": 0,
+"Formul": -47
+}
+},
+"Contrag": "018e027c-edf1-11ea-817d-0cc47a7821bb",
+"Рartner": "018e027a-edf1-11ea-817d-0cc47a7821bb"
+}
+}
+}

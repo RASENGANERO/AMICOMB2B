@@ -1,0 +1,58 @@
+<?
+namespace AmikomB2B;
+use CIBlockElement;
+use Bitrix\Highloadblock\HighloadBlockTable;
+class DataB2BUser {
+    public static function getCompany($userPartnerID) {
+        $arFilter = [
+            'IBLOCK_ID' => 56,
+            'PROPERTY_PARTNER_B2B' => $userPartnerID,
+        ];
+        $arFieldsSelect = [
+            'NAME',
+            'PROPERTY_INN',
+            'PROPERTY_KPP',
+        ];
+        $res = CIBlockElement::GetList(['SORT'=>'ASC'],$arFilter,false,false,$arFieldsSelect)->Fetch();
+        return $res;
+    }
+    public static function getAgree($userPartnerID) {
+        $arFilter = [
+            'IBLOCK_ID' => 57,
+            'PROPERTY_PARTNER_B2B' => $userPartnerID,
+        ];
+        $arFieldsSelect = [
+            'NAME',
+            'PROPERTY_NUMBER',
+            'PROPERTY_DATE_START',
+        ];
+        $res = CIBlockElement::GetList(['SORT'=>'ASC'],$arFilter,false,false,$arFieldsSelect)->Fetch();
+        return $res;
+    }
+    public static function getManager($userPartnerID) {
+        $arFilter = [
+            'IBLOCK_ID' => 54,
+            'PROPERTY_PARTNER_B2B' => $userPartnerID,
+        ];
+        $arFieldsSelect = [
+            'PROPERTY_MANAGER',
+        ];
+        $resManagerID = CIBlockElement::GetList(['SORT'=>'ASC'],$arFilter,false,false,$arFieldsSelect)->Fetch()['PROPERTY_MANAGER_VALUE'];
+        $arHLBlock = HighloadBlockTable::getById(9)->fetch();
+        $obEntity = HighloadBlockTable::compileEntity($arHLBlock);
+        $entityClass = $obEntity->getDataClass();
+        $res = $entityClass::getList([
+            'select' => ['*'],
+            'filter' => ['UF_XML_ID' => $resManagerID]
+        ])->fetch();
+        $res['UF_PHONE_FORMATTED'] = self::formatPhoneNumber($res['UF_PHONE']);
+        return $res;
+    }
+    public static function formatPhoneNumber($phone) {
+        $phone = preg_replace('/D/', '', $phone);
+        return '+7 ' . substr($phone, 1, 3) . ' ' . substr($phone, 4, 3) . ' ' . substr($phone, 7, 2) . ' ' . substr($phone, 9, 2);    
+    }
+        
+}
+
+?>

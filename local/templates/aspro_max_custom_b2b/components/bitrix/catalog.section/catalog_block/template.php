@@ -82,13 +82,10 @@ use Amikomnew;
 		
 		<?foreach($arResult["ITEMS"] as $arItem){?>
 			<?
-			//echo '<pre>';
-			//print_r($arItem);
-			//echo '</pre>';
 			if ($arItem['PRICES']['BASE']['VALUE'] !== 0) {
-				$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя		
-				$brandDiscounts = \AmikomB2B\DiscountInfo::getBrandName($arItem['PROPERTIES']['BRAND']['VALUE']);//Получаем типы скидок бренда
-				$discountsAll = \AmikomB2B\DiscountInfo::getDiscounts($UF_Partner,$brandDiscounts);//Получаем все проценты скидок по бренду
+				$UF_PriceGroup = \AmikomB2B\DiscountInfo::getPriceGroupID($arResult['ID']);
+				$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
+				$discountsAll = \AmikomB2B\DiscountInfo::getDiscountUser($UF_PriceGroup,$UF_Partner);//Получаем все проценты скидок по бренду
 				$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду
 				if (intval($maxDiscount) !== 0) {
 					$obj = new \AmikomB2B\DiscountPrices($arItem['PRICES'],$maxDiscount);

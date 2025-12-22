@@ -581,10 +581,9 @@ foreach ($this->basketItems as $row)
 		$rowData['LABEL_VALUES'] = $labels;
 	}
 
-	$IDBrand = \AmikomB2B\DiscountInfo::getBrandID($rowData['PRODUCT_ID']);
+	$UF_PriceGroup = \AmikomB2B\DiscountInfo::getPriceGroupID($rowData['PRODUCT_ID']);
 	$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
-	$brandDiscounts = \AmikomB2B\DiscountInfo::getBrandName($IDBrand);//Получаем типы скидок бренда
-	$discountsAll = \AmikomB2B\DiscountInfo::getDiscounts($UF_Partner,$brandDiscounts);//Получаем все проценты скидок по бренду
+	$discountsAll = \AmikomB2B\DiscountInfo::getDiscountUser($UF_PriceGroup,$UF_Partner);//Получаем все проценты скидок по бренду
 	$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду
 	if (intval($maxDiscount) !== 0) {
 		

@@ -1,8 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Организации");
-$APPLICATION->AddChainItem("B2B Кабинет", "/b2b/");
-$APPLICATION->AddChainItem("Организации", "/b2b/organizations/");
 ?>
 <div class="dashboard-item">
     <h3 class="dashboard-maintext">Профили организаций</h3>

@@ -187,14 +187,6 @@ $arUrlRewrite=array (
     'PATH' => '/lookbooks/index.php',
     'SORT' => 100,
   ),
-  102 => 
-  array (
-    'CONDITION' => '#^/b2b/users/#',
-    'RULE' => '',
-    'ID' => '',
-    'PATH' => '/b2b/users/index.php',
-    'SORT' => 100,
-  ),
   120 => 
   array (
     'CONDITION' => '#^/b2b/order/#',

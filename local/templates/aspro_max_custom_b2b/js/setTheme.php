@@ -62,6 +62,7 @@ $VALIDATE_DATETIME_MASK = ($tmp == 'DOT' ? '^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{4} [0
 list($bPhoneAuthSupported, $bPhoneAuthShow, $bPhoneAuthRequired, $bPhoneAuthUse) = Aspro\Max\PhoneAuth::getOptions();
 
 header('Content-Type: application/javascript;charset='.LANG_CHARSET);
+
 ?>
 var arAsproOptions = window[solutionName] = ({
 	"SITE_DIR" : "<?=$SITE_DIR?>",

@@ -23,7 +23,6 @@ if($arResult){
 		$arSubSections = array();
 		$bShowMobileArrow = false;
 		$arItem = $arResult[$index];
-		print_r($arItem);
 		$title = htmlspecialcharsex($arItem["TITLE"]);
 		$bLast = $index == $lastindex;
 		if ($NextSectionID) {

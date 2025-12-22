@@ -1695,82 +1695,82 @@ textarea[data-sid="DEFECT_DESCRIPTION"] {
   background-color: #f0f0f0;
 }
 
-
-
 .dashboard-section{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.dashboard-container{
-  display: grid;
   align-items: flex-start;
   justify-content: center;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-  column-gap: 23px;
-  row-gap: 23px;
 }
-.dashboard-item{
+.dashboard-info-iblock{
   display: flex;
-  align-items: flex-start;
-  border: 2px solid #f2722c;
-  border-radius: 23px;
-  padding: 25px;
   flex-direction: column;
-}
-.dashboard-agreement-container{
-  display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 2em;
+  gap: 20px;
 }
-.dashboard-agreement-item{
-  width: inherit;
+.dashboard-main-info{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: flex-start;
+  justify-content: flex-start;  
+}
+.partner-b2b-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: #fbe5d6;
+  width: -webkit-fill-available;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 46px;
+  padding-right: 20px;
+}
+.company-b2b-main-text{
+  color: #8f8c8b;
+  font-size: 18px;
+  font-weight: 500;
+}
+.agreements-b2b-main-text{
+  color: #8f8c8b;
+  font-size: 16px;
+  font-weight: 500;
+}
+.partner-b2b-text{
+  color: #404040;
+  font-size: 16px;
+  font-weight: 500;
+}
+.partner-b2b-info-container{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 
-
-
-.dashboard-table {
-  width: 100%;
-  margin-bottom: 20px;
-  border-collapse: collapse; /* Объединение границ ячеек */
+.manager-b2b-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: -webkit-fill-available;
 }
-
-.dashboard-table thead th {
+.manager-b2b-info-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+}
+.manager-b2b-main-text{
   font-weight: bold;
-  text-align: left;
-  padding: 10px 15px;
-  background: #EDEDED;
-  font-size: 14px;
-  border: 1px solid #ddd; /* Границы для заголовков */
 }
-
-
-.dashboard-table tbody td {
-  text-align: left;
-  padding: 10px 15px;
-  font-size: 14px;
-  vertical-align: top;
-  border: 1px solid #ddd; /* Границы для ячеек тела таблицы */
+.manager-b2b-text{
+  font-weight: 500;
 }
-
-
-
-.dashboard-table tbody tr:nth-child(even) {
-  background: #F8F8F8;
-}
-
-
-
-.dashboard-table tbody tr:last-child td:first-child {
-  border-radius: 0 0 0 20px; /* Скругление для первой ячейки последней строки */
-}
-
-.dashboard-table tbody tr:last-child td:last-child {
-  border-radius: 0 0 20px 0; /* Скругление для последней ячейки последней строки */
+.manager-b2b-phone{
+  color: var(--basic_text_black);
+  text-decoration: underline;
 }

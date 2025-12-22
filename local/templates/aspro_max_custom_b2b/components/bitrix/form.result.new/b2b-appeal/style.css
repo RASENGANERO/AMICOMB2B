@@ -1,0 +1,18 @@
+.maxwidth-theme > .form.inline{
+    padding-top: 0px !important;
+    width: max-content;
+}
+.form .form_footer{
+    margin: 0px !important;
+    width: 100%;
+}
+.maxwidth-theme > .form.inline .form_footer .btn{
+    margin: 0px;
+    width: inherit;
+}
+.form textarea{
+    min-height: 136px !important;
+}
+.appeal-form{
+    padding-left: 0px !important;
+}

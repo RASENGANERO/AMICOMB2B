@@ -41,18 +41,7 @@ class CPBasketExcel {
         $this->spreadsheet->getDefaultStyle()->getFont()->setName('Arial');
         $this->spreadsheet->getDefaultStyle()->getFont()->setSize(12);
         //$this->sheet->setCellValue('A1', 'Hello World !');
-        
-
-
-
-       
-       
-        
-        
-
-        
     }
-
     public function getDataBasket():array {
         $dataBasketAr = [];
         $arOrder = [

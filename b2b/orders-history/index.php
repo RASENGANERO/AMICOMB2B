@@ -3,54 +3,73 @@
 	$APPLICATION->SetTitle("История заказов");
 	$_REQUEST["filter_history"] = "Y";
 	if(!$USER->isAuthorized()){LocalRedirect(SITE_DIR.'auth');} else {
+
 ?>
-<?$APPLICATION->IncludeComponent("bitrix:sale.personal.order", "template1", Array(
-	"PROP_1" => "",	// Не показывать свойства для типа плательщика "Физическое лицо" (s1)
-		"PROP_3" => "",
-		"PROP_2" => "",	// Не показывать свойства для типа плательщика "Юридическое лицо" (s1)
-		"PROP_4" => "",
-		"SEF_MODE" => "Y",	// Включить поддержку ЧПУ
-		"HISTORIC_STATUSES" => array(	// Перенести в историю заказы в статусах
-			0 => "F",
-			1 => "N",
-			2 => "P",
-		),
-		"SEF_FOLDER" => "/b2b/orders-history/",	// Каталог ЧПУ (относительно корня сайта)
-		"ORDERS_PER_PAGE" => "20",	// Количество заказов на одной странице
-		"PATH_TO_PAYMENT" => "/b2b/order/payment/",	// Страница подключения платежной системы
-		"PATH_TO_BASKET" => "/b2b/basket/",	// Страница с корзиной
-		"SET_TITLE" => "N",	// Устанавливать заголовок страницы
-		"SAVE_IN_SESSION" => "Y",	// Сохранять установки фильтра в сессии пользователя
-		"NAV_TEMPLATE" => "",	// Имя шаблона для постраничной навигации
+
+<?$APPLICATION->IncludeComponent(
+	"bitrix:sale.personal.order",
+	"template1",
+	Array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"ALLOW_INNER" => "N",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "3600",
+		"CACHE_TYPE" => "A",
 		"COMPONENT_TEMPLATE" => ".default",
-		"ACTIVE_DATE_FORMAT" => "d.m.Y",	// Формат показа даты
-		"CACHE_TYPE" => "A",	// Тип кеширования
-		"CACHE_TIME" => "3600",	// Время кеширования (сек.)
-		"CACHE_GROUPS" => "Y",	// Учитывать права доступа
-		"CUSTOM_SELECT_PROPS" => "",	// Дополнительные свойства инфоблока
-		"DETAIL_HIDE_USER_INFO" => "",	// Не показывать в информации о пользователе
-		"PATH_TO_CATALOG" => "/b2b/catalog/",	// Путь к каталогу
-		"DISALLOW_CANCEL" => "N",	// Запретить отмену заказа
-		"RESTRICT_CHANGE_PAYSYSTEM" => "",	// Запретить смену платежной системы у заказов в статусах
-		"REFRESH_PRICES" => "N",	// Пересчитывать заказ после смены платежной системы
-		"ORDER_DEFAULT_SORT" => "STATUS",	// Сортировка заказов
-		"ALLOW_INNER" => "N",	// Разрешить оплату с внутреннего счета
-		"ONLY_INNER_FULL" => "N",	// Разрешить оплату с внутреннего счета только в полном объеме
-		"SEF_URL_TEMPLATES" => array(
-			"list" => "",
-			"detail" => "order_detail.php?ID=#ID#",
-			"cancel" => "order_cancel.php?ID=#ID#",
-		),
-		"VARIABLE_ALIASES" => array(
-			"detail" => array(
-				"ID" => "ID",
-			),
-			"cancel" => array(
-				"ID" => "ID",
-			),
-		)
-	),
-	false
+		"CUSTOM_SELECT_PROPS" => "",
+		"DETAIL_HIDE_USER_INFO" => "",
+		"DISALLOW_CANCEL" => "N",
+		"HISTORIC_STATUSES" => array(0=>"F",1=>"N",2=>"P",),
+		"NAV_TEMPLATE" => "",
+		"ONLY_INNER_FULL" => "N",
+		"ORDERS_PER_PAGE" => "20",
+		"ORDER_DEFAULT_SORT" => "STATUS",
+		"PATH_TO_BASKET" => "/b2b/basket/",
+		"PATH_TO_CATALOG" => "/b2b/catalog/",
+		"PATH_TO_PAYMENT" => "/b2b/order/payment/",
+		"PROP_1" => "",
+		"PROP_2" => "",
+		"PROP_3" => "",
+		"PROP_4" => "",
+		"REFRESH_PRICES" => "N",
+		"RESTRICT_CHANGE_PAYSYSTEM" => "",
+		"SAVE_IN_SESSION" => "Y",
+		"SEF_FOLDER" => "/b2b/orders-history/",
+		"SEF_MODE" => "Y",
+		"SEF_URL_TEMPLATES" => array("list"=>"","detail"=>"order_detail.php?ID=#ID#","cancel"=>"order_cancel.php?ID=#ID#",),
+		"SET_TITLE" => "N",
+		"VARIABLE_ALIASES" => array("detail"=>array("ID"=>"ID",),"cancel"=>array("ID"=>"ID",),)
+	)
+);?><?$APPLICATION->IncludeComponent(
+	"bitrix:sale.personal.order.list",
+	"",
+	Array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"ALLOW_INNER" => "N",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "3600",
+		"CACHE_TYPE" => "A",
+		"DEFAULT_SORT" => "STATUS",
+		"DISALLOW_CANCEL" => "N",
+		"HISTORIC_STATUSES" => array("F"),
+		"ID" => $ID,
+		"NAV_TEMPLATE" => "",
+		"ONLY_INNER_FULL" => "N",
+		"ORDERS_PER_PAGE" => "20",
+		"PATH_TO_BASKET" => "",
+		"PATH_TO_CANCEL" => "",
+		"PATH_TO_CATALOG" => "/catalog/",
+		"PATH_TO_COPY" => "",
+		"PATH_TO_DETAIL" => "",
+		"PATH_TO_PAYMENT" => "payment.php",
+		"REFRESH_PRICES" => "N",
+		"RESTRICT_CHANGE_PAYSYSTEM" => array("0"),
+		"SAVE_IN_SESSION" => "Y",
+		"SET_TITLE" => "Y",
+		"STATUS_COLOR_F" => "gray",
+		"STATUS_COLOR_N" => "green",
+		"STATUS_COLOR_P" => "yellow",
+		"STATUS_COLOR_PSEUDO_CANCELLED" => "red"
+	)
 );?>
-<?}?>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+<?}?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

@@ -32,11 +32,7 @@ CMax::AddMeta(
 	<?endif;?>
 	<?global $arTheme;?>
 	<?// section elements?>
-	<?
-	echo "<pre>";
-	print_r($arParams);
-	echo "</pre>";
-	?>
+	
 	<?$APPLICATION->IncludeComponent(
 		"bitrix:news.list",
 		'reviews-products-list',

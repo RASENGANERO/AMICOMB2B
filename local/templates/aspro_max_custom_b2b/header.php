@@ -61,6 +61,62 @@ $bIncludedModule = (\Bitrix\Main\Loader::includeModule("aspro.max"));?>
 				<div class="wrapper_inner front <?=($isShowIndexLeftBlock ? "" : "wide_page");?> <?=$APPLICATION->ShowViewContent('wrapper_inner_class')?>">
 			<?elseif(!$isWidePage):?>
 				<div class="wrapper_inner <?=($isHideLeftBlock ? "wide_page" : "");?> <?=$APPLICATION->ShowViewContent('wrapper_inner_class')?>">
+				<?if ($APPLICATION->GetCurPage() === '/b2b/'):?>
+				<?
+				$GLOBALS['filterBannersB2B'] = [
+					'PROPERTY_SHOW_B2B_PAGE_VALUE' => 'Y'
+				];
+				$APPLICATION->IncludeComponent(
+	"aspro:com.banners.max", 
+	"top_big_banner_3_2_b2b", 
+			array(
+				"IBLOCK_TYPE" => "aspro_max_adv",
+				"IBLOCK_ID" => "30",
+				"TYPE_BANNERS_IBLOCK_ID" => "4",
+				"SET_BANNER_TYPE_FROM_THEME" => "N",
+				"NEWS_COUNT" => CIBlock::GetElementCount(30),
+				"NEWS_COUNT2" => CIBlock::GetElementCount(30),
+				"SORT_BY1" => "SORT",
+				"SORT_ORDER1" => "ASC",
+				"SORT_BY2" => "ID",
+				"SORT_ORDER2" => "DESC",
+				"PROPERTY_CODE" => array(
+					0 => "TEXT_POSITION",
+					1 => "TARGETS",
+					2 => "TEXTCOLOR",
+					3 => "URL_STRING",
+					4 => "BUTTON1TEXT",
+					5 => "BUTTON1LINK",
+					6 => "BUTTON2TEXT",
+					7 => "BUTTON2LINK",
+					8 => "SHOW_B2B_PAGE",
+				),
+				"CHECK_DATES" => "Y",
+				"AJAX_OPTION_STYLE" => "Y",
+				"CACHE_GROUPS" => "N",
+				"WIDE_BANNER" => "N",
+				"CACHE_TYPE" => "A",
+				"CACHE_TIME" => "36000000",
+				"BANNER_TYPE_THEME" => "TOP",
+				"COMPONENT_TEMPLATE" => "top_big_banner_3_2_b2b",
+				"FILTER_NAME" => "filterBannersB2B",
+				"USE_FILTER" => "Y",
+				"BANNER_TYPE_THEME_CHILD" => "",
+				"SECTION_ID" => "",
+				"SHOW_MEASURE" => "Y",
+				"PRICE_CODE" => array(
+				),
+				"STORES" => array(
+					0 => "",
+					1 => "",
+					2 => "",
+				),
+				"CONVERT_CURRENCY" => "N"
+			),
+			false
+		);
+				?>
+				<?endif;?>
 			<?endif;?>
 				
 				<div class="container_inner flexbox flexbox--row-reverse flexbox--gap flexbox--gap-32 flexbox--align-start flexbox--justify-space-between <?=$APPLICATION->ShowViewContent('container_inner_class')?>">

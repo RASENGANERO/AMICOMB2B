@@ -19,6 +19,7 @@
 			);*/?>
 		<?//endif;?>
 	<?if(!CMax::IsCatalogPage()):?>
+		
 		<?$APPLICATION->IncludeComponent("bitrix:menu", "left_menu", array(
 			"CACHE_SELECTED_ITEMS" => "Y",
 			"ROOT_MENU_TYPE" => (CMax::IsPersonalPage() ? "cabinet" : "left"),

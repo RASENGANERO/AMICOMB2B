@@ -6,42 +6,41 @@ CModule::IncludeModule('iblock');
 CModule::IncludeModule('form');
 
 
-$arValuesDiscount = [];
-// Получаем значения свойства
-$propValuesRes = CIBlockElement::GetProperty(33, 310731, 'sort', 'asc', ['CODE' => 'B2B_DISCOUNT']);
-
-while ($res = $propValuesRes->Fetch()) {
-    $arValuesDiscount[] = $res['VALUE'];
-}
 
 CModule::IncludeModule("sale");
+CModule::IncludeModule("user");
+CModule::IncludeModule('highloadblock');
+$jsonData = file_get_contents('answer.txt');
+//print_r($jsonData);
+// Декодируем JSON-строку в массив
+$arrayData = json_decode($jsonData, true);
+print_r($arrayData);
+//use AmikomB2B;
 
 
-use Bitrix\Sale;
-use Bitrix\Main\Context;
 
-// Получаем идентификатор пользователя
-$fuserId = Sale\Fuser::getId();
+//use \AmikomB2B\InformIblockB2B;
+//$obj = new InformIblockB2B($arrayData);
+//$obj->checkElement($obj::IBLOCK_PARTNER_B2B);
 
-// Получаем текущий сайт
-$siteId = Context::getCurrent()->getSite();
 
-// Загружаем корзину для текущего пользователя
-$basket = Sale\Basket::loadItemsForFUser($fuserId, $siteId);
+$rsTemplates = CSite::GetTemplateList("s1");
+while($arTemplate = $rsTemplates->Fetch())
+{
+	$result[]  = $arTemplate;
+}
+echo "<pre>"; print_r($result); echo "</pre>";
+$res = CUser::GetByID($USER->GetID())->Fetch();
+print_r($res);
 
-// Получаем элементы корзины
-$basketItems = $basket->getBasketItems();
+//use \AmikomB2B\InformHLBlockB2B;
+//$obj = new InformHLBlockB2B($arrayData);
+//$obj->setManagers($obj::HLIBLOCK_MANAGERS);
+//$obj->setPriceGroup($obj::HLIBLOCK_PRICE_GROUP);
 
-// Выводим информацию о товарах в корзине
-$allProductPrices = \Bitrix\Catalog\PriceTable::getList([
-    'select' => ["*"],
-    'filter' => [
-        '=PRODUCT_ID' => 185420,
-    ],
-])->fetchAll();
-print_r($allProductPrices);
-use AmikomB2B;
-$discountsAll = \AmikomB2B\DiscountInfo::getDiscounts('018e027a-edf1-11ea-817d-0cc47a7821bb', 'hiwatch');
+//$obj->setPriceMatrix($obj::HLIBLOCK_PRICE_MATRIX);
+
+//$discountsAll = \AmikomB2B\InformIblockB2B::getDiscounts('018e027a-edf1-11ea-817d-0cc47a7821bb', 'hiwatch');
 
 
 
