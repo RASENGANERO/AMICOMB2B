@@ -1,6 +1,6 @@
 <?
 if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
-
+$APPLICATION->SetTitle("Регистрация B2B");
 global $USER, $arTheme;
 \Bitrix\Main\Localization\Loc::loadMessages(__FILE__);
 $APPLICATION->AddChainItem(GetMessage("TITLE"));
@@ -60,7 +60,7 @@ use \Bitrix\Main\Config\Option;
 	?>
 	<?$APPLICATION->IncludeComponent(
 		"bitrix:main.register",
-		"main",
+		"main-b2b",
 		Array(
 			"USER_PROPERTY_NAME" => "",
 			"SHOW_FIELDS" => $arShowFields,

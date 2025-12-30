@@ -31,7 +31,7 @@ if ($checkShow === true):
 					"show_products", 
 					Array(
 								"TITLE_BLOCK" => GetMessage("VIEWED_BEFORE"),	// Заголовок
-								"SHOW_MEASURE" => "Y",	// Отображать единицы измерения
+								"SHOW_MEASURE" => "N",	// Отображать единицы измерения
 								"CACHE_TYPE" => "N"
 							),
 			false

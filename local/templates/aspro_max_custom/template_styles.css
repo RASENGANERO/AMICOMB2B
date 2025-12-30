@@ -21803,3 +21803,39 @@ table.contacts-stores tr.item td:last-of-type {
     font-weight: 600;
     max-width: 815px;
 }
+
+.dropbtn-headerb2b {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    
+} 
+.dropdown-headerb2b {
+    position: relative;
+    display: inline-block;
+} 
+.dropdown-content-headerb2b {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 102px;
+    z-index: 1;
+    border: 1px solid #ececec;
+    right: -40px; 
+} 
+.dropdown-content-headerb2b a {
+    padding: 8px 10px;
+    text-decoration: none;
+    display: block;
+    color: #777;
+    font-weight: 500;
+} 
+
+.dropdown-headerb2b:hover .dropdown-content-headerb2b {
+    display: block;
+}
+.dropdown-header:hover .dropbtn-header {
+    background-color: #3e8e41;
+}

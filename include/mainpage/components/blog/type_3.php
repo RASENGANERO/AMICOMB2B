@@ -21,7 +21,7 @@
 			2 => "",
 		),
 		"CHECK_DATES" => "Y",
-		"DETAIL_URL" => "/articles/#ELEMENT_CODE#/",
+		"DETAIL_URL" => "",
 		"AJAX_MODE" => "N",
 		"AJAX_OPTION_JUMP" => "N",
 		"AJAX_OPTION_STYLE" => "Y",

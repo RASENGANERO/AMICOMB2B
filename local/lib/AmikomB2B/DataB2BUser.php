@@ -45,12 +45,14 @@ class DataB2BUser {
             'select' => ['*'],
             'filter' => ['UF_XML_ID' => $resManagerID]
         ])->fetch();
-        $res['UF_PHONE_FORMATTED'] = self::formatPhoneNumber($res['UF_PHONE']);
+        if (!empty($res)) {
+            $res['UF_PHONE_FORMATTED'] = self::formatPhoneNumber($res['UF_PHONE']);
+        }
         return $res;
     }
     public static function formatPhoneNumber($phone) {
-        $phone = preg_replace('/D/', '', $phone);
-        return '+7 ' . substr($phone, 1, 3) . ' ' . substr($phone, 4, 3) . ' ' . substr($phone, 7, 2) . ' ' . substr($phone, 9, 2);    
+		$phone = preg_replace('/[^\d]/', '', $phone);
+		return '+7 ' . substr($phone, 1, 3) . ' ' . substr($phone, 4, 3) . ' ' . substr($phone, 7, 2) . ' ' . substr($phone, 9, 2);
     }
         
 }

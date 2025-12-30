@@ -1,5 +1,5 @@
 <?
-global $arTheme, $arRegion;
+global $arTheme, $arRegion, $USER;
 $logoClass = ($arTheme['COLORED_LOGO']['VALUE'] !== 'Y' ? '' : ' colored');
 $arShowSites = \Aspro\Functions\CAsproMax::getShowSites();
 
@@ -80,7 +80,25 @@ $arShowSites = \Aspro\Functions\CAsproMax::getShowSites();
 					<div class="line-block__item  no-shrinked">
 						<div class=" inner-table-block nopadding small-block">
 							<div class="wrap_icon wrap_cabinet">
-								<?=CMax::showCabinetLink(true, false, 'big');?>
+								<?if(!$USER->IsAuthorized()):?>
+									<div class="auth_wr_inner">
+										<div class="dropdown-headerb2b">
+											<a rel="nofollow" class="dropdownbtn-headerb2b personal-link dark-color animate-load" data-event="jqm" data-param-backurl="%2Fvacancy%2F" data-param-type="auth" data-name="auth" href="/personal/">
+												<i class="svg svg-inline-cabinet big inline" aria-hidden="true">
+													<svg width="18" height="18">
+														<use xlink:href="/local/templates/aspro_max_custom_b2b/images/svg/header_icons_srite.svg#user"></use>
+													</svg>
+												</i>
+											</a>
+											<div class="dropdown-content-headerb2b">
+												<a href="/auth/">Физ. лицо</a>
+												<a href="/b2b/auth/">Юр. лицо</a>
+											</div>
+										</div>
+									</div>
+								<?else:?>
+									<?=CMax::showCabinetLink(true, '', 'big');?>
+								<?endif;?>
 							</div>
 						</div>
 					</div>

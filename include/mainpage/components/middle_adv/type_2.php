@@ -26,7 +26,7 @@
 		"BANNER_TYPE_THEME" => "BANNER_IMG_WIDE",
 		"COMPONENT_TEMPLATE" => "float_banners_custom",
 		"FILTER_NAME" => "",
-		"SHOW_MEASURE" => "Y",
+		"SHOW_MEASURE" => "N",
 		"TYPE_BLOCK" => "type1",
 		"USE_TYPE_BLOCK" => "N",
 		"BG_BLOCK_POSITION" => "top"

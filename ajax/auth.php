@@ -24,7 +24,7 @@ if($_GET['auth_service_error']){
 	<a href="#" class="close jqmClose"><?=CMax::showIconSvg('', SITE_TEMPLATE_PATH.'/images/svg/Close.svg')?></a>
 	<div id="wrap_ajax_auth" class="form">
 		<div class="form_head">
-			<h2>B2B Кабинет</h2>
+			<h2>Регистрация</h2>
 		</div>
 		<?
 		$APPLICATION->IncludeComponent(

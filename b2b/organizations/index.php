@@ -2,6 +2,11 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Организации");
 ?>
+<?
+if (!$USER->IsAuthorized()) {
+    LocalRedirect('/404.php');
+}
+?>
 <div class="dashboard-item">
     <h3 class="dashboard-maintext">Профили организаций</h3>
     <table class="dashboard-table">

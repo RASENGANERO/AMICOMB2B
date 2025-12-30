@@ -101,7 +101,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 		"OFFERS_SORT_ORDER" => "ASC",
 		"OFFERS_SORT_FIELD2" => "id",
 		"OFFERS_SORT_ORDER2" => "DESC",
-		"SHOW_MEASURE" => "Y",
+		"SHOW_MEASURE" => "N",
 		"OFFERS_CART_PROPERTIES" => array(
 		),
 		"DISPLAY_WISH_BUTTONS" => "Y",

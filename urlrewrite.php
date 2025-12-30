@@ -140,14 +140,7 @@ $arUrlRewrite=array (
     'PATH' => '/brands/price/index.php',
     'SORT' => 100,
   ),
-  110 => 
-  array (
-    'CONDITION' => '#^/b2b/favorite/#',
-    'RULE' => '',
-    'ID' => '',
-    'PATH' => '/b2b/favorite/index.php',
-    'SORT' => 100,
-  ),
+
   21 => 
   array (
     'CONDITION' => '#^/info/brands/#',
@@ -171,14 +164,6 @@ $arUrlRewrite=array (
     'PATH' => '/partnership/index.php',
     'SORT' => 100,
   ),
-  103 => 
-  array (
-    'CONDITION' => '#^/b2b/catalog/#',
-    'RULE' => '',
-    'ID' => 'bitrix:catalog',
-    'PATH' => '/b2b/catalog/index.php',
-    'SORT' => 100,
-  ),
   26 => 
   array (
     'CONDITION' => '#^/lookbooks/#',
@@ -187,14 +172,7 @@ $arUrlRewrite=array (
     'PATH' => '/lookbooks/index.php',
     'SORT' => 100,
   ),
-  120 => 
-  array (
-    'CONDITION' => '#^/b2b/order/#',
-    'RULE' => '',
-    'ID' => '',
-    'PATH' => '/b2b/order/index.php',
-    'SORT' => 100,
-  ),
+ 
   10 => 
   array (
     'CONDITION' => '#^/personal/#',
@@ -263,6 +241,22 @@ $arUrlRewrite=array (
     'RULE' => '',
     'ID' => 'bitrix:news',
     'PATH' => '/contacts/page_contacts_2.php',
+    'SORT' => 100,
+  ),
+  102 => 
+  array (
+    'CONDITION' => '#^/b2b/auth/#',
+    'RULE' => '',
+    'ID' => 'aspro:auth.max',
+    'PATH' => '/b2b/auth/index.php',
+    'SORT' => 100,
+  ),
+  104 => 
+  array (
+    'CONDITION' => '#^/b2b/auth/registration/#',
+    'RULE' => '',
+    'ID' => '',
+    'PATH' => '/b2b/auth/registration.php',
     'SORT' => 100,
   ),
   19 => 
@@ -399,4 +393,5 @@ $arUrlRewrite=array (
     'PATH' => '/b2b/index.php',
     'SORT' => 100,
   ),
+
 );

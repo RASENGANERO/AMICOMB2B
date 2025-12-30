@@ -1,5 +1,6 @@
 <?
 require_once('CheckboxCustom.php');
+require_once('B2BUsers.php');
 AddEventHandler('iblock', 'OnIBlockPropertyBuildList', ['CIBlockPropertyCheckbox', 'GetUserTypeDescription']);
 
 use Bitrix\Main;
@@ -69,6 +70,11 @@ $eventManager->addEventHandler(
     'iblock',
     'OnAfterIBlockElementUpdate',
     ['Brands', 'brandsUpdate'],
+);
+$eventManager->addEventHandler(
+    'main',
+    'OnAfterUserAdd',
+    ['B2BUsers', 'setGroupRegUser'],
 );
 spl_autoload_register(function ($class) {
     $prefix = 'Amikomnew\\'; // Используйте двойной обратный слэш

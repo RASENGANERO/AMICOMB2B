@@ -1,7 +1,8 @@
 <?
-
-
 namespace AmikomB2B;
+require($_SERVER['DOCUMENT_ROOT']."/bitrix/modules/main/include/prolog_before.php");
+error_reporting(E_ERROR | E_PARSE);
+
 use Bitrix\Highloadblock\HighloadBlockTable;
 class InformHLBlockB2B {
     const HLIBLOCK_MANAGERS = 9;
@@ -66,16 +67,16 @@ class InformHLBlockB2B {
                 $arFieldUpdate['UF_XML_ID'] = $this->partnerManagers[$i]['Guid'];
                 $arFieldUpdate['UF_NAME'] = $this->partnerManagers[$i]['Name'];
                 $arFieldUpdate['UF_FIO'] = $this->partnerManagers[$i]['Name'];
-                $arFieldUpdate['UF_PHONE'] = '';
-                $arFieldUpdate['UF_EMAIL'] = '';
+                //$arFieldUpdate['UF_PHONE'] = '';
+                //$arFieldUpdate['UF_EMAIL'] = '';
                 $entityClass::update($res['ID'],$arFieldUpdate);
             }
             else {
                 $arFieldHLAdd['UF_XML_ID'] = $this->partnerManagers[$i]['Guid'];
                 $arFieldHLAdd['UF_NAME'] = $this->partnerManagers[$i]['Name'];
                 $arFieldHLAdd['UF_FIO'] = $this->partnerManagers[$i]['Name'];
-                $arFieldHLAdd['UF_PHONE'] = '';
-                $arFieldHLAdd['UF_EMAIL'] = '';
+                //$arFieldHLAdd['UF_PHONE'] = '';
+                //$arFieldHLAdd['UF_EMAIL'] = '';
                 $entityClass::add($arFieldHLAdd);
             }
         }

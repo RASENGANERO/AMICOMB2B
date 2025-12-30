@@ -2,10 +2,8 @@
 	require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 	$APPLICATION->SetTitle("История заказов");
 	$_REQUEST["filter_history"] = "Y";
-	if(!$USER->isAuthorized()){LocalRedirect(SITE_DIR.'auth');} else {
-
+	if(!$USER->isAuthorized()){LocalRedirect('/b2b/auth/');} else {
 ?>
-
 <?$APPLICATION->IncludeComponent(
 	"bitrix:sale.personal.order",
 	"template1",

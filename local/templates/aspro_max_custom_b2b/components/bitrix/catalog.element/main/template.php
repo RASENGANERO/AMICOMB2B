@@ -19,6 +19,7 @@ $maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Полу
 if (intval($maxDiscount) !== 0) {
 	$obj = new \AmikomB2B\DiscountPrices($arResult['PRICES'],$maxDiscount);
 	$arResult['PRICES'] = $obj->generateDiscountValues();
+	$arParams['SHOW_OLD_PRICE'] = 'Y';
 }
 $arValuesCust['PERCENT'] = $maxDiscount;
 $arValuesCust['PRICE'] = $arResult['PRICES']['BASE']['DISCOUNT_VALUE'] ?? $arResult['PRICES']['BASE']['VALUE'];

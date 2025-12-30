@@ -1,4 +1,8 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();?>
+<?
+
+use Aspro\Functions\CAsproMaxCustomMain;
+
+if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();?>
 <?
 global $arTheme, $arRegion, $bLongHeader, $bColoredHeader,$USER;
 
@@ -118,7 +122,7 @@ $bColoredHeader = true;
 										</div>
 									</div>
 								<?else:?>
-									<?=CMax::showCabinetLink(true, true, 'big');?>
+									<?=CAsproMaxCustomMain::showCabinetLink("profile_b2b",true, true, 'big');?>
 								<?endif;?>
 							</div>
 						</div>

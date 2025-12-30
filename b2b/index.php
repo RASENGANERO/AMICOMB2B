@@ -1,7 +1,11 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 ?>
-
+<?
+if (!$USER->IsAuthorized()) {
+    LocalRedirect('/404.php');
+}
+?>
 <section class="dashboard-section">
     <div class="dashboard-main-info">
         <?$APPLICATION->IncludeComponent(
@@ -57,7 +61,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
         </div>
     </div>
     <div class="dashboard-news">
-        <?$GLOBALS['filterNewsB2B'] = [
+        <?$GLOBALS['filterNewsB2BMain'] = [
             'PROPERTY_SHOW_B2B_PAGE_VALUE' => 'Y'
         ];?>
         <?$APPLICATION->IncludeComponent(
@@ -65,6 +69,8 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
         "front_news", 
         array(
             "IBLOCK_TYPE" => "aspro_max_content",
+            "USE_FILTER" => "Y",
+            "FILTER_NAME" => "filterNewsB2BMain",
             "IBLOCK_ID" => "23",
             "NEWS_COUNT" => "4",
             "SORT_BY1" => "ACTIVE_FROM",
@@ -145,8 +151,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
             "TITLE_SHOW_FON" => "N",
             "COMPOSITE_FRAME_MODE" => "A",
             "COMPOSITE_FRAME_TYPE" => "AUTO",
-            "USE_FILTER" => "Y",
-            "FILTER_NAME" => "filterNewsB2B"
+            
         ),
         false
     );?>

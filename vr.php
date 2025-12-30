@@ -10,7 +10,6 @@ CModule::IncludeModule('form');
 CModule::IncludeModule("sale");
 CModule::IncludeModule("user");
 CModule::IncludeModule('highloadblock');
-$jsonData = file_get_contents('answer.txt');
 //print_r($jsonData);
 // Декодируем JSON-строку в массив
 $arrayData = json_decode($jsonData, true);
@@ -24,14 +23,7 @@ print_r($arrayData);
 //$obj->checkElement($obj::IBLOCK_PARTNER_B2B);
 
 
-$rsTemplates = CSite::GetTemplateList("s1");
-while($arTemplate = $rsTemplates->Fetch())
-{
-	$result[]  = $arTemplate;
-}
-echo "<pre>"; print_r($result); echo "</pre>";
-$res = CUser::GetByID($USER->GetID())->Fetch();
-print_r($res);
+
 
 //use \AmikomB2B\InformHLBlockB2B;
 //$obj = new InformHLBlockB2B($arrayData);
@@ -43,6 +35,37 @@ print_r($res);
 //$discountsAll = \AmikomB2B\InformIblockB2B::getDiscounts('018e027a-edf1-11ea-817d-0cc47a7821bb', 'hiwatch');
 
 
+
+
+
+/*for ($i = 0; $i < count($lk); $i++) {
+	$res = $entityClass::getList([
+		'select' => ['*'],
+		'filter' => ['UF_XML_ID' => $this->partnerManagers[$i]['Guid']]
+	])->fetch();
+	if (!empty($res)) {
+		$arFieldUpdate['UF_XML_ID'] = $this->partnerManagers[$i]['Guid'];
+		$arFieldUpdate['UF_NAME'] = $this->partnerManagers[$i]['Name'];
+		$arFieldUpdate['UF_FIO'] = $this->partnerManagers[$i]['Name'];
+		$arFieldUpdate['UF_PHONE'] = '';
+		$arFieldUpdate['UF_EMAIL'] = '';
+		$entityClass::update($res['ID'],$arFieldUpdate);
+	}
+	else {
+		$arFieldHLAdd['UF_XML_ID'] = $this->partnerManagers[$i]['Guid'];
+		$arFieldHLAdd['UF_NAME'] = $this->partnerManagers[$i]['Name'];
+		$arFieldHLAdd['UF_FIO'] = $this->partnerManagers[$i]['Name'];
+		$arFieldHLAdd['UF_PHONE'] = '';
+		$arFieldHLAdd['UF_EMAIL'] = '';
+		$entityClass::add($arFieldHLAdd);
+	}
+}*/
+$vrList = [];
+$vrData = CUser::GetList('sort','asc',['>ID'=>10],[]);
+while ($ob = $vrData->Fetch()) {
+	$vrList[] = ['ID'=>$ob['ID'],'NAME'=>$ob['NAME'],'LOGIN'=>$ob['LOGIN']];	
+}
+print_r($vrList);
 
 
 ?>

@@ -273,8 +273,7 @@ global $arTheme;
                             ?>
 						<div class="line-block form_footer__bottom">
 							<div class="line-block__item">
-								<button class="btn btn-default btn-lg" type="submit" name="register_submit_button1" value="Y"><?=GetMessage('REGISTER_REGISTER')?>
-                            ?></button>
+								<button class="btn btn-default btn-lg" type="submit" name="register_submit_button1" value="Y"><?=GetMessage('REGISTER_REGISTER')?></button>
 							</div>
 							<div class="line-block__item">
 								<?php 

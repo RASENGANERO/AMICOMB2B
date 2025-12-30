@@ -76,7 +76,7 @@ if($arRegion)
 		"OFFERS_SORT_ORDER2" => "desc",
 		"SEF_MODE" => "N",
 		"CACHE_FILTER" => "Y",
-		"SHOW_MEASURE" => "Y",
+		"SHOW_MEASURE" => "N",
 		"ADD_PROPERTIES_TO_BASKET" => "Y",
 		"PARTIAL_PRODUCT_PROPERTIES" => "N",
 		"OFFERS_CART_PROPERTIES" => array(
