@@ -5,7 +5,6 @@ use Aspro\Functions\CAsproMaxCustomMain;
 if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();?>
 <?
 global $arTheme, $arRegion, $bLongHeader, $bColoredHeader,$USER;
-
 $arRegions = CMaxRegionality::getRegions();
 $bIncludeRegionsList = $arRegions || ($arTheme['USE_REGIONALITY']['VALUE'] !== 'Y' && $arTheme['USE_REGIONALITY']['DEPENDENT_PARAMS']['REGIONALITY_IPCITY_IN_HEADER']['VALUE'] !== 'N');
 

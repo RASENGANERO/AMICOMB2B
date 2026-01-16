@@ -17,7 +17,13 @@ $bPopupAuth = (isset($_POST['POPUP_AUTH']) && $_POST['POPUP_AUTH'] === 'Y');
 	</style>
 <?endif;?>
 <?if(!$USER->IsAuthorized()):?>
+	<?if(!isset($_SERVER["HTTP_X_REQUESTED_WITH"])):?>
+		<div class="top-text top-text--auth">
+			<?$APPLICATION->IncludeFile(SITE_DIR."include/auth_description.php", [], ["MODE" => "html", "NAME" => GetMessage("AUTH_INCLUDE_AREA")]);?>
+		</div>
+	<?endif;?>
 	<?
+	
 	$arResult['SEF_FOLDER'] =  '/b2b/';
 	?>
 	<?$APPLICATION->IncludeComponent(
@@ -28,7 +34,7 @@ $bPopupAuth = (isset($_POST['POPUP_AUTH']) && $_POST['POPUP_AUTH'] === 'Y');
 			"REGISTER_URL" => $arResult["SEF_FOLDER"].$arResult["URL_TEMPLATES"]["registration"],
 			"FORGOT_PASSWORD_URL" => $arResult["SEF_FOLDER"].$arResult["URL_TEMPLATES"]["forgot_password"],
 			"CHANGE_PASSWORD_URL" => $arResult["SEF_FOLDER"].$arResult["URL_TEMPLATES"]["change_password"],
-			"PROFILE_URL" => $arParams["SEF_FOLDER"],
+			"PROFILE_URL" => $arResult['SEF_FOLDER'],
 			"SHOW_ERRORS" => "Y",
 			"POPUP_AUTH" => $bPopupAuth ? 'Y' : 'N',
 		]
@@ -36,13 +42,5 @@ $bPopupAuth = (isset($_POST['POPUP_AUTH']) && $_POST['POPUP_AUTH'] === 'Y');
 <?elseif(strlen((string) $_REQUEST['backurl'])):?>
 	<?LocalRedirect("/b2b/");?>
 <?else:?>
-	<?$url = $arResult['SEF_FOLDER'];
-	echo $url;
-	?>
-	<?if (
-		!str_contains((string) $_SERVER['HTTP_REFERER'], (string) $url) &&
-		!str_contains((string) $_SERVER['HTTP_REFERER'], SITE_DIR.'ajax/form.php')
-	):?>
-		<?LocalRedirect("/b2b/");?>
-	<?endif;?>
+	<?LocalRedirect($arResult['SEF_FOLDER']);?>
 <?endif;?>

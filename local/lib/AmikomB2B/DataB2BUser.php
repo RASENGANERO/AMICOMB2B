@@ -46,7 +46,10 @@ class DataB2BUser {
             'filter' => ['UF_XML_ID' => $resManagerID]
         ])->fetch();
         if (!empty($res)) {
-            $res['UF_PHONE_FORMATTED'] = self::formatPhoneNumber($res['UF_PHONE']);
+            $res['UF_PHONE_FORMATTED'] = '';
+            if (!empty($res['UF_PHONE'])) {
+                $res['UF_PHONE_FORMATTED'] = self::formatPhoneNumber($res['UF_PHONE']);
+            }
         }
         return $res;
     }

@@ -11,7 +11,6 @@ $bPopupAuth = (isset($_POST['POPUP_AUTH']) ? $_POST['POPUP_AUTH'] === 'Y' : fals
 ?>
 <?if(!$bPopupAuth):?>
 	<style>
-		.personal-link[data-event]{display:none !important;}
 		.left-menu-md, body .container.cabinte-page .maxwidth-theme .left-menu-md, .right-menu-md, body .container.cabinte-page .maxwidth-theme .right-menu-md{display:none !important;}
 		.content-md{width:100%;}
 		.border_block{border:none;}

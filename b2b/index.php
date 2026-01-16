@@ -3,7 +3,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 ?>
 <?
 if (!$USER->IsAuthorized()) {
-    LocalRedirect('/404.php');
+    LocalRedirect('/b2b/auth/');
 }
 ?>
 <section class="dashboard-section">

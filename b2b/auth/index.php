@@ -1,6 +1,8 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Авторизация B2B");
+$APPLICATION->SetTitle("Вход в B2B");
+$APPLICATION->SetPageProperty("NOT_SHOW_NAV_CHAIN", "Y");
+$APPLICATION->SetPageProperty('title', 'Вход в B2B');
 ?>
 
 <?$APPLICATION->IncludeComponent("aspro:auth.max", "main-b2b", array(
@@ -17,6 +19,7 @@ $APPLICATION->SetTitle("Авторизация B2B");
 	"PERSONAL" => "/b2b/"
 	),
 	false
-);?><?
+);?>
+<?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
 ?>

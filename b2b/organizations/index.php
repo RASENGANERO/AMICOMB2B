@@ -4,7 +4,7 @@ $APPLICATION->SetTitle("Организации");
 ?>
 <?
 if (!$USER->IsAuthorized()) {
-    LocalRedirect('/404.php');
+    LocalRedirect('/b2b/auth/');
 }
 ?>
 <div class="dashboard-item">

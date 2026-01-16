@@ -87,6 +87,7 @@ if (!window.JCCatalogSectionOnlyElement)
 				$(this.obProduct).find('.counter_wrapp .counter_block input').data('product', 'ob'+this.obProduct.id+'el');
 				this.currentPriceMode = this.params.ITEM_PRICE_MODE;
 				this.currentPrices = this.params.ITEM_PRICES;
+				
 				this.currentQuantityRanges = this.params.ITEM_QUANTITY_RANGES;
 			}
 
