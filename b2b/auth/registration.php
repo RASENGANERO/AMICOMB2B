@@ -4,7 +4,6 @@ $APPLICATION->SetTitle("Регистрация B2B");
 global $USER, $arTheme;
 \Bitrix\Main\Localization\Loc::loadMessages(__FILE__);
 $APPLICATION->AddChainItem(GetMessage("TITLE"));
-$APPLICATION->SetTitle(GetMessage("TITLE"));
 $APPLICATION->SetPageProperty("TITLE_CLASS", "center");
 use \Bitrix\Main\Config\Option;
 ?>

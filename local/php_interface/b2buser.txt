@@ -1,0 +1,33 @@
+Array
+(
+    [LOGIN] => www.223123123123123@list.ru
+    [EMAIL] => www.223123123123123@list.ru
+    [PASSWORD] => $6$BoA2amSnAN3Dkzor$rtCXo12SvitRNxlLb33Q2OKDZTPjwxRE1CmR4rdE6xfKI6Dau3RcKFoQk8Ww74AtU9Kc.kDiMxGgfonpLw23b0
+    [CONFIRM_PASSWORD] => pcaJr8LQXmU7zjF
+    [LAST_NAME] => Игнатов
+    [NAME] => Алексей
+    [INN] => 1111111
+    [SECOND_NAME] => Валерьевич
+    [PERSONAL_PHONE] => +7 (111) 111-11-11
+    [UF_INNORG] => 1111111
+    [UF_B2B_REGISTER] => B2B-REG
+    [GROUP_ID] => Array
+        (
+            [0] => 6
+        )
+
+    [CHECKWORD] => g7o35tq3cz7ppum13y2t153r8335jpco
+    [~CHECKWORD_TIME] => now()
+    [ACTIVE] => Y
+    [CONFIRM_CODE] => 
+    [LID] => s1
+    [LANGUAGE_ID] => ru
+    [USER_IP] => 127.0.0.1
+    [USER_HOST] => ACTIVELIGHT
+    [AUTO_TIME_ZONE] => 
+    [BLOCKED] => N
+    [PASSWORD_EXPIRED] => N
+    [PERSONAL_GENDER] => 
+    [ID] => 7423
+    [RESULT] => 7423
+)

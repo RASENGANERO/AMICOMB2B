@@ -60,12 +60,94 @@ print_r($arrayData);
 		$entityClass::add($arFieldHLAdd);
 	}
 }*/
-$vrList = [];
+/*$vrList = [];
 $vrData = CUser::GetList('sort','asc',['>ID'=>10],[]);
 while ($ob = $vrData->Fetch()) {
 	$vrList[] = ['ID'=>$ob['ID'],'NAME'=>$ob['NAME'],'LOGIN'=>$ob['LOGIN']];	
 }
 print_r($vrList);
+*/
 
+require_once("D:/OPENSERVER/domains/AMIKOMB2BNEW/local/lib/AmikomB2BRest/crest.php");
+$params1 = ['FIELDS' => [
+	'TITLE' => 'New Lead RestB2B', 
+	'NAME' => 'Иван', 
+	'LAST_NAME' => 'Петров',
+	'SECOND_NAME' => 'Фёдоров',
+	'SOURCE_ID' => 'WEB',
+	'EMAIL' => [
+		'0' => [
+			'VALUE' => 'mail@example.com', 
+			'VALUE_TYPE' => 'WORK', 
+		], 
+	], 
+	'PHONE' => [
+		'0' => [
+			'VALUE' => '555888', 
+			'VALUE_TYPE' => 'WORK', 
+		], 
+	], 
+	'UF_CRM_1768810481137' => '223513'
+	], 
+];
+$resultLead = CRest::call(
+		'crm.lead.add',
+		$params1		
+	);
+
+print_r($resultLead);
+
+
+
+
+
+$params2 =  [
+	'FIELDS' => [
+		'NAME' => 'Иван',
+		'SECOND_NAME' => 'Иванович',
+		'LAST_NAME' => 'Иванов',
+		'SOURCE_ID' => 'WEB',
+		'OPENED' => 'Y',
+		'PHONE' => [
+			[
+				'VALUE' => '+7333333555',
+				'VALUE_TYPE' => 'WORK',
+			],
+		],
+		'EMAIL' => [
+			[
+				'VALUE' => 'ivanov@example.work',
+				'VALUE_TYPE' => 'WORK',
+			]
+		],
+	]
+	];
+$resultContact = CRest::call(
+	'crm.contact.add',
+	$params2	
+);
+print_r($resultContact);
+
+
+$params3 = [];
+
+
+$resultCompany = CRest::call(
+	'',
+	$params3
+);
+
+
+
+$params3 = [
+	'ID' => $resultLead['result'],
+	'FIELDS'=> ['CONTACT_ID' => $resultContact['result']],
+];
+
+$resultAll = CRest::call(
+	'crm.lead.contact.add',
+	$params3	
+);
+print_r($resultAll);
 
 ?>

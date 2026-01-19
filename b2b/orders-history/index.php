@@ -5,19 +5,23 @@
 	if(!$USER->isAuthorized()){LocalRedirect('/b2b/auth/');} else {
 ?>
 <?$APPLICATION->IncludeComponent(
-	"bitrix:sale.personal.order",
-	"template1",
-	Array(
+	"bitrix:sale.personal.order", 
+	"template1", 
+	array(
 		"ACTIVE_DATE_FORMAT" => "d.m.Y",
 		"ALLOW_INNER" => "N",
 		"CACHE_GROUPS" => "Y",
 		"CACHE_TIME" => "3600",
 		"CACHE_TYPE" => "A",
-		"COMPONENT_TEMPLATE" => ".default",
-		"CUSTOM_SELECT_PROPS" => "",
-		"DETAIL_HIDE_USER_INFO" => "",
+		"COMPONENT_TEMPLATE" => "template1",
+		"CUSTOM_SELECT_PROPS" => array(
+		),
+		"DETAIL_HIDE_USER_INFO" => array(
+		),
 		"DISALLOW_CANCEL" => "N",
-		"HISTORIC_STATUSES" => array(0=>"F",1=>"N",2=>"P",),
+		"HISTORIC_STATUSES" => array(
+			0 => "F",
+		),
 		"NAV_TEMPLATE" => "",
 		"ONLY_INNER_FULL" => "N",
 		"ORDERS_PER_PAGE" => "20",
@@ -25,19 +29,38 @@
 		"PATH_TO_BASKET" => "/b2b/basket/",
 		"PATH_TO_CATALOG" => "/b2b/catalog/",
 		"PATH_TO_PAYMENT" => "/b2b/order/payment/",
-		"PROP_1" => "",
-		"PROP_2" => "",
+		"PROP_1" => array(
+		),
+		"PROP_2" => array(
+		),
 		"PROP_3" => "",
 		"PROP_4" => "",
 		"REFRESH_PRICES" => "N",
-		"RESTRICT_CHANGE_PAYSYSTEM" => "",
+		"RESTRICT_CHANGE_PAYSYSTEM" => array(
+		),
 		"SAVE_IN_SESSION" => "Y",
 		"SEF_FOLDER" => "/b2b/orders-history/",
 		"SEF_MODE" => "Y",
-		"SEF_URL_TEMPLATES" => array("list"=>"","detail"=>"order_detail.php?ID=#ID#","cancel"=>"order_cancel.php?ID=#ID#",),
 		"SET_TITLE" => "N",
-		"VARIABLE_ALIASES" => array("detail"=>array("ID"=>"ID",),"cancel"=>array("ID"=>"ID",),)
-	)
+		"STATUS_COLOR_F" => "gray",
+		"STATUS_COLOR_N" => "green",
+		"STATUS_COLOR_P" => "yellow",
+		"STATUS_COLOR_PSEUDO_CANCELLED" => "red",
+		"SEF_URL_TEMPLATES" => array(
+			"list" => "",
+			"detail" => "order_detail.php?ID=#ID#",
+			"cancel" => "order_cancel.php?ID=#ID#",
+		),
+		"VARIABLE_ALIASES" => array(
+			"detail" => array(
+				"ID" => "ID",
+			),
+			"cancel" => array(
+				"ID" => "ID",
+			),
+		)
+	),
+	false
 );?><?$APPLICATION->IncludeComponent(
 	"bitrix:sale.personal.order.list",
 	"",

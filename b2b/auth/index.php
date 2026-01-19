@@ -12,6 +12,7 @@ $APPLICATION->SetPageProperty('title', 'Вход в B2B');
 		"auth" => "",
 		"registration" => "auth/registration/",
 		"forgot" => "forgot-password/",
+		"forgot_password" => "auth/forgot-password/",
 		"change" => "change-password/",
 		"confirm" => "confirm-password/",
 		"confirm_registration" => "confirm-registration/",

@@ -30,6 +30,14 @@ $arUrlRewrite=array (
     'PATH' => '/select-complect/access/index.php',
     'SORT' => 100,
   ),
+  104 => 
+  array (
+    'CONDITION' => '#^/b2b/auth/registration/#',
+    'RULE' => '',
+    'ID' => '',
+    'PATH' => '/b2b/auth/registration.php',
+    'SORT' => 100,
+  ),
   111 => 
   array (
     'CONDITION' => '#^/b2b/orders-history/#',
@@ -140,7 +148,6 @@ $arUrlRewrite=array (
     'PATH' => '/brands/price/index.php',
     'SORT' => 100,
   ),
-
   21 => 
   array (
     'CONDITION' => '#^/info/brands/#',
@@ -172,7 +179,6 @@ $arUrlRewrite=array (
     'PATH' => '/lookbooks/index.php',
     'SORT' => 100,
   ),
- 
   10 => 
   array (
     'CONDITION' => '#^/personal/#',
@@ -249,14 +255,6 @@ $arUrlRewrite=array (
     'RULE' => '',
     'ID' => 'aspro:auth.max',
     'PATH' => '/b2b/auth/index.php',
-    'SORT' => 100,
-  ),
-  104 => 
-  array (
-    'CONDITION' => '#^/b2b/auth/registration/#',
-    'RULE' => '',
-    'ID' => '',
-    'PATH' => '/b2b/auth/registration.php',
     'SORT' => 100,
   ),
   19 => 
@@ -393,5 +391,4 @@ $arUrlRewrite=array (
     'PATH' => '/b2b/index.php',
     'SORT' => 100,
   ),
-
 );

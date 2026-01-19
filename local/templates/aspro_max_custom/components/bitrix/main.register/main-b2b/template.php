@@ -198,6 +198,7 @@ $arResult['BACKURL'] = '/b2b/';
 												<?break;?>
 												<?case "INN":?>
 													<?if($arUFields):?>
+														<?print_r($arUFields);?>
 														<?foreach($arUFields as $arUField):?>
 															<?if ($arUField['FIELD_NAME'] === 'UF_INNORG'):?>
 																<?$arUField["MANDATORY"] = 'Y';?>
@@ -303,7 +304,6 @@ $arResult['BACKURL'] = '/b2b/';
 				$(document).ready(function() {
 					$('#input_UF_INNORG').on('input', function() {
 						document.getElementsByName('UF_INNORG')[0].value = $(this).val();
-						console.log('Значение изменилось на:', $(this).val());
 					});
 					<?if($bPhoneAuthSupported && $bPhoneAuthShow):?>
 						$('#registraion-page-form').submit(function(){
@@ -317,7 +317,7 @@ $arResult['BACKURL'] = '/b2b/';
 							}
 						});
 					<?endif;?>
-
+					
 					$('#registraion-page-form').validate({
 						rules:{emails: 'email'},
 						highlight: function( element ){
@@ -328,13 +328,48 @@ $arResult['BACKURL'] = '/b2b/';
 						},
 						submitHandler: function( form ){
 							if($(form).valid()){
+			//					console.log($('#registraion-page-form').serialize());
+								$('#registraion-page-form').on('submit', function(event) {
+									event.preventDefault(); // предотвращаем стандартное поведение формы
+
+									// Получаем данные формы в виде массива объектов
+									var formDataArray = $(this).serializeArray();
+									
+									// Преобразуем массив в объект
+									var formDataObject = {};
+									$.each(formDataArray, function() {
+										formDataObject[this.name] = this.value;
+									});
+
+									// Преобразуем объект в строку JSON
+									var jsonData = JSON.stringify(formDataObject);
+
+									console.log(jsonData); // выводим JSON-строку в консоль
+								});
 								var $button = $(form).find('button[type=submit]');
 								if($button.length){
-									if(!$button.hasClass('loadings')){
+									if(!$button.hasClass('loadings')) {
 					  					$button.addClass('loadings');
-
+										console.log(form);
+										alert(form);
+										//console.log(form);
+										$.ajax({
+											url: '/local/lib/AmikomB2BRest/index.php',
+											method: 'POST',
+											async: false,
+											data: {dt: form},
+											dataType:'json',
+											success: function(data) {
+												alert(data);
+												console.log(data);
+											},
+											error: function(e) {
+												alert('Произошла ошибка при загрузке файла.');
+											}
+										});
 										var eventdata = {type: 'form_submit', form: form, form_name: 'REGISTER'};
 										BX.onCustomEvent('onSubmitForm', [eventdata]);
+										
 									}
 					  			}
 							}
