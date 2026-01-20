@@ -1725,10 +1725,11 @@ textarea[data-sid="DEFECT_DESCRIPTION"] {
   padding-bottom: 40px;
   padding-left: 46px;
   padding-right: 20px;
-  border: 3px solid #f2722c;
+  border: 2px solid #f2722c;
   background-color: white;
   flex-direction: row;
   justify-content: space-between;
+  border-radius: 3px;
 }
 .company-b2b-main-text{
   color: #8f8c8b;

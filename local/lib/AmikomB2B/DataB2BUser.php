@@ -2,6 +2,8 @@
 namespace AmikomB2B;
 use CIBlockElement;
 use Bitrix\Highloadblock\HighloadBlockTable;
+use CUser;
+
 class DataB2BUser {
     public static function getCompany($userPartnerID) {
         $arFilter = [
@@ -56,6 +58,11 @@ class DataB2BUser {
     public static function formatPhoneNumber($phone) {
 		$phone = preg_replace('/[^\d]/', '', $phone);
 		return '+7 ' . substr($phone, 1, 3) . ' ' . substr($phone, 4, 3) . ' ' . substr($phone, 7, 2) . ' ' . substr($phone, 9, 2);
+    }
+    public static function getUserForm() {
+        global $USER;
+        $res = \CUser::GetByID($USER->GetID())->Fetch()['LOGIN'];
+        return $res;
     }
         
 }

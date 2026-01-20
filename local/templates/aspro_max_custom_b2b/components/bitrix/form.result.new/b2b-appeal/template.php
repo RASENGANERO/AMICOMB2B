@@ -2,6 +2,12 @@
 	die(); ?>
 <? $frame = $this->createFrame()->begin('') ?>
 <?
+use AmikomB2B;
+
+$userID = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());
+$companyName = \AmikomB2B\DataB2BUser::getCompany($userID)['NAME'];
+$companyName = str_replace('"','',$companyName);
+$userName = \AmikomB2B\DataB2BUser::getUserForm();
 $bLeftAndRight = false;
 if (is_array($arResult["QUESTIONS"])) {
 	foreach ($arResult["QUESTIONS"] as $arQuestion) {
@@ -22,11 +28,18 @@ if (is_array($arResult["QUESTIONS"])) {
 				<? if (is_array($arResult["QUESTIONS"])): ?>
 					<? if (!$bLeftAndRight): ?>
 						<? foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion): ?>
-							<? CMax::drawFormField($FIELD_SID, $arQuestion); ?>
+							<?if ($FIELD_SID === 'USER_NAME'):?>
+								<input type="hidden" data-sid="USER_NAME" name="form_hidden_309" value="<?=$userName?>">
+							<?elseif ($FIELD_SID === 'USER_COMPANY'):?>
+								<input type="hidden" data-sid="USER_COMPANY" name="form_hidden_310" value="<?=$companyName?>">
+							<?else:?>
+								<? CMax::drawFormField($FIELD_SID, $arQuestion); ?>
+							<?endif;?>
 						<? endforeach; ?>
 					<? else: ?>
 						<div class="row">
 							<div class="col-md-7">
+								
 								<? foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion): ?>
 									<? if ($arQuestion["STRUCTURE"][0]["FIELD_PARAM"] == 'left'): ?>
 										<? CMax::drawFormField($FIELD_SID, $arQuestion); ?>
