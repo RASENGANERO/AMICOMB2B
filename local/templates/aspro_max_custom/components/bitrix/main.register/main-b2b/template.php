@@ -127,11 +127,11 @@ $arResult['BACKURL'] = '/b2b/';
         						if(isset($arFields["SECOND_NAME"]))
         							unset($arFields["SECOND_NAME"]);
         					}
-							$arInn = $arUFields['UF_INNORG'];
-							$arB2B = $arUFields['UF_B2B_REGISTER'];
+							
                             ?>
 					<div class="form_body">
 						<?php
+							$labelHide = ['INN','COMPANY'];
                             foreach($arFields as $FIELD):?>
         							<?if($FIELD === 'PHONE_NUMBER'):?>
         								<?continue;?>
@@ -147,7 +147,7 @@ $arResult['BACKURL'] = '/b2b/';
         										}
         									}
         									?>
-											<?if ($FIELD !== 'INN'):?>
+											<?if (!in_array($FIELD,$labelHide)):?>
         										<label for="input_<?=$FIELD;?>"><span><?=$text?>&nbsp;<?if($arResult["REQUIRED_FIELDS_FLAGS"][$FIELD] == "Y"):?><span class="star">*</span><?endif;?></span></label>
 											<?endif;?>
         							<?endif;?>
@@ -198,7 +198,6 @@ $arResult['BACKURL'] = '/b2b/';
 												<?break;?>
 												<?case "INN":?>
 													<?if($arUFields):?>
-														<?print_r($arUFields);?>
 														<?foreach($arUFields as $arUField):?>
 															<?if ($arUField['FIELD_NAME'] === 'UF_INNORG'):?>
 																<?$arUField["MANDATORY"] = 'Y';?>
@@ -206,6 +205,21 @@ $arResult['BACKURL'] = '/b2b/';
 																<span class="field-wrap">
 																	<span class="field-item">
 																		<input id="input_UF_INNORG" size="20" class="fields string" name="REGISTER[<?=$FIELD?>]" tabindex="0" type="text" value="" required aria-required="true" aria-invalid="false">
+																	</span>
+																</span>
+															<?endif;?>
+														<?endforeach;?>
+													<?endif;?>
+        										<?break;?>
+												<?case "COMPANY":?>
+													<?if($arUFields):?>
+														<?foreach($arUFields as $arUField):?>
+															<?if ($arUField['FIELD_NAME'] === 'UF_COMPANY'):?>
+																<?$arUField["MANDATORY"] = 'Y';?>
+																<label for="input_UF_COMPANY"><span><?=$arUField["EDIT_FORM_LABEL"];?>&nbsp;<?if ($arUField["MANDATORY"] == "Y"):?><span class="star">*</span><?endif;?></span></label>
+																<span class="field-wrap">
+																	<span class="field-item">
+																		<input id="input_UF_COMPANY" size="20" class="fields string" name="REGISTER[<?=$FIELD?>]" tabindex="0" type="text" value="" required aria-required="true" aria-invalid="false">
 																	</span>
 																</span>
 															<?endif;?>
@@ -305,6 +319,9 @@ $arResult['BACKURL'] = '/b2b/';
 					$('#input_UF_INNORG').on('input', function() {
 						document.getElementsByName('UF_INNORG')[0].value = $(this).val();
 					});
+					$('#input_UF_COMPANY').on('input', function() {
+						document.getElementsByName('UF_COMPANY')[0].value = $(this).val();
+					});
 					<?if($bPhoneAuthSupported && $bPhoneAuthShow):?>
 						$('#registraion-page-form').submit(function(){
 							$(this).find('[name=PHONE_NUMBER]').remove();
@@ -350,23 +367,6 @@ $arResult['BACKURL'] = '/b2b/';
 								if($button.length){
 									if(!$button.hasClass('loadings')) {
 					  					$button.addClass('loadings');
-										console.log(form);
-										alert(form);
-										//console.log(form);
-										$.ajax({
-											url: '/local/lib/AmikomB2BRest/index.php',
-											method: 'POST',
-											async: false,
-											data: {dt: form},
-											dataType:'json',
-											success: function(data) {
-												alert(data);
-												console.log(data);
-											},
-											error: function(e) {
-												alert('Произошла ошибка при загрузке файла.');
-											}
-										});
 										var eventdata = {type: 'form_submit', form: form, form_name: 'REGISTER'};
 										BX.onCustomEvent('onSubmitForm', [eventdata]);
 										

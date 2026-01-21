@@ -16,8 +16,8 @@ use \Bitrix\Main\Config\Option;
 <?if(!$USER->IsAuthorized()):?>
 	<?
 	// default fields, that you can change
-	$arShowFields = ["LOGIN", "LAST_NAME", "NAME", "INN","SECOND_NAME", "EMAIL", "PERSONAL_PHONE"];
-	$arRequiredFields = ["NAME","INN"];
+	$arShowFields = ["LOGIN", "LAST_NAME", "NAME", "SECOND_NAME","INN","COMPANY","EMAIL", "PERSONAL_PHONE"];
+	$arRequiredFields = ["NAME","INN","COMPANY"];
 	$useBackUrl = 'Y';
 
 	if( Option::get('main', 'new_user_phone_required', 'N', SITE_ID) == 'Y' ) {
@@ -72,7 +72,7 @@ use \Bitrix\Main\Config\Option;
 			"USE_BACKURL" => $useBackUrl,
 			"SUCCESS_PAGE" => "",
 			"SET_TITLE" => "N",
-			"USER_PROPERTY" => ['UF_B2B_REGISTER','UF_INNORG']
+			"USER_PROPERTY" => ['UF_B2B_REGISTER','UF_INNORG','UF_COMPANY']
 		]
 	);?>
 <?else:?>
