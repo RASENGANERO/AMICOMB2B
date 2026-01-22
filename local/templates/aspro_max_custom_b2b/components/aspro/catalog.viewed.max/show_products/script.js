@@ -55,7 +55,8 @@ showViewedItems = function(lastViewedTime, bShowMeasure, $viewedSlider){
 						var bWithOffers = (typeof item.WITH_OFFERS !== 'undefined') ? (item.WITH_OFFERS === 'Y') : false;
 						var bShowEmptyPrice = $viewedEmptyPriceText !== 'N' && (!item.MIN_PRICE || item.MIN_PRICE.VALUE === '0');
 						var hidePriceBlock = sMissingGoodsPriceDisplay !== 'N' || (!item.MIN_PRICE || item.MIN_PRICE.VALUE !== '0');
-
+						hidePriceBlock = 'Y';
+						
 						$item.html(
 							'<div class="block-item__inner flexbox flexbox--row">'+
 								'<div class="block-item__image block-item__image--wh90">'+
@@ -66,7 +67,7 @@ showViewedItems = function(lastViewedTime, bShowMeasure, $viewedSlider){
 								'<div class="block-item__info item_info">'+
 									'<div class="block-item__title">'+
 										'<a class="dark-color font_xs" href="' + item.DETAIL_PAGE_URL + '"><span>' + item.NAME + '</span></a>'+
-									'</div>'+ (hidePriceBlock ? 
+									'</div>'+ /*(hidePriceBlock ? 
 									'<div class="block-item__cost cost prices clearfix font_sm">'+
 										(!bShowEmptyPrice ? (item.MIN_PRICE && item.MIN_PRICE.PRINT_DISCOUNT_VALUE !== undefined ?
 											((((item.MIN_PRICE.VALUE * 1) > (item.MIN_PRICE.DISCOUNT_VALUE * 1))) ?
@@ -74,7 +75,7 @@ showViewedItems = function(lastViewedTime, bShowMeasure, $viewedSlider){
 												: '<div class="price only_price">' + (bWithOffers ? BX.message('CATALOG_FROM_VIEWED')+' ' : '') + item.MIN_PRICE.PRINT_DISCOUNT_VALUE + (bShowMeasure && !bWithOffers && item.CATALOG_MEASURE_NAME.length ? '/' + item.CATALOG_MEASURE_NAME : '') + '</div>')
 											: '')
 										: '<div class="price only_price">' + $viewedEmptyPriceText + '</div>') +
-									'</div>'  : "") +
+									'</div>'  : "") +*/
 									(bShowBonusViewed === 'Y' ? '<div class="bonus-system-block lb_bonus lb_bonus_viewed lb_ajax_'+item.PRODUCT_ID+'" data-item="'+item.PRODUCT_ID+'"></div>' : '')+
 								'</div>'+
 							'</div>'

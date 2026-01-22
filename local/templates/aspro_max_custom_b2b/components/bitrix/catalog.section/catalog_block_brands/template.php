@@ -80,7 +80,23 @@
 		?>
 		
 		<?foreach($arResult["ITEMS"] as $arItem){?>
-			<?$this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_EDIT"));
+			<?
+			if ($arItem['PRICES']['BASE']['VALUE'] !== 0) {
+				$UF_PriceGroup = \AmikomB2B\DiscountInfo::getPriceGroupID($arItem['ID']);
+				$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
+				$discountsAll = \AmikomB2B\DiscountInfo::getDiscountUser($UF_PriceGroup,$UF_Partner);//Получаем все проценты скидок по бренду
+				$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду
+				
+				if (intval($maxDiscount) !== 0) {
+					$obj = new \AmikomB2B\DiscountPrices($arItem['PRICES'],$maxDiscount);
+					$arItem['PRICES'] = $obj->generateDiscountValues();
+					
+					$arParams['SHOW_OLD_PRICE'] = 'Y';
+				}
+			}	
+			?>
+			<?
+			$this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_EDIT"));
 			$this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BCS_ELEMENT_DELETE_CONFIRM')));
 			
 			$bOutOfProduction = isset($arItem['PROPERTIES']['OUT_OF_PRODUCTION']) && $arItem['PROPERTIES']['OUT_OF_PRODUCTION']['VALUE'] === 'Y';
@@ -418,7 +434,21 @@
 				</div>
 				<?\Aspro\Functions\CAsproMax::showBonusBlockList($arCurrentSKU ?: $arItem);?>
 			<?$itemPrice = ob_get_clean();?>
-
+			<?
+			$itemPriceNew['PRICES']['BASE']['VALUE'] = \AmikomB2B\DiscountInfo::getPriceMain($arItem['ID']);
+			if (intval($itemPriceNew['PRICES']['BASE']['VALUE']) !== 0) {
+				$UF_PriceGroup = \AmikomB2B\DiscountInfo::getPriceGroupID($arItem['ID']);
+				$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
+				$discountsAll = \AmikomB2B\DiscountInfo::getDiscountUser($UF_PriceGroup,$UF_Partner);//Получаем все проценты скидок по бренду
+				$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду	
+				if (intval($maxDiscount) !== 0) {
+					$obj = new \AmikomB2B\DiscountPrices($itemPriceNew['PRICES'],$maxDiscount);
+					$itemPriceNew['PRICES'] = $obj->generateDiscountValues();
+					$arParams['SHOW_OLD_PRICE'] = 'Y';
+					$itemPrice = \AmikomB2B\DiscountInfo::generateDiscountsHTML($itemPriceNew['PRICES']);
+				}
+			}
+			?>
 			<?ob_start();?>
 				<div class="footer_button <?=($arItem["OFFERS"] && $arItem['OFFERS_PROP'] ? 'has_offer_prop' : '');?> inner_content js_offers__<?=$arItem['ID'];?>_<?=$arParams["FILTER_HIT_PROP"]?><?=($arParams["TYPE_VIEW_BASKET_BTN"] == "TYPE_2" ? ' n-btn' : '')?>">
 					<?if($arParams["TYPE_VIEW_BASKET_BTN"] != "TYPE_2" || $bBigBlock):?>

@@ -53,6 +53,7 @@ if (!window.JCCatalogSectionOnlyElement)
 
 		setPriceAction: function()
 		{
+			console.log(this.obProduct);
 			this.set_quantity = this.params.MIN_QUANTITY_BUY;			
 			if($(this.obProduct).find('input[name=quantity]').length)
 				this.set_quantity = $(this.obProduct).find('input[name=quantity]').val();

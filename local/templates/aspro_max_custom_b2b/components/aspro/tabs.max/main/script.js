@@ -1,11 +1,13 @@
 BX.ready(function(){
 	window.tabsInitOnReady = function(block = '') {
+		console.log(this.params.ITEM_PRICES);
 		loadScrollTabs('.tab_slider_wrapp' + block + ' .tabs_wrapper', () => {
 			$('.tab_slider_wrapp .tabs_wrapper').scrollTab({
 				tabs_wrapper: '.tabs.ajax',
 				arrows_css: {
 					'top': '-1px',
 				},
+				
 				width_grow: 3,
 				onResize: function(options) {
 					var top_wrapper = options.scrollTab.closest('.top_block');
@@ -81,12 +83,13 @@ if (!window.JCCatalogSectionOnlyElement)
 				treeItems = null;
 
 			this.obProduct = BX(this.params.ID);
-
+			
 			if(!!this.obProduct)
 			{
 				$(this.obProduct).find('.counter_wrapp .counter_block input').data('product', 'ob'+this.obProduct.id+'el');
 				this.currentPriceMode = this.params.ITEM_PRICE_MODE;
 				this.currentPrices = this.params.ITEM_PRICES;
+				
 				
 				this.currentQuantityRanges = this.params.ITEM_QUANTITY_RANGES;
 			}

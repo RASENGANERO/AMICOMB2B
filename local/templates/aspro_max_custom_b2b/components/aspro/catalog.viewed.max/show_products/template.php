@@ -2,7 +2,7 @@
 if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 $this->setFrameMode(true);
 $arParams['TITLE_BLOCK'] = strlen($arParams['TITLE_BLOCK']) ? $arParams['TITLE_BLOCK'] : GetMessage('CATALOG_VIEWED_TITLE');
-global $bHeaderStickyMenu;
+global $bHeaderStickyMenu, $USER;
 ?>
 <!-- noindex -->
 <?if(strlen($arResult['ERROR'])):?>
@@ -51,7 +51,7 @@ global $bHeaderStickyMenu;
 			var $viewedEmptyPriceText = BX.message('EMPTY_PRICE_TEXT_VIEWED');
 			var bShowBonusViewed = BX.message('USE_BONUS_VIEWED');
 			var sMissingGoodsPriceDisplay = '<?=$arResult['MISSING_GOODS_PRICE_DISPLAY']?>';
-
+			//var sMissingGoodsPriceDisplay = 'Y';
 			showViewedItems(lastViewedTime, bShowMeasure, $viewedSlider);
 		</script>
 	<?endif;?>

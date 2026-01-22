@@ -43,7 +43,20 @@ $arParams['SHOW_STORES_POPUP'] = (boolean)($arParams['SHOW_STORES_POPUP'] ?? fal
 		<?$arOfferProps = implode(';', $arParams['OFFERS_CART_PROPERTIES']);?>
 
 		<?foreach($arResult["ITEMS"] as $key => $arItem){?>
-			<?$this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_EDIT"));
+			<?
+			if ($arItem['PRICES']['BASE']['VALUE'] !== 0) {
+				$UF_PriceGroup = \AmikomB2B\DiscountInfo::getPriceGroupID($arItem['ID']);
+				$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
+				$discountsAll = \AmikomB2B\DiscountInfo::getDiscountUser($UF_PriceGroup,$UF_Partner);//Получаем все проценты скидок по бренду
+				$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду
+				if (intval($maxDiscount) !== 0) {
+					$obj = new \AmikomB2B\DiscountPrices($arItem['PRICES'],$maxDiscount);
+					$arItem['PRICES'] = $obj->generateDiscountValues();
+				}
+			}
+			?>
+			<?
+			$this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_EDIT"));
 			$this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BCS_ELEMENT_DELETE_CONFIRM')));
 
 			if(!empty($arItem['PRODUCT_PROPERTIES_FILL']))

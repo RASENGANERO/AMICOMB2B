@@ -66,8 +66,6 @@ class DiscountPrices {
     public static function getPrintValue($printValue) {
         return number_format($printValue, 0, ',', ' ') . ' ₽';
     }
-
-
     public static function getPrintValueFloat($printValue) {
         if (floor($printValue) == $printValue) {
             return number_format($printValue, 0, '.', ' ') . " ₽";

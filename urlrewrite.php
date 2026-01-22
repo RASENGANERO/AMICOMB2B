@@ -30,7 +30,6 @@ $arUrlRewrite=array (
     'PATH' => '/select-complect/access/index.php',
     'SORT' => 100,
   ),
-
   111 => 
   array (
     'CONDITION' => '#^/b2b/orders-history/#',
