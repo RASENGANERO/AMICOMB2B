@@ -7069,6 +7069,16 @@ $(document).ready(function () {
                 val = 1;
             }
 
+            let id = $(this)
+                        .parents(".counter_block")
+                        .parent()
+                        .parent()
+                        .find(".to-cart")
+                        .attr("data-item");
+            let checkCount = parseFloat($(this).attr("discount"));
+            let valDiscountPrice = checkCount*val;
+            document.getElementById('cust-add-basket-'+id).setAttribute('discount-price',valDiscountPrice);
+            
             $(this)
                 .parents(".counter_block")
                 .parent()
@@ -7509,9 +7519,9 @@ $(document).ready(function () {
                 fill_prop.item = item;
                 fill_prop.basket_props = basket_props;
                 //CAST
-                fill_prop.discount_price = document.getElementById('cust-add-basket').getAttribute('discount-price');
-                fill_prop.price = document.getElementById('cust-add-basket').getAttribute('price');
-                fill_prop.percent = document.getElementById('cust-add-basket').getAttribute('percent');
+                fill_prop.discount_price = document.getElementById('cust-add-basket-'+item).getAttribute('discount-price');
+                fill_prop.price = document.getElementById('cust-add-basket-'+item).getAttribute('price');
+                fill_prop.percent = document.getElementById('cust-add-basket-'+item).getAttribute('percent');
 
                 var isDetail =
                     th.closest(".product-action").length ||

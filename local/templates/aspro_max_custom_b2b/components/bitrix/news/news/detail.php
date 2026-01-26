@@ -269,6 +269,7 @@ if($arParams["SHOW_MAX_ELEMENT"] == "Y")
 		}
 		?>
 		<? 
+		$arAllSections = array_values($arAllSections);
 		for($i=0;$i<count($arAllSections);$i++) {
 			if (array_key_exists('PARAMS', $arAllSections[$i])) {
 				if ($arAllSections[$i]['PARAMS']['ID'] === $arElement['IBLOCK_SECTION_ID_SELECTED']) {

@@ -6,7 +6,7 @@ class B2BUsers {
         if ($arFieldsUser['ID'] > 0) {
             if (!empty($arFieldsUser['UF_B2B_REGISTER'])) {
                 $arGroups = CUser::GetUserGroup($arFieldsUser["ID"]); 
-                $arGroups[] = self::USER_PARTNER_GROUP; //То добаляем пользователя в группу c ID15 
+                $arGroups[] = self::USER_PARTNER_GROUP; 
                 CUser::SetUserGroup($arFieldsUser["ID"], $arGroups);
 
                 $data = [

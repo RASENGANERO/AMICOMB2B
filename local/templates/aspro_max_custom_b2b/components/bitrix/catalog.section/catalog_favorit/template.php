@@ -181,6 +181,7 @@ $arParams['SHOW_STORES_POPUP'] = (boolean)($arParams['SHOW_STORES_POPUP'] ?? fal
 						<?
 					}?>
 				</div>
+				
 				<div class="main_item_wrapper js-notice-block" id="<?=$this->GetEditAreaId($arItem['ID']);?>_fav">
 					<div class="inner_wrap row">
 						<div class="image col-md-6 text-center">
@@ -335,16 +336,39 @@ $arParams['SHOW_STORES_POPUP'] = (boolean)($arParams['SHOW_STORES_POPUP'] ?? fal
 									<?}?>
 								</div>
 								<?\Aspro\Functions\CAsproMax::showBonusBlockList($arItem);?>
-
+								<?
+								$itemPriceNew['PRICES']['BASE']['VALUE'] = \AmikomB2B\DiscountInfo::getPriceMain($arItem['ID']);
+								$arValuesCust['PERCENT'] = 0;
+								$arValuesCust['PRICE'] = $itemPriceNew['PRICES']['BASE']['VALUE'];
+								$arValuesCust['DISCOUNT_PRICE'] = 0;
+								if (intval($itemPriceNew['PRICES']['BASE']['VALUE']) !== 0) {
+									$UF_PriceGroup = \AmikomB2B\DiscountInfo::getPriceGroupID($arItem['ID']);
+									$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
+									$discountsAll = \AmikomB2B\DiscountInfo::getDiscountUser($UF_PriceGroup,$UF_Partner);//Получаем все проценты скидок по бренду
+									$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду	
+									if (intval($maxDiscount) !== 0) {
+										$obj = new \AmikomB2B\DiscountPrices($itemPriceNew['PRICES'],$maxDiscount);
+										$itemPriceNew['PRICES'] = $obj->generateDiscountValues();
+										$arValuesCust['PERCENT'] = $maxDiscount;
+										$arValuesCust['PRICE'] = $itemPriceNew['PRICES']['BASE']['DISCOUNT_VALUE'];
+										$arValuesCust['DISCOUNT_PRICE'] = $itemPriceNew['PRICES']['BASE']['DISCOUNT_DIFF'];
+										$itemPrice = \AmikomB2B\DiscountInfo::generateDiscountsHTML($itemPriceNew['PRICES']);
+									}
+								}
+								?>
 								<div class="<?=($arItem["OFFERS"] && $arItem['OFFERS_PROP'] ? 'has_offer_prop' : '');?> footer-action inner_content js_offers__<?=$arItem['ID'];?>_fav">
 									<?if(!$arItem["OFFERS"]):?>
 										<div class="counter_wrapp list clearfix">
 											<?if(($arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_LIST"] && $arAddToBasketData["ACTION"] == "ADD") && $arAddToBasketData["CAN_BUY"]):?>
-												<?=\Aspro\Functions\CAsproMax::showItemCounter($arAddToBasketData, $arItem["ID"], $arItemIDs, $arParams, 'md', '', true);?>
+												<?=\Aspro\Functions\CAsproMaxCustom::showItemCounterCustom($arValuesCust['DISCOUNT_PRICE'],$arAddToBasketData, $arItem["ID"], $arItemIDs, $arParams, 'big');?>
+												<?//=\Aspro\Functions\CAsproMax::showItemCounter($arAddToBasketData, $arItem["ID"], $arItemIDs, $arParams, 'md', '', true);?>
 											<?endif;?>
 											<div id="<?=$arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']; ?>" class="button_block">
 												<!--noindex-->
-													<?=$arAddToBasketData["HTML"]?>
+												<?
+												$arAddToBasketData = \Aspro\Functions\CAsproMaxCustom::GetAddToBasketArrayCustom($arItem, $arValuesCust,$itemPriceNew['PRICES'],$totalCount, $arParams["DEFAULT_COUNT"], $arParams["BASKET_URL"], true, $arItemIDs["ALL_ITEM_IDS"], 'btn-lg', $arParams);
+												?>
+												<?=$arAddToBasketData["HTML"]?>
 												<!--/noindex-->
 											</div>
 										</div>

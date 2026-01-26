@@ -599,7 +599,6 @@ foreach ($this->basketItems as $row)
 	$result['BASKET_ITEM_RENDER_DATA'][] = $rowData;
 	
 }
-print_r($rowData);
 if ($counterCheckDiscount !== 0) {
 	$this->priceVatShowValue = 'Y';
 

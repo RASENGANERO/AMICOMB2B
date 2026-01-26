@@ -88,7 +88,8 @@ class DiscountInfo {
                                 <div class="prices-wrapper">
                                     <div class="price font-bold font_mxs">
                                         <div class="price_value_block values_wrapper">
-                                            <span class="price_value">'.$valuesPrices['BASE']['PRINT_DISCOUNT_VALUE'].'</span>
+                                            <span class="price_value">'.$valuesPrices['BASE']['DISCOUNT_VALUE'].'</span>
+                                            <span class="price_currency"> ₽</span>
                                         </div>
                                     </div>
                                     <div class="price discount">

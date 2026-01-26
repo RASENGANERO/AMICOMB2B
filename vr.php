@@ -149,4 +149,7 @@ $resultAll = CRest::call(
 	$params3	
 );
 print_r($resultAll);
+
+$res = CIBlockElement::GetList(['SORT'=>'ASC'],['IBLOCK_ID'=>12,'CODE'=>$code],false,false,['ID'])
+
 ?>

@@ -39,7 +39,7 @@ class DiscountPrices {
         $this->discountArr['SHOW_DISCOUNT_PRICE'] = 1;
         
         $discountPrice = \CSaleBasket::GetByID($this->discountArr['ID'])['DISCOUNT_PRICE'];
-        print_r($discountPrice);
+        
         $this->discountArr['DISCOUNT_PRICE'] = $discountPrice;
         $this->discountArr['SUM_DISCOUNT_PRICE'] = $discountPrice;
         $this->discountArr['DISCOUNT_PRICE_FORMATED'] = self::getPrintValue($this->discountArr['DISCOUNT_PRICE']);

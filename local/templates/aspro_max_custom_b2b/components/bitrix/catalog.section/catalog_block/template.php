@@ -445,6 +445,9 @@ use Amikomnew;
 			<?$itemPrice = ob_get_clean();?>
 			<?
 			$itemPriceNew['PRICES']['BASE']['VALUE'] = \AmikomB2B\DiscountInfo::getPriceMain($arItem['ID']);
+			$arValuesCust['PERCENT'] = 0;
+			$arValuesCust['PRICE'] = $itemPriceNew['PRICES']['BASE']['VALUE'];
+			$arValuesCust['DISCOUNT_PRICE'] = 0;
 			if (intval($itemPriceNew['PRICES']['BASE']['VALUE']) !== 0) {
 				$UF_PriceGroup = \AmikomB2B\DiscountInfo::getPriceGroupID($arItem['ID']);
 				$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
@@ -454,9 +457,14 @@ use Amikomnew;
 					$obj = new \AmikomB2B\DiscountPrices($itemPriceNew['PRICES'],$maxDiscount);
 					$itemPriceNew['PRICES'] = $obj->generateDiscountValues();
 					$arParams['SHOW_OLD_PRICE'] = 'Y';
+					$arValuesCust['PERCENT'] = $maxDiscount;
+					$arValuesCust['PRICE'] = $itemPriceNew['PRICES']['BASE']['DISCOUNT_VALUE'];
+					$arValuesCust['DISCOUNT_PRICE'] = $itemPriceNew['PRICES']['BASE']['DISCOUNT_DIFF'];
+					
 					$itemPrice = \AmikomB2B\DiscountInfo::generateDiscountsHTML($itemPriceNew['PRICES']);
 				}
 			}
+			
 			?>
 			<?ob_start();?>
 				<div class="footer_button <?=($arItem["OFFERS"] && $arItem['OFFERS_PROP'] ? 'has_offer_prop' : '');?> inner_content js_offers__<?=$arItem['ID'];?>_<?=$arParams["FILTER_HIT_PROP"]?><?=($arParams["TYPE_VIEW_BASKET_BTN"] == "TYPE_2" ? ' n-btn' : '')?>">
@@ -484,9 +492,12 @@ use Amikomnew;
 						<?else:?>
 							<?if(!$arItem["OFFERS"]):?>
 								<div class="counter_wrapp <?=($arItem["OFFERS"] && $arParams["TYPE_SKU"] == "TYPE_1" ? 'woffers' : '')?> clearfix rounded3">
-									<?=\Aspro\Functions\CAsproMax::showItemCounter($arAddToBasketData, $arItem["ID"], $arItemIDs, $arParams, 'big');?>
+									<?=\Aspro\Functions\CAsproMaxCustom::showItemCounterCustom($arValuesCust['DISCOUNT_PRICE'],$arAddToBasketData, $arItem["ID"], $arItemIDs, $arParams, 'big');?>
 									<div id="<?=$arItemIDs["ALL_ITEM_IDS"]['BASKET_ACTIONS']; ?>" class="button_block <?=($arAddToBasketData['ACTION'] === 'OUT_OF_PRODUCTION' || $arAddToBasketData["ACTION"] == "ORDER"  || !$arAddToBasketData["CAN_BUY"] || !$arAddToBasketData["OPTIONS"]["USE_PRODUCT_QUANTITY_LIST"] || $arAddToBasketData["ACTION"] == "SUBSCRIBE" || $arAddToBasketData["ACTION"] == "MORE" ? "wide" : "");?>">
 										<!--noindex-->
+											<?
+											$arAddToBasketData = \Aspro\Functions\CAsproMaxCustom::GetAddToBasketArrayCustom($arItem, $arValuesCust,$itemPriceNew['PRICES'],$totalCount, $arParams["DEFAULT_COUNT"], $arParams["BASKET_URL"], true, $arItemIDs["ALL_ITEM_IDS"], 'btn-lg', $arParams);
+											?>
 											<?=$arAddToBasketData["HTML"]?>
 										<!--/noindex-->
 									</div>
