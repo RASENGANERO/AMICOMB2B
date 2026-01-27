@@ -116,6 +116,14 @@ $arUrlRewrite=array (
     'PATH' => '/company/staff/index.php',
     'SORT' => 100,
   ),
+  122 => 
+  array (
+    'CONDITION' => '#^/b2b/discounts/#',
+    'RULE' => '',
+    'ID' => 'bitrix:news',
+    'PATH' => '/b2b/discounts/index.php',
+    'SORT' => 100,
+  ),
   37 => 
   array (
     'CONDITION' => '#^/company/news/#',

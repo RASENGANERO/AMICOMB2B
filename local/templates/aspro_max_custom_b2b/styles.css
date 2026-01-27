@@ -1779,3 +1779,9 @@ textarea[data-sid="DEFECT_DESCRIPTION"] {
   color: var(--basic_text_black);
   text-decoration: underline;
 }
+.dashboard-main-discounts{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}

@@ -1,16 +1,35 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetPageProperty('title', 'Все бренды представленные в интернет-магазине Амиком');
-$APPLICATION->SetPageProperty('description', 'Все бренды оборудования для систем безопасности в одном месте. Быстрая доставка и простой выбор в Амиком.');
+$APPLICATION->SetTitle("Ваши скидки");
+?>
+<?
+if (!$USER->IsAuthorized()) {
+    LocalRedirect('/b2b/auth/');
+}
+?>
+<?
+use AmikomB2B;
+$userID = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());
+$discounts = [];
+$discountsMAX = [];
+if (!empty($userID)) {
+    $discounts = \AmikomB2B\DataB2BUser::getDiscountsBrands($userID);
+    $discountsMAX = \AmikomB2B\DataB2BUser::generateDiscBrands($discounts);
+}
 ?>
 <?
 if (!empty($_GET['letter'])) {
-	$GLOBALS['filterBrands']['NAME'] = $_GET['letter'] . '%'; 
+	$GLOBALS['filterBrandsB2B']['NAME'] = $_GET['letter'] . '%'; 
+}
+if (!empty($discountsMAX)) {
+    $GLOBALS['filterBrandsB2B']['ID'] = $discountsMAX['IDS'];
 }
 ?>
-	<?$APPLICATION->IncludeComponent(
+<section class="dashboard-section">
+    <div class="dashboard-main-discounts">
+    <?$APPLICATION->IncludeComponent(
 	"bitrix:news", 
-	"brands", 
+	"brands-b2b", 
 	array(
 		"ADD_DETAIL_TO_SLIDER" => "Y",
 		"ADD_ELEMENT_CHAIN" => "Y",
@@ -39,10 +58,10 @@ if (!empty($_GET['letter'])) {
 		"CACHE_FILTER" => "N",
 		"CACHE_GROUPS" => "N",
 		"CACHE_TIME" => "100000",
-		"CACHE_TYPE" => "A",
+		"CACHE_TYPE" => "N",
 		"CHECK_DATES" => "Y",
 		"COMMENTS_COUNT" => "5",
-		"COMPONENT_TEMPLATE" => "brands",
+		"COMPONENT_TEMPLATE" => "brands-b2b",
 		"COMPOSITE_FRAME_MODE" => "A",
 		"COMPOSITE_FRAME_TYPE" => "AUTO",
 		"CONVERT_CURRENCY" => "N",
@@ -102,7 +121,7 @@ if (!empty($_GET['letter'])) {
 			0 => "",
 			1 => "",
 		),
-		"FILTER_NAME" => "filterBrands",
+		"FILTER_NAME" => "filterBrandsB2B",
 		"FILTER_PROPERTY_CODE" => array(
 			0 => "",
 			1 => "",
@@ -167,7 +186,7 @@ if (!empty($_GET['letter'])) {
 		"MESSAGE_404" => "",
 		"META_DESCRIPTION" => "-",
 		"META_KEYWORDS" => "-",
-		"NEWS_COUNT" => "20",
+		"NEWS_COUNT" => "16",
 		"NUM_DAYS" => "30",
 		"NUM_NEWS" => "20",
 		"OFFERS_CART_PROPERTIES" => array(
@@ -187,7 +206,7 @@ if (!empty($_GET['letter'])) {
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
 		"PAGER_SHOW_ALL" => "N",
 		"PAGER_SHOW_ALWAYS" => "N",
-		"PAGER_TEMPLATE" => "hidebutton-show",
+		"PAGER_TEMPLATE" => ".default",
 		"PAGER_TITLE" => "Новости",
 		"PARTIAL_PRODUCT_PROPERTIES" => "N",
 		"PREVIEW_TRUNCATE_LEN" => "",
@@ -202,11 +221,11 @@ if (!empty($_GET['letter'])) {
 		"PRODUCT_PROPS_VARIABLE" => "prop",
 		"SALE_STIKER" => "-",
 		"SECTION_ELEMENTS_TYPE_VIEW" => "list_elements_2",
-		"SEF_FOLDER" => "/brands/",
+		"SEF_FOLDER" => "/b2b/discounts/",
 		"SEF_MODE" => "Y",
 		"SET_LAST_MODIFIED" => "N",
 		"SET_STATUS_404" => "Y",
-		"SET_TITLE" => "Y",
+		"SET_TITLE" => "N",
 		"SHOW_404" => "Y",
 		"SHOW_ARTICLE_SKU" => "N",
 		"SHOW_COUNT_ELEMENTS" => "Y",
@@ -269,6 +288,8 @@ if (!empty($_GET['letter'])) {
 		"USE_SUBSCRIBE_IN_TOP" => "N",
 		"VIEW_TYPE" => "table",
 		"YANDEX" => "N",
+		"DISCOUNT_VALUES" => $discountsMAX["DISCOUNTS"],
+		"COUNT_ALL_DISCOUNT" => count($discountsMAX["IDS"]),
 		"SEF_URL_TEMPLATES" => array(
 			"news" => "",
 			"section" => "#SECTION_CODE_PATH#/",
@@ -278,5 +299,102 @@ if (!empty($_GET['letter'])) {
 		)
 	),
 	false
+);?>  
+        
+    </div>
+    <div class="dashboard-news">
+        <?$GLOBALS['filterNewsB2BMain'] = [
+            'PROPERTY_SHOW_B2B_PAGE_VALUE' => 'Y'
+        ];?>
+        <?$APPLICATION->IncludeComponent("bitrix:news.list", "front_news_b2b", Array(
+	"IBLOCK_TYPE" => "aspro_max_content",	// Тип информационного блока (используется только для проверки)
+		"USE_FILTER" => "Y",
+		"FILTER_NAME" => "filterNewsB2BMain",	// Фильтр
+		"IBLOCK_ID" => "23",	// Код информационного блока
+		"NEWS_COUNT" => "4",	// Количество новостей на странице
+		"SORT_BY1" => "ACTIVE_FROM",	// Поле для первой сортировки новостей
+		"SORT_ORDER1" => "DESC",	// Направление для первой сортировки новостей
+		"SORT_BY2" => "SORT",	// Поле для второй сортировки новостей
+		"SORT_ORDER2" => "ASC",	// Направление для второй сортировки новостей
+		"FIELD_CODE" => array(	// Поля
+			0 => "CODE",
+			1 => "PREVIEW_PICTURE",
+			2 => "DATE_ACTIVE_FROM",
+			3 => "",
+		),
+		"PROPERTY_CODE" => array(	// Свойства
+			0 => "PERIOD",
+			1 => "REDIRECT",
+			2 => "",
+		),
+		"CHECK_DATES" => "Y",	// Показывать только активные на данный момент элементы
+		"DETAIL_URL" => "",	// URL страницы детального просмотра (по умолчанию - из настроек инфоблока)
+		"AJAX_MODE" => "N",	// Включить режим AJAX
+		"AJAX_OPTION_JUMP" => "N",	// Включить прокрутку к началу компонента
+		"AJAX_OPTION_STYLE" => "Y",	// Включить подгрузку стилей
+		"AJAX_OPTION_HISTORY" => "N",	// Включить эмуляцию навигации браузера
+		"CACHE_TYPE" => "A",	// Тип кеширования
+		"CACHE_TIME" => "36000000",	// Время кеширования (сек.)
+		"CACHE_FILTER" => "Y",	// Кешировать при установленном фильтре
+		"CACHE_GROUPS" => "N",	// Учитывать права доступа
+		"PREVIEW_TRUNCATE_LEN" => "",	// Максимальная длина анонса для вывода (только для типа текст)
+		"ACTIVE_DATE_FORMAT" => "d F Y",	// Формат показа даты
+		"SET_TITLE" => "N",	// Устанавливать заголовок страницы
+		"SET_STATUS_404" => "N",	// Устанавливать статус 404
+		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",	// Включать инфоблок в цепочку навигации
+		"ADD_SECTIONS_CHAIN" => "N",	// Включать раздел в цепочку навигации
+		"HIDE_LINK_WHEN_NO_DETAIL" => "N",	// Скрывать ссылку, если нет детального описания
+		"PARENT_SECTION" => "",	// ID раздела
+		"PARENT_SECTION_CODE" => "",	// Код раздела
+		"DISPLAY_TOP_PAGER" => "N",	// Выводить над списком
+		"DISPLAY_BOTTOM_PAGER" => "N",	// Выводить под списком
+		"PAGER_TITLE" => "",	// Название категорий
+		"PAGER_SHOW_ALWAYS" => "N",	// Выводить всегда
+		"PAGER_TEMPLATE" => "ajax",	// Шаблон постраничной навигации
+		"PAGER_DESC_NUMBERING" => "N",	// Использовать обратную навигацию
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => "3600",	// Время кеширования страниц для обратной навигации
+		"PAGER_SHOW_ALL" => "N",	// Показывать ссылку "Все"
+		"DISPLAY_DATE" => "Y",
+		"DISPLAY_NAME" => "Y",
+		"DISPLAY_PICTURE" => "N",
+		"DISPLAY_PREVIEW_TEXT" => "N",
+		"AJAX_OPTION_ADDITIONAL" => "",	// Дополнительный идентификатор
+		"COMPONENT_TEMPLATE" => "front_news",
+		"SET_BROWSER_TITLE" => "N",	// Устанавливать заголовок окна браузера
+		"SET_META_KEYWORDS" => "N",	// Устанавливать ключевые слова страницы
+		"SET_META_DESCRIPTION" => "N",	// Устанавливать описание страницы
+		"SET_LAST_MODIFIED" => "N",	// Устанавливать в заголовках ответа время модификации страницы
+		"INCLUDE_SUBSECTIONS" => "Y",	// Показывать элементы подразделов раздела
+		"STRICT_SECTION_CHECK" => "N",	// Строгая проверка раздела для показа списка
+		"TITLE_BLOCK" => "Новости",	// Заголовок блока
+		"TITLE_BLOCK_ALL" => "Все новости",	// Заголовок на все новости
+		"ALL_URL" => "news/",	// Ссылка на все новости
+		"SIZE_IN_ROW" => "5",	// Элементов в строке
+		"TYPE_IMG" => "md",	// Тип картинки
+		"SHOW_SUBSCRIBE" => "Y",	// Отображать подписку
+		"BG_POSITION" => "top left",	// Расположение фоновой картинки
+		"TITLE_SUBSCRIBE" => "Подписаться",	// Текст подписки
+		"PAGER_BASE_LINK_ENABLE" => "N",	// Включить обработку ссылок
+		"SHOW_404" => "N",	// Показ специальной страницы
+		"IS_AJAX" => CMax::checkAjaxRequest(),
+		"MOBILE_TEMPLATE" => $GLOBALS["arTheme"]["MOBILE_NEWS"]["VALUE"],
+		"CHECK_REQUEST_BLOCK" => CMax::checkRequestBlock("news"),
+		"MESSAGE_404" => "",	// Сообщение для показа (по умолчанию из компонента)
+		"INCLUDE_FILE" => "",	// Файл с дополнительным текстом
+		"SHOW_SECTION_NAME" => "N",	// Отображать название раздела
+		"HALF_BLOCK" => "N",	// Отображать в 2 блока
+		"ALL_BLOCK_BG" => "N",	// Блок с фоном
+		"BORDERED" => "N",	// Отображать рамку
+		"FON_BLOCK_2_COLS" => "N",	// Широкий блок с фоном
+		"USE_BG_IMAGE_ALTERNATE" => "N",	// Включить чередование больших блоков
+		"TITLE_SHOW_FON" => "N",	// Отображать текст на фоне картинки
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO"
+	),
+	false
 );?>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+    </div>
+</section>
+<?
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
+?>

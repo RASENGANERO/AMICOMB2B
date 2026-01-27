@@ -65,6 +65,49 @@ class DataB2BUser {
         return $res;
     }
         
+
+    public static function getDiscountsBrands($ID_USER) {
+        $arDataDiscounts = [];
+        $arHLBlock = HighloadBlockTable::getById(10)->fetch();
+        $obEntity = HighloadBlockTable::compileEntity($arHLBlock);
+        $strEntityDataClass = $obEntity->getDataClass();
+        $rsData = $strEntityDataClass::getList([
+            'select' => ['UF_DISCOUNT_VALUE','UF_PRICE_GROUP'],
+            'filter' => ['UF_PARTNER_ID'=> $ID_USER],
+            'count_total' => 1,
+        ]);
+        $arFilter = [
+            'IBLOCK_ID'=>33,
+            'ACTIVE'=>'Y'
+        ];
+        if ($rsData->getCount() > 0) {
+            while($obDiscount = $rsData->fetch()) {
+                $list = [];
+                $list['DISCOUNT'] = $obDiscount['UF_DISCOUNT_VALUE'];
+                $list['GROUP'] = $obDiscount['UF_PRICE_GROUP'];
+                $arFilter['PROPERTY_B2B_DISCOUNT'] = $obDiscount['UF_PRICE_GROUP'];
+                $res = CIBlockElement::GetList(['SORT'=>'ASC'],$arFilter,false,false,['ID'])->Fetch()['ID'];
+                if (!empty($res)) {
+                    $list['ID'] = $res;
+                    $arDataDiscounts[] = $list;
+                }
+            }
+        }
+        return $arDataDiscounts;
+    }
+    public static function generateDiscBrands($dataDiscounts) {
+        $maxDiscounts = [];
+        foreach ($dataDiscounts as $item) {
+            $id = $item['ID'];
+            $discount = $item['DISCOUNT'];
+            if (!isset($maxDiscounts[$id]) || $discount > $maxDiscounts[$id]) {
+                $maxDiscounts[$id] = $discount;
+            }
+        }
+        $uniqueIds = array_keys($maxDiscounts);
+        sort($uniqueIds);
+        return ['IDS'=>$uniqueIds, 'DISCOUNTS'=>$maxDiscounts];
+    }
 }
 
 ?>

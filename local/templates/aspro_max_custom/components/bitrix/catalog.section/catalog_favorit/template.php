@@ -41,9 +41,6 @@ $arParams['SHOW_STORES_POPUP'] = (boolean)($arParams['SHOW_STORES_POPUP'] ?? fal
 						</div>
 					<?endif;?>
 		<?$arOfferProps = implode(';', $arParams['OFFERS_CART_PROPERTIES']);?>
-		<?
-		print_r($arResult['ITEMS']);
-		?>
 		<?foreach($arResult["ITEMS"] as $key => $arItem){?>
 			<?$this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_EDIT"));
 			$this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_DELETE"), ["CONFIRM" => GetMessage('CT_BCS_ELEMENT_DELETE_CONFIRM')]);
