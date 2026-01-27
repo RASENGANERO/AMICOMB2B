@@ -116,11 +116,15 @@ if ($arElements) {
 	usort($arResult['SEARCH_PRODUCTS_RESULT'], 'sortName');
 }
 $elementsBrandsB2B = [];
+$letter = $_GET['letter'];
 $arFilter = [
 	'IBLOCK_ID' => 33,
 	'ACTIVE' => 'Y',
 	'ID' => $GLOBALS['filterBrandsB2B']['ID']
 ];
+if (!empty($letter)) {
+	$arFilter['NAME'] = $letter.'%';
+}
 $checkHideB2B = 0;
 $resultItems = CIBlockElement::GetList(['SORT'=>'ASC'],$arFilter,false,false,['*']);
 while ($ob = $resultItems->Fetch()) {
