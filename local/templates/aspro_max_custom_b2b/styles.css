@@ -1871,3 +1871,20 @@ textarea[data-sid="DEFECT_DESCRIPTION"] {
   color: white;
   background-color: #f2722c;
 }
+.button-main-org-active{
+  color: white;
+  background-color: #f2722c;
+}
+
+.dashboard-info-org-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.dashboard-info-org-item{
+  display: none;
+  flex-direction: column;
+}
+.org-item-active{
+  display: flex;
+}

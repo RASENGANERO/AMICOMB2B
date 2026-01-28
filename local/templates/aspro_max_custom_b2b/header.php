@@ -27,6 +27,7 @@ $bIncludedModule = (\Bitrix\Main\Loader::includeModule("aspro.max"));?>
 	<?Asset::getInstance()->addJs("/local/templates/aspro_max_custom_b2b/ajax/jquery.js");?>
 	<?Asset::getInstance()->addJs("/local/templates/aspro_max_custom_b2b/ajax/brandDownload.js");?>
 	<?Asset::getInstance()->addJs("/local/templates/aspro_max_custom_b2b/ajax/setCookie.js");?>
+	<?Asset::getInstance()->addJs("/local/templates/aspro_max_custom_b2b/ajax/b2b/Organization.js");?>
 	<?$APPLICATION->AddHeadString('<script>BX.message('.CUtil::PhpToJSObject( $MESS, false ).')</script>', true);?>
 	<?if($bIncludedModule)
 		CMax::Start(SITE_ID);?>

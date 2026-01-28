@@ -11,41 +11,84 @@ if (!$USER->IsAuthorized()) {
 <section class="dashboard-section">
     <div class="dashboard-main-org">
         <div class="buttons-main-org">
-            <button class="button-main-org">Текущая организация</button>
-            <button class="button-main-org">Список организаций</button>
+            <button class="button-main-org-active button-main-org" item-check="0">Текущая организация</button>
+            <button class="button-main-org" item-check="1">Список организаций</button>
         </div>
-        <div class="dashboard-info-org">
-            <?$APPLICATION->IncludeComponent(
-                "bitrix:main.include",
-                "",
-                Array(
-                    "AREA_FILE_SHOW" => "file",
-                    "AREA_FILE_SUFFIX" => "inc",
-                    "EDIT_TEMPLATE" => "",
-                    "PATH" => "/local/templates/aspro_max_custom_b2b/include/b2b/companies_b2b.php"
-                )
-            );?>
-            <?$APPLICATION->IncludeComponent(
-                "bitrix:main.include",
-                "",
-                Array(
-                    "AREA_FILE_SHOW" => "file",
-                    "AREA_FILE_SUFFIX" => "inc",
-                    "EDIT_TEMPLATE" => "",
-                    "PATH" => "/local/templates/aspro_max_custom_b2b/include/b2b/agreements_b2b.php"
-                )
-            );?>
-        </div>
-        <?$APPLICATION->IncludeComponent(
-            "bitrix:main.include",
-            "",
-            Array(
-                "AREA_FILE_SHOW" => "file",
-                "AREA_FILE_SUFFIX" => "inc",
-                "EDIT_TEMPLATE" => "",
-                "PATH" => "/local/templates/aspro_max_custom_b2b/include/b2b/org_text_b2b.php"
-            )
-        );?>
+		<div class="dashboard-info-org-container">
+			<div class="org-item-active dashboard-info-org-item">
+				<div class="dashboard-info-org">
+					<?$APPLICATION->IncludeComponent(
+						"bitrix:main.include",
+						"",
+						Array(
+							"AREA_FILE_SHOW" => "file",
+							"AREA_FILE_SUFFIX" => "inc",
+							"EDIT_TEMPLATE" => "",
+							"PATH" => "/local/templates/aspro_max_custom_b2b/include/b2b/companies_b2b.php"
+						)
+					);?>
+					<?$APPLICATION->IncludeComponent(
+						"bitrix:main.include",
+						"",
+						Array(
+							"AREA_FILE_SHOW" => "file",
+							"AREA_FILE_SUFFIX" => "inc",
+							"EDIT_TEMPLATE" => "",
+							"PATH" => "/local/templates/aspro_max_custom_b2b/include/b2b/agreements_b2b.php"
+						)
+					);?>
+				</div>
+				<div class="org-b2b-main-block">
+					<?$APPLICATION->IncludeComponent(
+						"bitrix:main.include",
+						"",
+						Array(
+							"AREA_FILE_SHOW" => "file",
+							"AREA_FILE_SUFFIX" => "inc",
+							"EDIT_TEMPLATE" => "",
+							"PATH" => "/local/templates/aspro_max_custom_b2b/include/b2b/org_text_b2b.php"
+						)
+					);?>
+				</div>
+			</div>
+			<div class="dashboard-info-org-item">
+				<div class="dashboard-info-org">
+					<?$APPLICATION->IncludeComponent(
+						"bitrix:main.include",
+						"",
+						Array(
+							"AREA_FILE_SHOW" => "file",
+							"AREA_FILE_SUFFIX" => "inc",
+							"EDIT_TEMPLATE" => "",
+							"PATH" => "/local/templates/aspro_max_custom_b2b/include/b2b/companies_b2b.php"
+						)
+					);?>
+					<?$APPLICATION->IncludeComponent(
+						"bitrix:main.include",
+						"",
+						Array(
+							"AREA_FILE_SHOW" => "file",
+							"AREA_FILE_SUFFIX" => "inc",
+							"EDIT_TEMPLATE" => "",
+							"PATH" => "/local/templates/aspro_max_custom_b2b/include/b2b/agreements_b2b.php"
+						)
+					);?>
+				</div>
+				<div class="org-b2b-main-block">
+					<?$APPLICATION->IncludeComponent(
+						"bitrix:main.include",
+						"",
+						Array(
+							"AREA_FILE_SHOW" => "file",
+							"AREA_FILE_SUFFIX" => "inc",
+							"EDIT_TEMPLATE" => "",
+							"PATH" => "/local/templates/aspro_max_custom_b2b/include/b2b/org_text_b2b.php"
+						)
+					);?>
+					<span>Список организаций</span>
+				</div>
+			</div>
+		</div>
     </div>
     <div class="dashboard-news">
         <?$GLOBALS['filterNewsB2BMain'] = [
