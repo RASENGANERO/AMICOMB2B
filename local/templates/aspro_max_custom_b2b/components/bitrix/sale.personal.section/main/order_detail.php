@@ -34,6 +34,11 @@ foreach($arParams as $key => $val)
 		$arDetParams[$key] = $val;
 }
 ?>
+<?
+echo '<pre>';
+print_r($arDetParams);
+echo '</pre>';
+?>
 <div class="personal_wrapper">
 	<div class="orders_wrapper">
 		<?$APPLICATION->IncludeComponent(

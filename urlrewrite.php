@@ -15,6 +15,14 @@ $arUrlRewrite=array (
     'PATH' => '/select-complect/intercom/index.php',
     'SORT' => 100,
   ),
+  112 => 
+  array (
+    'CONDITION' => '#^/b2b/orders-history/orders/#',
+    'RULE' => '',
+    'ID' => 'bitrix:sale.personal.order',
+    'PATH' => '/b2b/orders-history/order/index.php',
+    'SORT' => 100,
+  ),
   6 => 
   array (
     'CONDITION' => '#^/bitrix/services/ymarket/#',
@@ -28,14 +36,6 @@ $arUrlRewrite=array (
     'CONDITION' => '#^/select-complect/access/#',
     'RULE' => '',
     'PATH' => '/select-complect/access/index.php',
-    'SORT' => 100,
-  ),
-  111 => 
-  array (
-    'CONDITION' => '#^/b2b/orders-history/#',
-    'RULE' => '',
-    'ID' => '',
-    'PATH' => '/b2b/orders-history/index.php',
     'SORT' => 100,
   ),
   101 => 

@@ -25,6 +25,7 @@ foreach($arParams as $key => $val)
 		$arDetParams[$key] = $val;
 }
 
+
 $APPLICATION->IncludeComponent(
 	"bitrix:sale.personal.order.detail",
 	"",

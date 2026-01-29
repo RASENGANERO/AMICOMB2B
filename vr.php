@@ -72,4 +72,8 @@ print_r($vrList);
 // Печатаем результат
 //print_r($maxDiscounts);
 //print_r($uniqueIds);
+$res = CIBlockElement::GetList(['SORT'=>'ASC'],['IBLOCK_ID'=>22],false,false,['DETAIL_TEXT']);
+while($ob = $res->Fetch()){
+	print_r($ob);
+}
 ?>

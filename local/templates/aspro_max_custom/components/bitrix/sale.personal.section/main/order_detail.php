@@ -34,6 +34,7 @@ foreach($arParams as $key => $val)
 		$arDetParams[$key] = $val;
 }
 ?>
+
 <div class="personal_wrapper">
 	<div class="orders_wrapper">
 		<?$APPLICATION->IncludeComponent(
