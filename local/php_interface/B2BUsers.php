@@ -1,7 +1,7 @@
 <?php
 require_once("D:/OPENSERVER/domains/AMIKOMB2BNEW/local/lib/AmikomB2BRest/crest.php");
 class B2BUsers {
-    const USER_PARTNER_GROUP = 9;
+    const USER_PARTNER_GROUP = 10;
     public static function setGroupRegUser(&$arFieldsUser) {
         if ($arFieldsUser['ID'] > 0) {
             if (!empty($arFieldsUser['UF_B2B_REGISTER'])) {
