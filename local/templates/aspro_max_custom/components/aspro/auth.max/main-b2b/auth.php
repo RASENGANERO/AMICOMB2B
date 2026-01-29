@@ -37,7 +37,7 @@ $bPopupAuth = (isset($_POST['POPUP_AUTH']) && $_POST['POPUP_AUTH'] === 'Y');
 	<?LocalRedirect("/b2b/");?>
 <?else:?>
 	<?$url = $arResult['SEF_FOLDER'];
-	echo $url;
+	LocalRedirect("/b2b/");
 	?>
 	<?if (
 		!str_contains((string) $_SERVER['HTTP_REFERER'], (string) $url) &&
