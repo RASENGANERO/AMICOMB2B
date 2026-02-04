@@ -85,7 +85,6 @@ if (!$USER->IsAuthorized()) {
 							"PATH" => "/local/templates/aspro_max_custom_b2b/include/b2b/org_text_b2b.php"
 						)
 					);?>
-					<span>Список организаций</span>
 				</div>
 			</div>
 		</div>
