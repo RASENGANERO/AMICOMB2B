@@ -12,14 +12,16 @@
 		"SORT_ORDER2" => "DESC",
 		"FILTER_NAME" => "arRegionLinkFront",
 		"FIELD_CODE" => array(
-			0 => "PREVIEW_PICTURE",
-			1 => "PREVIEW_TEXT",
+			0 => "PREVIEW_TEXT",
+			1 => "PREVIEW_PICTURE",
 			2 => "DETAIL_PICTURE",
 			3 => "",
 		),
 		"PROPERTY_CODE" => array(
-			0 => "ICON",
-			1 => "URL",
+			0 => "",
+			1 => "ICON",
+			2 => "URL",
+			3 => "",
 		),
 		"CHECK_DATES" => "Y",
 		"DETAIL_URL" => "",
@@ -67,7 +69,8 @@
 		"PAGER_BASE_LINK_ENABLE" => "N",
 		"SHOW_404" => "N",
 		"MESSAGE_404" => "",
-		"MOBILE_TEMPLATE" => $GLOBALS['arTheme']['MOBILE_TIZERS']['VALUE'],
+		"MOBILE_TEMPLATE" => $GLOBALS["arTheme"]["MOBILE_TIZERS"]["VALUE"],
+		"INCLUDE_FILE" => ""
 	),
 	false
 );?>

@@ -8,19 +8,19 @@ $arUrlRewrite=array (
     'PATH' => '/personal/history-of-orders/index.php',
     'SORT' => 100,
   ),
-  72 => 
-  array (
-    'CONDITION' => '#^/select-complect/intercom/#',
-    'RULE' => '',
-    'PATH' => '/select-complect/intercom/index.php',
-    'SORT' => 100,
-  ),
   112 => 
   array (
     'CONDITION' => '#^/b2b/orders-history/orders/#',
     'RULE' => '',
     'ID' => 'bitrix:sale.personal.order',
     'PATH' => '/b2b/orders-history/order/index.php',
+    'SORT' => 100,
+  ),
+  72 => 
+  array (
+    'CONDITION' => '#^/select-complect/intercom/#',
+    'RULE' => '',
+    'PATH' => '/select-complect/intercom/index.php',
     'SORT' => 100,
   ),
   6 => 

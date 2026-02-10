@@ -1,0 +1,56 @@
+Array
+(
+    [LOGIN] => www.123sdr23443@mail.ru
+    [EMAIL] => 
+    [SITE_ID] => s1
+    [PHONE_NUMBER] => 
+    [SHORT_CODE] => 
+)
+Array
+(
+    [LOGIN] => wwww.223@lsit.ru
+    [EMAIL] => 
+    [SITE_ID] => s1
+    [PHONE_NUMBER] => 
+    [SHORT_CODE] => 
+)
+Array
+(
+    [LOGIN] => www.22sdvfdfg3@List.ru
+    [EMAIL] => 
+    [SITE_ID] => s1
+    [PHONE_NUMBER] => 
+    [SHORT_CODE] => 
+)
+Array
+(
+    [LOGIN] => www.22sdvfdfg3@List.ru
+    [EMAIL] => 
+    [SITE_ID] => s1
+    [PHONE_NUMBER] => 
+    [SHORT_CODE] => 
+)
+Array
+(
+    [LOGIN] => www.223asddfg@mail.ru
+    [EMAIL] => 
+    [SITE_ID] => s1
+    [PHONE_NUMBER] => 
+    [SHORT_CODE] => 
+)
+Array
+(
+    [LOGIN] => www.2243@masdkj.ru
+    [EMAIL] => 
+    [SITE_ID] => s1
+    [PHONE_NUMBER] => 
+    [SHORT_CODE] => 
+)
+Array
+(
+    [LOGIN] => www.223@liasf.ru
+    [EMAIL] => 
+    [SITE_ID] => s1
+    [PHONE_NUMBER] => 
+    [SHORT_CODE] => 
+)

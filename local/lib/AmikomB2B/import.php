@@ -5,6 +5,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$dataJson = file_get_contents('php://input');
 	$dataJson = json_decode($dataJson, true);
 
+	$objUser = new \AmikomB2B\UsersB2B($dataJson);
+	$objUser->checkPartnerIDUser();
+	
 	$objHLBlock = new \AmikomB2B\InformHLBlockB2B($dataJson);
 	$objHLBlock->setManagers($objHLBlock::HLIBLOCK_MANAGERS);
 	$objHLBlock->setPriceGroup($objHLBlock::HLIBLOCK_PRICE_GROUP);

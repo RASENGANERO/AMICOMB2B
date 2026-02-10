@@ -13,10 +13,21 @@ CModule::IncludeModule('highloadblock');
 //print_r($jsonData);
 // Декодируем JSON-строку в массив
 $arrayData = json_decode($jsonData, true);
-print_r($arrayData);
+
 //use AmikomB2B;
 
-
+$itemIdList = [];
+$arFilter = [
+	'PROPERTY_SHOW_ON_INDEX_PAGE_VALUE' => 'Y',
+	'ACTIVE' => 'Y',
+	'IBLOCK_ID' => 13,
+];
+$resMail = CIBlockElement::GetList(['SORT'=>'ASC'],$arFilter,false,['nTopCount'=>4],['ID','PROPERTY_ICON']);
+while($ob = $resMail->Fetch()) {
+	$ob['PICT_INFO'] = CFile::GetByID($ob['PROPERTY_ICON_VALUE'])->Fetch();
+	$itemIdList[] = $ob;
+}
+print_r($itemIdList);
 
 //use \AmikomB2B\InformIblockB2B;
 //$obj = new InformIblockB2B($arrayData);
@@ -72,8 +83,5 @@ print_r($vrList);
 // Печатаем результат
 //print_r($maxDiscounts);
 //print_r($uniqueIds);
-$res = CIBlockElement::GetList(['SORT'=>'ASC'],['IBLOCK_ID'=>22],false,false,['DETAIL_TEXT']);
-while($ob = $res->Fetch()){
-	print_r($ob);
-}
+
 ?>

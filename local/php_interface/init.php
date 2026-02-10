@@ -71,11 +71,28 @@ $eventManager->addEventHandler(
     'OnAfterIBlockElementUpdate',
     ['Brands', 'brandsUpdate'],
 );
+//Установка группы пользователя b2b после его регистрации
 $eventManager->addEventHandler(
     'main',
     'OnAfterUserAdd',
     ['B2BUsers', 'setGroupRegUser'],
 );
+//Блокировка отправки сообщений для b2b
+$eventManager->addEventHandler(
+    'main',
+    'OnBeforeEventSend',
+    ['B2BUsers', 'blockMailMessage'],
+);
+
+$eventManager->addEventHandler(
+    'main',
+    'OnBeforeUserSendPassword',
+    ['B2BUsers', 'blockUser'],
+);
+
+
+
+
 spl_autoload_register(function ($class) {
     $prefix = 'Amikomnew\\'; // Используйте двойной обратный слэш
     $base_dir = __DIR__ . '/../lib/Amikomnew/';

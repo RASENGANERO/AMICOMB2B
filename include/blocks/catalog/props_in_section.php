@@ -35,7 +35,6 @@ $maxVisibleProps = $arOptions['VISIBLE_PROP_COUNT'] ?? PHP_INT_MAX;
 				'PARAMS' => $arOptions
 			]);
 		}
-
 		$propIterator++;
 	}
 	?>

@@ -1,13 +1,14 @@
 <?php
+
 require_once("D:/OPENSERVER/domains/AMIKOMB2BNEW/local/lib/AmikomB2BRest/crest.php");
 class B2BUsers {
     const USER_PARTNER_GROUP = 10;
+    const MAIL_B2B_1C = '@ami-com.ru';
     public static function setGroupRegUser(&$arFieldsUser) {
         if ($arFieldsUser['ID'] > 0) {
             if (!empty($arFieldsUser['UF_B2B_REGISTER'])) {
-                $arGroups = CUser::GetUserGroup($arFieldsUser["ID"]); 
-                $arGroups[] = self::USER_PARTNER_GROUP; 
-                CUser::SetUserGroup($arFieldsUser["ID"], $arGroups);
+                self::setGroupRegUser($arFieldsUser['ID']);
+                self::setFieldCUser($arFieldsUser['ID'],$arFieldsUser['INN']);
 
                 $data = [
                     'EMAIL' => $arFieldsUser['EMAIL'],
@@ -17,12 +18,32 @@ class B2BUsers {
                     'LAST_NAME' => $arFieldsUser['LAST_NAME'],
                     'COMPANY' => $arFieldsUser['COMPANY'],
                     'INN' => $arFieldsUser['INN'],
+                    '1C_EMAIL' => $arFieldsUser['INN'] . self::MAIL_B2B_1C
                 ];
                 $IdContact = self::addContact($data);
                 $IdCompany = self::addCompany($data,$IdContact);
                 self::addLead($IdCompany,$IdContact,$data);
+                $arParamsSend = [
+                    'SERVER_NAME' => $_SERVER['SERVER_NAME'],
+                    'NAME' => $arFieldsUser['NAME'],
+                    'LOGIN'=> $arFieldsUser['LOGIN'],
+                    'PASS' => $arFieldsUser['CONFIRM_PASSWORD'],
+                ];
+                CEvent::SendImmediate('NEW_USER_B2B','s1',$arParamsSend,'Y','118');
             }
         }
+    }
+    public static function setGroupUser($idUser) {
+        $arGroups = CUser::GetUserGroup($idUser); 
+        $arGroups[] = self::USER_PARTNER_GROUP; 
+        CUser::SetUserGroup($idUser, $arGroups);
+    }
+    public static function setFieldCUser($idUser, $INN) {
+        $user = new CUser;
+        $fieldsB2B = Array( 
+            "UF_1C_MASTER_EMAIL" => $INN . self::MAIL_B2B_1C, 
+        ); 
+        $user->Update($idUser, $fieldsB2B);
     }
     public static function generateCommentCRM($dataComment) {
         $commentVal = '';
@@ -34,6 +55,7 @@ class B2BUsers {
             'LAST_NAME' => 'Фамилия',
             'COMPANY' => 'Компания',
             'INN' => 'ИНН',
+            '1C_EMAIL' => 'Email в 1С'
         ];
         foreach ($dataLabels as $key => $value) {
             $commentVal.= $dataLabels[$key].' : '.$dataComment[$key]."\r\n";
@@ -117,5 +139,29 @@ class B2BUsers {
             $params	
         );
         return intval($resultCompany['result']);
-    }    
+    }
+
+    public static function blockMailMessage($arFields,$arTemplate) {
+        $EventsMailB2B = [
+            'NEW_USER',
+        ];
+        $checkB2BUrl = trim(strval($_SERVER['REQUEST_URI']));
+        file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheck.txt',print_r($arFields,true),FILE_APPEND);
+        file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheckTemplate.txt',print_r($arTemplate,true),FILE_APPEND);
+        file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regServer.txt',print_r($_SERVER,true),FILE_APPEND);
+    
+        if (strpos($checkB2BUrl,'b2b') !== 0) {
+            if (in_array($arTemplate['EVENT_NAME'],$EventsMailB2B) === true) {
+                return false;
+            }
+        }
+        
+    }
+    public static function blockUser(&$arParams) 
+    { 
+        file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheck.txt',print_r($arParams,true),FILE_APPEND);
+        //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheckTemplate.txt',print_r($arTemplate,true),FILE_APPEND);
+        //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regServer.txt',print_r($_SERVER,true),FILE_APPEND);
+    } 
+    
 }

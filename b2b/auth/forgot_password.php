@@ -13,6 +13,8 @@ $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH.'/js/phoneorlogin.min.js');
 	.content-md{width:100%;}
 	.border_block{border:none;}
 </style>
+
+<?print_r($_POST);?>
 <?if(!$USER->IsAuthorized()):?>
 	<?$APPLICATION->IncludeComponent(
 		"bitrix:system.auth.forgotpasswd",
