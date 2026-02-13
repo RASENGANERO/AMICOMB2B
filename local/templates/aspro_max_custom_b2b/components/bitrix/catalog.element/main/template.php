@@ -11,7 +11,7 @@ use Bitrix\Catalog\Model\Price;
 $priceRetail = \Amikomnew\FunctionsProducts::getPrice($arResult['ID']);
 
 //$USER->GetID(), $arResult['BRAND_ITEM']['ID']
-
+$countProduct = \AmikomB2B\DataB2BUser::getCountElement($arResult['ID']);
 $UF_PriceGroup = \AmikomB2B\DiscountInfo::getPriceGroupID($arResult['ID']);
 $UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
 $discountsAll = \AmikomB2B\DiscountInfo::getDiscountUser($UF_PriceGroup,$UF_Partner);//Получаем все проценты скидок по бренду
@@ -756,7 +756,6 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 						<?\Aspro\Functions\CAsproMaxItem::showStickers($arParams, $arResult, true, "product-info-headnote__stickers");?>
 						<?=$productRatingHtml;?>
 						<?=$productArticleHtml;?>
-						
 					</div>
 				</div>
 				<div class="col-auto">
@@ -766,6 +765,13 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 					</div>
 				</div>
 			</div>
+			<?if ($countProduct != 0):?>
+				<div class="col-cust col-auto">
+					<div class="product-info-headnote__inner">
+						<span><?='В наличии: '.$countProduct;?></span>
+					</div>
+				</div>
+			<?endif;?>
 		</div>
 	<?endif;?>
 

@@ -1,6 +1,6 @@
 <?
 	require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-	$APPLICATION->SetTitle("История заказов");
+	$APPLICATION->SetTitle("История онлайн заказов");
 	$_REQUEST["filter_history"] = "Y";
 	use \Bitrix\Main\Page\Asset;
 	Asset::getInstance()->addCss('/local/templates/aspro_max_custom_b2b/css/personal.css');

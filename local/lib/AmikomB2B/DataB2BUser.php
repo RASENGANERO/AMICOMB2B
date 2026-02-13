@@ -3,6 +3,7 @@ namespace AmikomB2B;
 use CIBlockElement;
 use Bitrix\Highloadblock\HighloadBlockTable;
 use CUser;
+use CCatalogStore;
 
 class DataB2BUser {
     public static function getCompany($userPartnerID) {
@@ -108,6 +109,15 @@ class DataB2BUser {
         sort($uniqueIds);
         return ['IDS'=>$uniqueIds, 'DISCOUNTS'=>$maxDiscounts];
     }
+    public static function getCountElement($IdElement) {
+        $dbResult =  CCatalogStore::GetList(['PRODUCT_ID'=>'ASC','ID' => 'ASC'],['ACTIVE' => 'Y','PRODUCT_ID'=>[$IdElement],'!PRODUCT_AMOUNT'=>''],false,false,['PRODUCT_AMOUNT']);
+		$k = 0;
+		while($ob = $dbResult->Fetch()){
+			$k += intval($ob['PRODUCT_AMOUNT']);
+		}
+        return $k;
+    }
+    
 }
 
 ?>

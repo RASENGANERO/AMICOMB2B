@@ -24,10 +24,22 @@ if(!function_exists("ShowSubItems")){
 	}
 }
 ?>
+
 <?if($arResult):?>
 	<ul class="dropdown-menu">
 		<?foreach($arResult as $arItem):?>
-			<li class="<?=($arItem["SELECTED"] ? "active" : "")?> <?=(isset($arItem["CHILD"]) && $arItem["CHILD"] ? "child" : "")?>">
+			<?
+			if (strpos($_SERVER['REQUEST_URI'],'/b2b/') !== false) {
+
+				if ($arItem['LINK'] === $_SERVER['REQUEST_URI']) {
+					$arItem['SELECTED'] = 1;
+				}
+				else {
+					$arItem['SELECTED'] = 0;
+				}
+			}
+			?>
+			<li class="<?=($arItem["SELECTED"] === 1 ? "active" : "")?> <?=(isset($arItem["CHILD"]) && $arItem["CHILD"] ? "child" : "")?>">
 				<?
 				if( isset($arItem["PARAMS"]["class"]) && $arItem["PARAMS"]["class"] === 'exit' ){
 					$arItem["LINK"].= '&'.bitrix_sessid_get();

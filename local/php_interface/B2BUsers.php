@@ -146,9 +146,9 @@ class B2BUsers {
             'NEW_USER',
         ];
         $checkB2BUrl = trim(strval($_SERVER['REQUEST_URI']));
-        file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheck.txt',print_r($arFields,true),FILE_APPEND);
-        file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheckTemplate.txt',print_r($arTemplate,true),FILE_APPEND);
-        file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regServer.txt',print_r($_SERVER,true),FILE_APPEND);
+        //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheck.txt',print_r($arFields,true),FILE_APPEND);
+        //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheckTemplate.txt',print_r($arTemplate,true),FILE_APPEND);
+        //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regServer.txt',print_r($_SERVER,true),FILE_APPEND);
     
         if (strpos($checkB2BUrl,'b2b') !== 0) {
             if (in_array($arTemplate['EVENT_NAME'],$EventsMailB2B) === true) {
@@ -157,11 +157,11 @@ class B2BUsers {
         }
         
     }
-    public static function blockUser(&$arParams) 
+    /*public static function blockUser(&$arParams) 
     { 
         file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheck.txt',print_r($arParams,true),FILE_APPEND);
         //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheckTemplate.txt',print_r($arTemplate,true),FILE_APPEND);
         //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regServer.txt',print_r($_SERVER,true),FILE_APPEND);
-    } 
+    } */
     
 }

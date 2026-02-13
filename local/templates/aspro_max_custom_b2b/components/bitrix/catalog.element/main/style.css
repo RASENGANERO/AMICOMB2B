@@ -193,3 +193,6 @@
 .values_wrapper_header{
   font-size: 0.95em;
 }
+.col-cust{
+  float: right;
+}

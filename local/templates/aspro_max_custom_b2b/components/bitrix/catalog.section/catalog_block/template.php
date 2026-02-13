@@ -93,7 +93,9 @@ use Amikomnew;
 					$arItem['PRICES'] = $obj->generateDiscountValues();
 					$arParams['SHOW_OLD_PRICE'] = 'Y';
 				}
+
 			}
+			$countProduct = \AmikomB2B\DataB2BUser::getCountElement($arItem['ID']);
 			$nameSection = Amikomnew\FunctionsProducts::getSectionName($arItem['ID']);
 			$this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_EDIT"));
 			$this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BCS_ELEMENT_DELETE_CONFIRM')));
@@ -808,9 +810,15 @@ use Amikomnew;
 									<?=$itemSubTitle?>
 									<?=$itemSaBlock?>
 								</div>
+								<?if ($countProduct != 0):?>
+									<div class="item_info--bottom_block">
+										<?echo 'В наличии: '.$countProduct;?>
+									</div>
+								<?endif;?>
 								<div class="item_info--bottom_block">
 									<?=$itemPrice?>
-								</div>				
+								</div>
+											
 							</div>
 						<?endif;?>
 

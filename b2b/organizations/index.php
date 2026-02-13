@@ -1,6 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Организации");
+$APPLICATION->SetTitle("Ваши реквизиты");
 ?>
 
 <?
@@ -10,11 +10,7 @@ if (!$USER->IsAuthorized()) {
 ?>
 <section class="dashboard-section">
     <div class="dashboard-main-org">
-        <div class="buttons-main-org">
-            <button class="button-main-org-active button-main-org" item-check="0">Текущая организация</button>
-            <button class="button-main-org" item-check="1">Список организаций</button>
-        </div>
-		<div class="dashboard-info-org-container">
+        <div class="dashboard-info-org-container">
 			<div class="org-item-active dashboard-info-org-item">
 				<div class="dashboard-info-org">
 					<?$APPLICATION->IncludeComponent(

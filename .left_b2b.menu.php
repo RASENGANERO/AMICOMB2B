@@ -8,7 +8,7 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Организации", 
+		"Ваши реквизиты", 
 		"/b2b/organizations/", 
 		Array(), 
 		Array(), 

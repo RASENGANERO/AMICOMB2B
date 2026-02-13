@@ -229,6 +229,9 @@ $arParams['SHOW_DETAIL_LINK'] = $arParams['SHOW_DETAIL_LINK'] ?? 'Y';
 						<div class="image shine<?=($bLineImg ? ' pull-left' : '');?>">
 							<a href="<?=$arItem['DETAIL_PAGE_URL']?>">
 								<div class="<?=(!$bBordered ? 'rounded3' : '');?> bg-fon-img item-brand">
+									<?
+									$arItem['PREVIEW_PICTURE'] = CIBlockElement::GetByID($arItem['ID'])->Fetch()['PREVIEW_PICTURE'];
+									?>
 									<?if (!empty($arItem['PREVIEW_PICTURE'])) {?>
 										<img class="brand-prev-img" src="<?=CFile::GetByID($arItem['PREVIEW_PICTURE'])->Fetch()['SRC'];?>"/>
 									<?
@@ -264,8 +267,8 @@ $arParams['SHOW_DETAIL_LINK'] = $arParams['SHOW_DETAIL_LINK'] ?? 'Y';
 
 							<div class="title<?=(($bBigBlock || $arParams['ALL_BLOCK_BG']=='Y') && $arParams['TITLE_SHOW_FON'] != 'Y' ? ' font_mlg' : '' /*(!$bBordered || $arParams['SIZE_IN_ROW'] == 5 ? '' : ' font_md')*/);?>">
 								<div class="discount-brand-b2b-info">
-									<a href="<?=$arItem['DETAIL_PAGE_URL']?>"><?=$arItem['NAME'];?></a>
-									<span class="discount-brand-b2b"><?=$arItem['DISCOUNT_BRAND_VALUE'].'%'?></span>
+									<a href="<?='/brands/'.$arItem['CODE'].'/'?>"><?=$arItem['NAME'];?></a>
+									<!--<span class="discount-brand-b2b"><?=$arItem['DISCOUNT_BRAND_VALUE'].'%'?></span>-->
 								</div>
 								
 							</div>
