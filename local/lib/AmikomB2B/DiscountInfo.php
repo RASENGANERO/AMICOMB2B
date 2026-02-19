@@ -1,7 +1,11 @@
 <?
 namespace AmikomB2B;
+
+use CModule;
+CModule::IncludeModule('sale');
 use CIBlockElement;
 use Bitrix\Highloadblock\HighloadBlockTable;
+use CCatalogDiscount;
 use CUser;
 class DiscountInfo {
     const IBLOCK_PRODUCTS = 29;
@@ -118,9 +122,37 @@ class DiscountInfo {
                     </div>';
         }
         return $valHTML;
-
-
     }
+
+    public static function checkDiscountDefault($idProduct) {
+
+		$currentDate = new \Bitrix\Main\Type\DateTime();
+		$filter = [
+			'PRODUCT_ID' => $idProduct,
+			'ACTIVE'=>'Y',
+			'>=ACTIVE_FROM' => null, // Скидки, которые активны с текущей даты или раньше
+			'<=ACTIVE_TO' => $currentDate, // Скидки, которые действуют до текущей даты или позже
+		];
+		$valRes = CCatalogDiscount::GetDiscountProductsList([],$filter,false,false,[]);
+		$lkSP = [];
+		while($ob = $valRes->Fetch()){
+			$res = CCatalogDiscount::GetByID($ob['DISCOUNT_ID']);
+			if (!empty($res)) {
+				$lkSP[] = $res['VALUE'];
+			}
+		}
+		if (empty($lkSP)) {
+			return 0;
+		}
+		else{
+			if (count($lkSP)===1) {
+				return $lkSP[0];
+			}
+			else {
+				return max($lkSP);
+			}
+		}
+	}
 
 }
 ?>

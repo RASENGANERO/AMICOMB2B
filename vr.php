@@ -83,5 +83,5 @@ print_r($vrList);
 // Печатаем результат
 //print_r($maxDiscounts);
 //print_r($uniqueIds);
-
+CUser::GetByID(1);
 ?>

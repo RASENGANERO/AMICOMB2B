@@ -1,6 +1,5 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Каталог");
-//$GLOBALS['MAX_SMART_FILTER'][">CATALOG_PRICE_2"] = 0;
 $APPLICATION->IncludeComponent(
 	"bitrix:catalog", 
 	"main", 

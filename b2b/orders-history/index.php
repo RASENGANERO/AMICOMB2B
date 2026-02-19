@@ -39,13 +39,14 @@
 		"DISALLOW_CANCEL" => "N",
 		"COMPONENT_TEMPLATE" => ".default",
 		"HISTORIC_STATUSES" => array(
-			0 => "F",
+			0 => "SF",
 		),
 		"STATUS_COLOR_F" => "gray",
 		"STATUS_COLOR_N" => "green",
 		"STATUS_COLOR_P" => "yellow",
 		"STATUS_COLOR_PSEUDO_CANCELLED" => "red",
 		"SHOW_ERRORS" => "Y",
+		"STATUS_COLOR_SF" => "gray"
 	),
 	$component
 );

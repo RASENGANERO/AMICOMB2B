@@ -26,7 +26,6 @@ class CPBasketExcel {
     public string $FUSER_ID;
     public string $allPrice;
     public int $rowIndexTableStart;
-    
     public array $columnsAr = ['A','B','C','D','E','F'];
     public array $nameColumnsAr = ['Наименование','Фотография','Описание','Цена','Кол-во','Стоимость'];
 

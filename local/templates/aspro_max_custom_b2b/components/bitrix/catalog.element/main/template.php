@@ -7,21 +7,22 @@ use AmikomB2B;
 use Aspro\Functions\CAsproMaxCustom;
 use Bitrix\Main\Loader;
 use Bitrix\Catalog\Model\Price;
-
 $priceRetail = \Amikomnew\FunctionsProducts::getPrice($arResult['ID']);
 
 //$USER->GetID(), $arResult['BRAND_ITEM']['ID']
+$defaultDiscount = \AmikomB2B\DiscountInfo::checkDiscountDefault($arResult['ID']);
 $countProduct = \AmikomB2B\DataB2BUser::getCountElement($arResult['ID']);
 $UF_PriceGroup = \AmikomB2B\DiscountInfo::getPriceGroupID($arResult['ID']);
 $UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
 $discountsAll = \AmikomB2B\DiscountInfo::getDiscountUser($UF_PriceGroup,$UF_Partner);//Получаем все проценты скидок по бренду
 $maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду
-if (intval($maxDiscount) !== 0) {
+$maxDiscount = max([$maxDiscount,$defaultDiscount]);
+if ($maxDiscount !== 0 ) {
 	$obj = new \AmikomB2B\DiscountPrices($arResult['PRICES'],$maxDiscount);
 	$arResult['PRICES'] = $obj->generateDiscountValues();
 	$arParams['SHOW_OLD_PRICE'] = 'Y';
 }
-$arValuesCust['PERCENT'] = $maxDiscount;
+$arValuesCust['PERCENT'] = max([$maxDiscount, $defaultDiscount]);
 $arValuesCust['PRICE'] = $arResult['PRICES']['BASE']['DISCOUNT_VALUE'] ?? $arResult['PRICES']['BASE']['VALUE'];
 $arValuesCust['DISCOUNT_PRICE'] = $arResult['PRICES']['BASE']['DISCOUNT_DIFF'];
 ?>
@@ -768,7 +769,7 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 			<?if ($countProduct != 0):?>
 				<div class="col-cust col-auto">
 					<div class="product-info-headnote__inner">
-						<span><?='В наличии: '.$countProduct;?></span>
+						<span class="measure-text-b2b"><?=$countProduct.' '.Loc::getMessage("MEASURE_CUST") .'  '.Loc::getMessage("TEXT_MEASURE_CUST");?></span>
 					</div>
 				</div>
 			<?endif;?>
@@ -1015,7 +1016,7 @@ $bBigGallery = $arParams["PICTURE_RATIO"] === 'square_big';
 							<?//for offer product wo POPUP_PRICE in fixed header?>
 							<?if($arParams['SHOW_POPUP_PRICE'] !== "Y" && $arCurrentSKU):?>
 								<script>
-									<?if(isset($arCurrentSKU['PRICE_MATRIX']) && $arCurrentSKU['PRICE_MATRIX']): // USE_PRICE_COUNT?>
+									<?if(isset($arCurrentSKU['PRICE_MATRIX']) && $arCurrentSKU['PRICE_MATRIX']):?>
 										<?$priceHtml = CMax::showPriceMatrix($arCurrentSKU, $arParams, $strMeasure, $arAddToBasketData);?>
 										<?$countPricesMatrix = count($arCurrentSKU['PRICE_MATRIX']['MATRIX'])?>
 										<?$countPricesRows = count($arCurrentSKU['PRICE_MATRIX']['ROWS'])?>

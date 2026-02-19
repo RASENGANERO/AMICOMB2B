@@ -40,4 +40,6 @@
 	$MESS["FAST_VIEW"] = "Быстрый просмотр";
 	$MESS['VOTES_RESULT'] = 'Рейтинг #VALUE# из 5';
 	$MESS['VOTES_RESULT_NONE'] = 'Нет оценок';
+	$MESS['MEASURE_CUST'] = 'шт';
+	$MESS['TEXT_MEASURE_CUST'] = 'осталось';
 ?>

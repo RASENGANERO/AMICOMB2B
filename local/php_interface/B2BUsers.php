@@ -1,13 +1,12 @@
 <?php
-
-require_once("D:/OPENSERVER/domains/AMIKOMB2BNEW/local/lib/AmikomB2BRest/crest.php");
+include $_SERVER['DOCUMENT_ROOT']."/local/lib/AmikomB2BRest/crest.php";
 class B2BUsers {
     const USER_PARTNER_GROUP = 10;
     const MAIL_B2B_1C = '@ami-com.ru';
     public static function setGroupRegUser(&$arFieldsUser) {
         if ($arFieldsUser['ID'] > 0) {
             if (!empty($arFieldsUser['UF_B2B_REGISTER'])) {
-                self::setGroupRegUser($arFieldsUser['ID']);
+                self::setGroupUser($arFieldsUser['ID']);
                 self::setFieldCUser($arFieldsUser['ID'],$arFieldsUser['INN']);
 
                 $data = [
@@ -146,22 +145,22 @@ class B2BUsers {
             'NEW_USER',
         ];
         $checkB2BUrl = trim(strval($_SERVER['REQUEST_URI']));
-        //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheck.txt',print_r($arFields,true),FILE_APPEND);
-        //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheckTemplate.txt',print_r($arTemplate,true),FILE_APPEND);
-        //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regServer.txt',print_r($_SERVER,true),FILE_APPEND);
-    
         if (strpos($checkB2BUrl,'b2b') !== 0) {
             if (in_array($arTemplate['EVENT_NAME'],$EventsMailB2B) === true) {
                 return false;
             }
         }
-        
     }
-    /*public static function blockUser(&$arParams) 
-    { 
-        file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheck.txt',print_r($arParams,true),FILE_APPEND);
-        //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regCheckTemplate.txt',print_r($arTemplate,true),FILE_APPEND);
-        //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/regServer.txt',print_r($_SERVER,true),FILE_APPEND);
-    } */
+    public static function setSaleOrder(\Bitrix\Main\Event $event) {
+        $order = $event->getParameter('ENTITY');
+        $userID = $order->getField('USER_ID');
+        $arB2BGroups = CUser::GetUserGroup($userID);
+        if (in_array(self::USER_PARTNER_GROUP,$arB2BGroups)) {
+            $order->setField('STATUS_ID','SF');              
+        }
+        //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/order2.txt',print_r($arFields,true),FILE_APPEND);
+        //file_put_contents('D:/OPENSERVER/domains/AMIKOMB2BNEW/local/php_interface/order2.txt',$userID.'   '.$statusOrder,FILE_APPEND);
+
+    }
     
 }

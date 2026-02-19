@@ -45,11 +45,13 @@ $arParams['SHOW_STORES_POPUP'] = (boolean)($arParams['SHOW_STORES_POPUP'] ?? fal
 		<?foreach($arResult["ITEMS"] as $key => $arItem){?>
 			<?
 			if ($arItem['PRICES']['BASE']['VALUE'] !== 0) {
+				$defaultDiscount = \AmikomB2B\DiscountInfo::checkDiscountDefault($arItem['ID']);
 				$UF_PriceGroup = \AmikomB2B\DiscountInfo::getPriceGroupID($arItem['ID']);
 				$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
 				$discountsAll = \AmikomB2B\DiscountInfo::getDiscountUser($UF_PriceGroup,$UF_Partner);//Получаем все проценты скидок по бренду
 				$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду
-				if (intval($maxDiscount) !== 0) {
+				$maxDiscount = max([$maxDiscount,$defaultDiscount]);
+				if ($maxDiscount !== 0) {
 					$obj = new \AmikomB2B\DiscountPrices($arItem['PRICES'],$maxDiscount);
 					$arItem['PRICES'] = $obj->generateDiscountValues();
 				}
@@ -337,6 +339,7 @@ $arParams['SHOW_STORES_POPUP'] = (boolean)($arParams['SHOW_STORES_POPUP'] ?? fal
 								</div>
 								<?\Aspro\Functions\CAsproMax::showBonusBlockList($arItem);?>
 								<?
+								$defaultDiscount = \AmikomB2B\DiscountInfo::checkDiscountDefault($arItem['ID']);
 								$itemPriceNew['PRICES']['BASE']['VALUE'] = \AmikomB2B\DiscountInfo::getPriceMain($arItem['ID']);
 								$arValuesCust['PERCENT'] = 0;
 								$arValuesCust['PRICE'] = $itemPriceNew['PRICES']['BASE']['VALUE'];
@@ -346,7 +349,8 @@ $arParams['SHOW_STORES_POPUP'] = (boolean)($arParams['SHOW_STORES_POPUP'] ?? fal
 									$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
 									$discountsAll = \AmikomB2B\DiscountInfo::getDiscountUser($UF_PriceGroup,$UF_Partner);//Получаем все проценты скидок по бренду
 									$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду	
-									if (intval($maxDiscount) !== 0) {
+									$maxDiscount = max([$maxDiscount,$defaultDiscount]);
+									if ($maxDiscount !== 0) {
 										$obj = new \AmikomB2B\DiscountPrices($itemPriceNew['PRICES'],$maxDiscount);
 										$itemPriceNew['PRICES'] = $obj->generateDiscountValues();
 										$arValuesCust['PERCENT'] = $maxDiscount;

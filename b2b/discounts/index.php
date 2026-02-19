@@ -1,6 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Ваши скидки");
+$APPLICATION->SetTitle("Скидки по соглашению");
 ?>
 <?
 if (!$USER->IsAuthorized()) {

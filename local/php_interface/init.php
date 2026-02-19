@@ -77,17 +77,16 @@ $eventManager->addEventHandler(
     'OnAfterUserAdd',
     ['B2BUsers', 'setGroupRegUser'],
 );
-//Блокировка отправки сообщений для b2b
+//Блокировка отправки сообщений для b2b (смена почтового шаблона)
 $eventManager->addEventHandler(
     'main',
     'OnBeforeEventSend',
     ['B2BUsers', 'blockMailMessage'],
 );
-
 $eventManager->addEventHandler(
-    'main',
-    'OnBeforeUserSendPassword',
-    ['B2BUsers', 'blockUser'],
+    'sale',
+    'OnSaleOrderBeforeSaved',
+    ['B2BUsers', 'setSaleOrder'],
 );
 
 

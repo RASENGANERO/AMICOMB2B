@@ -580,19 +580,17 @@ foreach ($this->basketItems as $row)
 		$rowData['SHOW_LABEL'] = true;
 		$rowData['LABEL_VALUES'] = $labels;
 	}
-
+	$defaultDiscount = \AmikomB2B\DiscountInfo::checkDiscountDefault($arItem['ID']);
 	$UF_PriceGroup = \AmikomB2B\DiscountInfo::getPriceGroupID($rowData['PRODUCT_ID']);
 	$UF_Partner = \AmikomB2B\DiscountInfo::getPartnerID($USER->GetID());//Получаем ID пользователя (UF_ поле)		
 	$discountsAll = \AmikomB2B\DiscountInfo::getDiscountUser($UF_PriceGroup,$UF_Partner);//Получаем все проценты скидок по бренду
 	$maxDiscount = \AmikomB2B\DiscountInfo::getMaxDiscount($discountsAll);//Получаем максимальную скидку по бренду
-	if (intval($maxDiscount) !== 0) {
-		
+	$maxDiscount = max([$maxDiscount,$defaultDiscount]);
+	if ($maxDiscount !== 0) {
 		$obj = new \AmikomB2B\DiscountPrices($rowData,$maxDiscount);
 		$rowData = $obj->generateDiscountBasketValues();
 		$counterCheckDiscount+=1;
 		$counterAllDiscount+=$rowData['DISCOUNT_PRICE'];
-
-
 	}
 
 

@@ -100,5 +100,7 @@ $MESS['VOTES_RESULT_NONE'] = 'Нет оценок';
 $MESS['DELIVERY_TEXT_CUSTOM'] = 'Подробнее о доставке';
 
 $MESS["CHEAPER_FORM_NAME"] = "Хотите больше выгоды?";
+$MESS['MEASURE_CUST'] = 'шт';
+$MESS['TEXT_MEASURE_CUST'] = 'осталось';
 
 ?>
