@@ -117,7 +117,39 @@ class DataB2BUser {
 		}
         return $k;
     }
-    
+    public static function getNameSeller($userID) {
+        $arFilter = [
+            'PROPERTY_PARTNER_B2B_VALUE' => $userID,
+            'IBLOCK_ID' => 56
+        ];
+        $res = CIBlockElement::GetList(['SORT'=>'ASC'],$arFilter,false,false,['NAME'])->Fetch()['NAME'];
+        return $res;
+    }
+    public static function getDeliveryOrder($dataDelivery,$orderID){
+        $arDelivery['NAME'] = $dataDelivery['DELIVERY_NAME'];
+        if (intval($dataDelivery['DELIVERY_ID']) === 3) {
+            $arDelivery['ADDRESS'] = 'г. Москва, Переведеновский переулок, 17к2';
+        }
+        else {
+            $orderCs=\Bitrix\Sale\Order::load($orderID);
+            $propertyCollection = $orderCs->getPropertyCollection();
+            foreach ($propertyCollection as $propertyItem) {
+                if($propertyItem->getField("CODE") == "ADDRESS"){
+                    $arDelivery['ADDRESS'] = $propertyItem->getValue();
+                }
+            }
+        }
+        return $arDelivery;
+    }
+    public static function getDeliveryPriceBasket($data){
+        $data = array_values($data);
+        $cntPrice = floatval(0);
+        for ($i = 0; $i < count($data); $i++) {
+            $cntPrice+=$data[$i]['PRICE'];
+        }
+        $cntPrice = \AmikomB2B\DiscountPrices::getPrintValue($cntPrice);
+        return $cntPrice;
+    }
 }
 
 ?>

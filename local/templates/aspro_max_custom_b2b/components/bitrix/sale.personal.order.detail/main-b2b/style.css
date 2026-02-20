@@ -1567,3 +1567,24 @@ div.sale-order-detail-payment-options-methods-template {
 		text-align: center;
 	}
 }
+.sale-order-detail-b2b{
+	display: flex !important;
+    justify-content: space-between;
+    margin: 0px;
+    padding: 0px !important;
+    width: inherit !important;
+    align-items: center;
+}
+.order-b2b-container-detail{
+	margin: 0px !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.order-b2b-row{
+	width: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

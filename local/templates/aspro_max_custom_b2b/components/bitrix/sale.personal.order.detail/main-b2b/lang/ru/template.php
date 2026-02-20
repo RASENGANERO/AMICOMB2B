@@ -86,5 +86,6 @@ $MESS["SOPD_TPL_RESTRICTED_PAID_MESSAGE"] = "<b>Обратите внимани�
 $MESS["SPOD_CHECK_TITLE"] = "Список чеков";
 $MESS["SPOD_CHECK_NUM"] = "Чек №#CHECK_NUMBER#";
 $MESS["SPOD_ORDER_DESC"] = "Комментарии к заказу";
+$MESS['SPOD_DELIVERY_MANAGER'] = "будет рассчитана при формировании заказа";
 
 ?>

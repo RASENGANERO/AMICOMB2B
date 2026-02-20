@@ -12,12 +12,12 @@
 	<div class="orders_wrapper">
 		<?$APPLICATION->IncludeComponent(
 	"bitrix:sale.personal.order.list", 
-	".default", 
+	"main-b2b", 
 	array(
 		"PATH_TO_DETAIL" => "/b2b/orders-history/orders/#ID#/",
 		"PATH_TO_CANCEL" => "/b2b/orders-history/cancel/#ID#/",
 		"PATH_TO_CATALOG" => "/catalog/",
-		"PATH_TO_COPY" => "/b2b/orders-history/orders/?COPY_ORDER=Y&ID=#ID#",
+		"PATH_TO_COPY" => "/personal/orders/?COPY_ORDER=Y&ID=#ID#",
 		"PATH_TO_BASKET" => "/basket/",
 		"PATH_TO_PAYMENT" => "/b2b/orders-history/orders/payment/",
 		"SAVE_IN_SESSION" => "Y",
